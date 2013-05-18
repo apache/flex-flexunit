@@ -1,1 +1,17 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿package flexUnitTests.flexUnit1.framework{   import flexunit.framework.*;      public class TestTestListener extends TestCase implements TestListener   {       public function TestTestListener(name : String = null)       {           super(name);       }      	public function addError( test : Test, e : Error ) : void   	{   		errorCount++;   	}      //------------------------------------------------------------------------------      	public function addFailure( test : Test , e : AssertionFailedError ) : void   	{   		failureCount++;   	}   	   //------------------------------------------------------------------------------      	public function startTest( test : Test ) : void    	{   		startCount++;   	}      //------------------------------------------------------------------------------      	public function endTest( test : Test ) : void    	{   		endCount++;   	}   	   //------------------------------------------------------------------------------      	override public function setUp() : void   	{   		result = new TestResult();   		result.addListener( TestListener(this) );   	   		startCount = 0;   		endCount = 0;   		failureCount = 0;   		errorCount = 0;   	}   	   //------------------------------------------------------------------------------   	   	public function testError():void    	{   		var test : TestCase = new ErrorTestCase( "throwError" )   		test.runWithResult( result );   		Assert.assertEquals("error", 1, errorCount );   		Assert.assertEquals("end", 1, endCount );   		Assert.assertEquals("failure", 0, failureCount);   	}      //------------------------------------------------------------------------------   	   	public function testFailure():void    	{   		var test : TestCase = new FailureTestCase( "testFailure" )   		test.runWithResult( result );   		Assert.assertEquals("failure", 1, failureCount );   		Assert.assertEquals("end", 1, endCount );   		Assert.assertEquals("error", 0, errorCount);   	}      //------------------------------------------------------------------------------   	   	public function testStartStop():void    	{   		var test : TestCase = new SuccessTestCase( "testSuccess" )   		test.runWithResult( result );   		Assert.assertEquals("start", 1, startCount );   		Assert.assertEquals("end", 1, endCount );   		Assert.assertEquals("error", 0, errorCount);   		Assert.assertEquals("failure", 0, failureCount);   	}      //------------------------------------------------------------------------------   	   	private var result : TestResult;   	private var startCount : Number;   	private var endCount : Number;   	private var failureCount : Number;   	private var errorCount : Number;   }}
