@@ -309,11 +309,16 @@ to contribute to our CI process.
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks"
             reportFile="${basedir}/rat.report">
             <fileset dir="${rat.dir}">
+				<!-- rat.report file -->
+				<exclude name="rat.report"/>
+				<!-- git files -->
+                <exclude name="**/.git/"/>
+				<exclude name="**/.gitignore"/>
                 <!-- generated source files that don't have Apache v2 license header -->
                 <exclude name="**/build.number"/>
                 <exclude name="**/.actionScriptProperties"/>
                 <exclude name="**/.flexProperties"/>
-				        <exclude name="**/.flexLibProperties"/>
+				<exclude name="**/.flexLibProperties"/>
                 <exclude name="**/.project"/>
                 <exclude name="**/.fxpProperties"/>
                 <exclude name="**/.settings/**"/>
@@ -327,6 +332,10 @@ to contribute to our CI process.
                 <!-- exclude fonts -->
                 <exclude name="**/*.ttf"/>
                 <!--          End of binary files           -->
+				<!--Exclude generated doc -->
+				<exclude name="FlexUnit4/docs/"/>
+				<exclude name="FlexUnit4UIListener/target/docs/"/>
+				
             </fileset>
         </rat:report>
 
