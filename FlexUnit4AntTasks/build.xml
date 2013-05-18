@@ -38,6 +38,10 @@
    <target name="clean">
       <delete dir="${dist.loc}" />
    </target>
+   
+    <target name="prebuild">
+		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
+    </target>
 
    <target name="init">
       <mkdir dir="${dist.loc}" />
@@ -46,7 +50,7 @@
       <mkdir dir="${doc.loc}" />
    </target>
 
-   <target name="compile" depends="init">
+   <target name="compile" depends="init, prebuild">
       <javac target="1.5" source="1.5" fork="true" memoryMaximumSize="256m" srcdir="${src.loc}" failonerror="yes" verbose="false" nowarn="true" destdir="${bin.loc}">
          <classpath>
             <fileset dir="${lib.loc}">
