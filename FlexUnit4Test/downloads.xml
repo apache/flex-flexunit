@@ -58,8 +58,8 @@
             description="Removes thirdparty downloads.">
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${download.dir}">
-                <include name="FlexUnit1Lib*/**"/>
-            </fileset>
+             	<include name="hamcrest*/**"/>
+			</fileset>
         </delete>
     </target>
     

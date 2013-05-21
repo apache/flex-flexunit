@@ -136,14 +136,13 @@
       <delete dir="${dist.loc}" />
       <delete>
          <fileset dir="${lib.loc}">
-			<exclude name="fluint-1_2.swc" />
-            <exclude name="FlexUnit1Lib.swc" />
-            <exclude name="hamcrest-as3*.swc" />
             <exclude name="mock-as3.swc" />
             <exclude name="mockolate*.swc" />
             <exclude name="build/saxon*.jar" />
          </fileset>
       </delete>
+
+	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
    </target>
 
    <target name="init">
