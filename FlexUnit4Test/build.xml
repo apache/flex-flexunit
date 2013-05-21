@@ -187,8 +187,12 @@
          </classpath>
       </taskdef>
    </target>
+	
+   <target name="prebuild">
+		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
+    </target>
 
-   <target name="test" depends="init,test-only,test-and-instrument" />
+   <target name="test" depends="init,prebuild,test-only,test-and-instrument" />
 
    <target name="test-only" unless="build.instrument">
       <echo message="Testing FlexUnit Flex build..." />

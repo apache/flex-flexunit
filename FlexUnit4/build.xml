@@ -91,8 +91,12 @@
       <!-- Create properties file from .flexLibProperties -->
       <xslt in="${basedir}/.flexLibProperties" out="${bin.loc}/flexLib.properties" style="${basedir}/flexLibProperties.xsl" />
    </target>
+	
+    <target name="prebuild">
+		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
+    </target>
 
-   <target name="compile" depends="init, compile-flex,compile-as3,as3-linker-check" />
+   <target name="compile" depends="init, prebuild, compile-flex,compile-as3,as3-linker-check" />
    
    <target name="compile-flex">
       <!-- Pull in class file list for compc -->

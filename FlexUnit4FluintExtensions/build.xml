@@ -63,8 +63,12 @@
          </fileset>
       </copy>
    </target>
+	
+   <target name="prebuild">
+		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
+    </target>
 
-   <target name="compile" depends="init">
+   <target name="compile" depends="init, prebuild">
       <compc output="${bin.loc}/${build.finalName}.${build.packaging}">
          <include-sources dir="${src.loc}" includes="*" append="true" />
          <source-path path-element="${src.loc}" />
