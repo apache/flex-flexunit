@@ -332,9 +332,12 @@ to contribute to our CI process.
                 <!-- exclude fonts -->
                 <exclude name="**/*.ttf"/>
                 <!--          End of binary files           -->
-				<!--Exclude generated doc -->
-				<exclude name="FlexUnit4/docs/"/>
-				<exclude name="FlexUnit4UIListener/target/docs/"/>
+				        
+                <!--Exclude generated/downloaded doc and files -->
+        				<exclude name="FlexUnit4/docs/"/>
+                <exclude name="FlexUnit4/target/bin/" />
+                <exclude name="FlexUnit4/in/" />
+        		<exclude name="FlexUnit4UIListener/target/docs/"/>
 				
             </fileset>
         </rat:report>
