@@ -137,7 +137,6 @@
       <delete>
          <fileset dir="${lib.loc}">
             <exclude name="mock-as3.swc" />
-            <exclude name="mockolate*.swc" />
             <exclude name="build/saxon*.jar" />
          </fileset>
       </delete>
