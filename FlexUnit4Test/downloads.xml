@@ -34,8 +34,9 @@
 	       
 	       Licenses:
 	       	fluint (1.2)  - MIT
-            flexunit1lib ()  - ?
-            hamcrest (1.1.3)  - 
+            flexunit1lib ()  - TODO license???
+            hamcrest (1.1.3)  -  TODO license???
+			mockolate (0.9.5) - TODO license???
 	-->
 		     
     <!-- 
@@ -43,7 +44,7 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="prepare, flexunit1lib-swc, hamcrest-swc, fluint-swc"
+	<target name="main" depends="prepare, flexunit1lib-swc, hamcrest-swc, fluint-swc, mockolate-swc"
 		    description="Downloads all the required thirdparty SWCs"/>
 
     <target name="prepare" >
@@ -87,7 +88,7 @@
     </target>
 	
     <!--
-        Download a zip or gz file, extracts the jar file, and optionally copies the jar
+        Download a zip or gz file, extracts the jar/swc file, and optionally copies the jar/swc
         file to a different location and optinally verifies the checksum.  
         If the checksum fails, this script fails.
 
@@ -234,6 +235,31 @@
 	            <param name="srcSwcFile" value="fluint-1_2.swc"/>
 	            <param name="destSwcFile" value="${lib.dir}/fluint-1_2.swc"/>
 	        </antcall>
+	    </target>
+		
+		<!--
+	        mockolate
+	    -->
+	    <target name="mockolate-swc-check" description="Checks if mockolate swc exists.">
+	    	<condition property="mockolate.swc.exists">
+	    	    <and>
+	    	        <available file="${lib.dir}/mockolate-0.9.5.swc"/>
+	    	    </and>
+	        </condition>
+	    </target>
+
+	    <target name="mockolate-swc" depends="mockolate-swc-check" 
+	        unless="mockolate.swc.exists" 
+	        description="Downloads and copies mockolate to the lib directory.">
+	        <echo message="Obtaining lib/mockolate-0.9.5.swc"/>
+	        <antcall target="download-zip">
+	          <param name="srcUrl" value="https://github.com/downloads/drewbourne/mockolate"/>
+	          <param name="zipFile" value="mockolate-0.9.5.zip"/>
+	          <param name="srcJarPath" value="mockolate-0.9.5/mockolate-0.9.5.swc"/>
+	          <param name="md5" value="b73fe1bb5f443993adcf8b274f6a48b2"/>
+	          <param name="destJarFile" value="${lib.dir}/mockolate-0.9.5.swc"/>
+	        </antcall>
+	        <delete dir="${download.dir}/temp/mockolate-0.9.5"/>
 	    </target>
 	
 </project>
