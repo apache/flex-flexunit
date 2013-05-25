@@ -337,8 +337,8 @@ to contribute to our CI process.
         				<exclude name="FlexUnit4/docs/"/>
                 <exclude name="FlexUnit4/target/bin/" />
                 <exclude name="FlexUnit4/in/" />
-        		<exclude name="FlexUnit4UIListener/target/docs/"/>
-				
+        		    <exclude name="FlexUnit4UIListener/target/"/>
+                <exclude name="FlexUnit4Test/target/"/>
             </fileset>
         </rat:report>
 
