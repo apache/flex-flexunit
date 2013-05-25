@@ -44,8 +44,13 @@
    <!-- Setup Flex Ant Resources -->
    <property name="FLEX_HOME" location="${env.FLEX_HOME}" />
    <property name="FLEX_COVER_VIEWER" location="${env.FLEX_COVER_VIEWER}" />
-   <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
-
+	<taskdef resource="flexTasks.tasks" >
+		<classpath>
+			<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+			<pathelement location="${FLEX_HOME}/lib/flexTasks.jar"/>
+		</classpath>
+	</taskdef>
+	
    <macrodef name="compile-runner">
       <attribute name="runner" />
       <attribute name="swf" />

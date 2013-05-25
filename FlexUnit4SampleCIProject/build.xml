@@ -40,7 +40,12 @@
 	<!-- Setup Flex and FlexUnit ant tasks -->
 	<!-- You can set this directly so mxmlc will work correctly, or set FLEX_HOME as an environment variable and use as below -->
 	<property name="FLEX_HOME" location="${env.FLEX_HOME}" />
-	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	<taskdef resource="flexTasks.tasks" >
+		<classpath>
+			<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+			<pathelement location="${FLEX_HOME}/lib/flexTasks.jar"/>
+		</classpath>
+	</taskdef>
 	<taskdef resource="flexUnitTasks.tasks">
 	   <classpath>
 	      <fileset dir="${lib.loc}">
