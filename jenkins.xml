@@ -21,7 +21,7 @@
 <project name="framework" default="main" basedir=".">
 	<property name="flexunit.home" value="${basedir}"/>
 	<property name="flexunit.jenkins.home" value="${flexunit.home}/jenkins"/>
-	<property name="playerglobal.version" value="10.0"/>
+	<property name="playerglobal.version" value="11.1"/>
 
 	<!-- Set plyerglobal.version and locale -->
 	<!--loadproperties srcFile="${flexunit.jenkins.home}/build.properties"/-->
@@ -42,12 +42,15 @@
 
 	<!-- playerglobal.swc -->
 	<!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.1-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.1-download,playerglobal11.1-download" description="Copies playerglobal.swc from the Adobe website">
 	</target>
 
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
 		<condition property="target10.1">
-			<equals arg1="${playerglobal.version}" arg2="10.0" />
+			<equals arg1="${playerglobal.version}" arg2="10.1" />
+		</condition>
+		<condition property="target11.1">
+			<equals arg1="${playerglobal.version}" arg2="11.1" />
 		</condition>
 	</target>
 
@@ -57,6 +60,13 @@
             dest="${flexunit.jenkins.home}/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
 	</target>
+	
+	<target name="playerglobal11.1-download" if="target11.1">
+    	<mkdir dir="${flexunit.jenkins.home}/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_1.swc" 
+            dest="${flexunit.jenkins.home}/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
 
 	<target name="clean" description="Cleans third party downloaded files.">
 		<delete dir="${flexunit.jenkins.home}/temp" />
