@@ -1,6 +1,8 @@
 package org.flexunit.ant.tasks.configuration;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +39,18 @@ public class TaskConfiguration
          this.flexHome = new File(project.getProperty("FLEX_HOME"));
       }
    }
+   
+   //Used to verify that a string is also a properly formatted URL
+   //When determining if the passed 'swf' property value is remote or local this is crucial.
+   protected boolean isValidURI(String uriStr) {
+	    try {
+	      URI uri = new URI(uriStr);
+	      return true;
+	    }
+	    catch (URISyntaxException e) {
+	        return false;
+	    }
+	}
    
    public CompilationConfiguration getCompilationConfiguration()
    {
@@ -123,7 +137,15 @@ public class TaskConfiguration
 
    public void setSwf(String swf)
    {
-      testRunConfiguration.setSwf(project.resolveFile(swf));
+	   //match the swf URL to see if it's a remote location, if so, set the url instead of swf.
+		if( isValidURI( swf ) ) {
+			testRunConfiguration.setUrl(swf);
+			LoggingUtil.log("Remote path to SWF was given, setting URL property instead of SWF");
+		} else {
+			testRunConfiguration.setSwf(project.resolveFile(swf));
+			LoggingUtil.log("Local path to SWF was given, SWF property as usual.");
+		} 
+	   
    }
    
    public void setSwf(File swf)
@@ -179,10 +201,18 @@ public class TaskConfiguration
       
       File swf = testRunConfiguration.getSwf();
       boolean noTestSources = !compilationConfiguration.getTestSources().provided();
+      String swfURL = testRunConfiguration.getUrl();
       
-      if ((swf == null || !swf.exists()) && noTestSources)
+      //Check to make sure we have a valid swf, testsource or remote url before proceeding.
+      //Otherwise, notify the user to fix this before continuing.
+      if ((swf == null || !swf.exists()) && noTestSources && (swfURL == "" || swfURL == null) )
       {
-         throw new BuildException("The provided 'swf' property value [" + (swf == null ? "" : swf.getPath()) + "] could not be found.");
+         throw new BuildException("The provided 'swf' property value [" + (swf == null ? "" : swf.getPath()) + "] could not be found or is not a valid remote URL.");
+      }
+      
+      if( (swfURL != null && swfURL != "") && testRunConfiguration.isLocalTrusted() ) 
+      {
+    	  throw new BuildException("The provided 'swf' property value points to a remote location.  Please set localTrusted = false or change the location of your swf to a local path.");
       }
       
       if(swf != null && !noTestSources)
