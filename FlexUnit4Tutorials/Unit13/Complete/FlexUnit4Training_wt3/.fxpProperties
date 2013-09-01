@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" compiles="true" parentProject="592377da-210b-4153-8be6-57ad3a4108e4" projectUUID="592377da-210b-4153-8be6-57ad3a4108e4" sdkVersion="4.1.0" uuid="c3ca9112-bbe9-4ff8-9550-2a5bfaf92d80" version="4">
+  <projects/>
+  <src>
+    <linked isMain="false" location="tests" path="tests" position="0" uuid="7945279f-5fa2-4363-9335-1e25bfaa7f51"/>
+  </src>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="c3ca9112-bbe9-4ff8-9550-2a5bfaf92d80"/>
+    <linked location="C:/github/mockolate.git/FlexUnit4_1_B1_BaseDemos/libs" path="/libs" position="1" uuid="e49a9e0c-4692-4c13-92a8-aab82a596910"/>
+    <linked location="${FLEXUNIT_LIB_LOCATION}/version4libs/Common/" path="${FLEXUNIT_LIB_LOCATION}/version4libs/Common/" position="2" uuid="e49a9e0c-4692-4c13-92a8-aab82a596910"/>
+    <linked location="${FLEXUNIT_LIB_LOCATION}/version4libs/FlexProject/" path="${FLEXUNIT_LIB_LOCATION}/version4libs/FlexProject/" position="3" uuid="e49a9e0c-4692-4c13-92a8-aab82a596910"/>
+    <linked location="${FLEXUNIT_LOCALE_LOCATION}/version4locale/" path="${FLEXUNIT_LOCALE_LOCATION}/version4locale/" position="4" uuid="e49a9e0c-4692-4c13-92a8-aab82a596910"/>
+  </swc>
+  <misc/>
+  <theme/>
+</fxpProperties>
