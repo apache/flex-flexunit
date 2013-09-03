@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
    The sole purpose of this project is to create a transitive dependency between the core and cilistener
    projects.  If the tests resided with the core project, then core and cilistener would have a circular
    dependency which would be more difficult to manage from a build perspective.
@@ -28,8 +44,13 @@
    <!-- Setup Flex Ant Resources -->
    <property name="FLEX_HOME" location="${env.FLEX_HOME}" />
    <property name="FLEX_COVER_VIEWER" location="${env.FLEX_COVER_VIEWER}" />
-   <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
-
+	<taskdef resource="flexTasks.tasks" >
+		<classpath>
+			<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+			<pathelement location="${FLEX_HOME}/lib/flexTasks.jar"/>
+		</classpath>
+	</taskdef>
+	
    <macrodef name="compile-runner">
       <attribute name="runner" />
       <attribute name="swf" />
@@ -120,14 +141,12 @@
       <delete dir="${dist.loc}" />
       <delete>
          <fileset dir="${lib.loc}">
-			<exclude name="fluint-1_2.swc" />
-            <exclude name="FlexUnit1Lib.swc" />
-            <exclude name="hamcrest-as3*.swc" />
             <exclude name="mock-as3.swc" />
-            <exclude name="mockolate*.swc" />
             <exclude name="build/saxon*.jar" />
          </fileset>
       </delete>
+
+	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
    </target>
 
    <target name="init">
@@ -171,8 +190,12 @@
          </classpath>
       </taskdef>
    </target>
+	
+   <target name="prebuild">
+		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
+    </target>
 
-   <target name="test" depends="init,test-only,test-and-instrument" />
+   <target name="test" depends="init,prebuild,test-only,test-and-instrument" />
 
    <target name="test-only" unless="build.instrument">
       <echo message="Testing FlexUnit Flex build..." />
