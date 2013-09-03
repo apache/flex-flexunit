@@ -90,8 +90,15 @@ to contribute to our CI process.
       </delete>
    </target>
    
-    <target name="prebuild">
-		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
+    <target name="thirdparty-downloads">
+		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />	
+		
+        <ant dir="${anttasks.loc}" target="thirdparty-downloads" inheritall="false" />
+		<ant dir="${core.loc}" target="thirdparty-downloads" inheritall="false" />
+        <ant dir="${fluint.loc}" target="thirdparty-downloads" inheritall="false" />
+        <ant dir="${tests.loc}" target="thirdparty-downloads" inheritall="false" />
+        <ant dir="${flexcoverlistener.loc}" target="thirdparty-downloads" inheritall="false" />
+
     </target>
 
    <!-- Builds the FlexUnit4AntTasks project -->
@@ -249,7 +256,7 @@ to contribute to our CI process.
       </zip>
    </target>
    
-   <target name="sonatype" depends="prebuild" description="Target used to generate bundles for deployment to Sonatype.">
+   <target name="sonatype" depends="thirdparty-downloads" description="Target used to generate bundles for deployment to Sonatype.">
       <ant dir="${anttasks.loc}" target="deploy" inheritall="false">
          <propertyset>
             <propertyref prefix="build" />
