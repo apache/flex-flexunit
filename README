@@ -1,22 +1,104 @@
-h2. FlexUnit: a unit testing framework for Flex and ActionScript 3.0
+Apache Flex (FlexUnit)
+==================
 
-FlexUnit is a unit testing framework for Flex and ActionScript 3.0 applications and libraries. It mimics the functionality of JUnit, a Java unit testing framework, and comes with a graphical test runner.
+Apache Flex (FlexUnit) is a unit testing framework for Apache Flex and ActionScript 3.0 
+applications and libraries. It mimics the functionality of JUnit, a Java 
+unit testing framework, and comes with a graphical test runner.
 
-h3. Features
+Getting the latest sources via git
+==================================
 
-Some of FlexUnits features include:
-* Support for Flex or ActionScript 3
-* Mark tests with Metadata
-* Async testing support
-* Exception Handling
-* Theories, Datapoints and Assumptions
+    You can always checkout the latest source via git using the following
+    command:
+	
+	 git clone https://git-wip-us.apache.org/repos/asf/flex-flexunit.git flexunit
+	 cd flexunit
+	 git checkout develop
 
-A complete list of features can be found on "the FlexUnit homepage":http://flexunit.org
+    For further information visit http://flex.apache.org/download-source.html
 
-h3. Documentation
+Building Apache Flex (FlexUnit)
+=========================
 
-Documentation for FlexUnit can be found at "docs.flexunit.org":http://docs.flexunit.org
+    Apache Flex (FlexUnit) requires some build tools which must be installed
+    prior to building FlexUnit and it depends on some external software which
+    are downloaded as part of the build process.  Some of these have different licenses.
+    See the Software Dependencies section for more information on the external software
+    dependencies.
+	
+Install Prerequisites
+---------------------
 
-h3. Code
+    Before building FlexUnit you must install the following software and set the
+    corresponding environment variables using absolute file paths.  Relative file paths
+    will result in build errors.
+    
+	==================================================================================
+    SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
+    ==================================================================================
+    
+    Java SDK 1.6 or greater (*1)                JAVA_HOME
+        (for Java 1.7 see note at (*2))
+        
+    Ant 1.7.1 or greater (*1)                   ANT_HOME
+        (for Java 1.7 see note at (*2))
+    
+    Apache Flex (*3)                            FLEX_HOME 
+    
+    ==================================================================================
+	
+	*1) The bin directories for ANT_HOME and JAVA_HOME should be added to your PATH.
+        
+        On Windows, set PATH to
+            
+            PATH=%PATH%;%ANT_HOME%\bin;%JAVA_HOME%\bin
+            
+        On the Mac (bash), set PATH to
+            
+            export PATH="$PATH:$ANT_HOME/bin:$JAVA_HOME/bin"
+            
+         On Linux make sure you path include ANT_HOME and JAVA_HOME.
 
-The code for FlexUnit can be found on "Apache Git Repository":https://git-wip-us.apache.org/repos/asf/flex-flexunit.git
+    *2)  If you are using Java SDK 1.7 or greater on a Mac you must use Ant 1.8 or 
+         greater. If you use Java 1.7 with Ant 1.7, ant reports the java version as 1.6 
+         so the JVM args for the data model (-d32/-d64) will not be set correctly and
+         you will get compile errors.
+        
+    *3) FLEX_HOME should be set to a valid Apache Flex installation.
+	
+	
+Software Dependencies
+---------------------
+
+    Apache Flex (FlexUnit) uses third-party code that will be downloaded as part of the Apache
+    Flex (FlexUnit) build.  
+
+    When you have all the prerequisites in place and the environment variables set, 
+    (see Install Prerequisites above), use
+
+        cd <flexunit.dir>
+        ant thirdparty-downloads
+			
+	TODO a list of all thirdparty libraries
+	
+
+Building Apache Flex (FlexUnit)
+-----------------------------------------------
+
+    When you have all the prerequisites in place and the environment variables set, 
+    (see Install Prerequisites above), use
+
+        cd <flexunit.dir>
+        ant
+    
+    build Apache Flex (FlexUnit).
+	¨
+	To clean the build use
+    
+        ant clean 
+		
+Thanks for using Apache Flex (FlexUnit).  Enjoy!
+
+                                          The Apache Flex Project
+                                          <http://flex.apache.org>
+ 
