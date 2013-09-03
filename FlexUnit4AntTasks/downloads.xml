@@ -34,9 +34,9 @@
 	       
 	       Licenses:
             JUnit (3.8.1) - CPL 1.0  
-			Ant (1.7.1) -  ?
-			Ant launcher (1.7.1) -  ?
-			Ant testutil (1.7.1) -  ?
+			Ant (1.7.1) -  Apache
+			Ant launcher (1.7.1) -  Apache
+			Ant testutil (1.7.1) -  Apache
 			dom4j (1.6.1) -  ?
 			jaxen (1.1) -  ?
 	-->
