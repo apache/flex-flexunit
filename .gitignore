@@ -16,10 +16,8 @@ FlexUnit4AirCIListener/libs/*
 FlexUnit4FlexCoverListener/bin/*
 FlexUnit4FlexCoverListener/libs/*
 FlexUnit4FlexCoverListener/target/*
-FlexUnit4CIListener/bin/*
 FlexUnit4SampleCIProject/target/*
 FlexUnit4AntTasks/target/*
-FlexUnit4AntTasks/bin/*
 FlexUnit4Test/libs/*
 FlexUnit4Test/target/*
 FlexUnit4UIListener/libs/*
@@ -29,3 +27,4 @@ FlexUnit4UIListener/target/*
 .idea
 *.iml
 */.settings
+/lib/
