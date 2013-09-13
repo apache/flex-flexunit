@@ -37,6 +37,7 @@
             flexunit1lib ()  - TODO license???
             hamcrest (1.1.3)  -  https://github.com/drewbourne/hamcrest-as3/blob/master/hamcrest/LICENSE
 			mockolate (0.9.5) - https://github.com/drewbourne/mockolate/blob/master/LICENSE
+			mock-as - TODO
 	-->
 		     
     <!-- 
@@ -183,6 +184,9 @@
             <param name="srcSwcFile" value="FlexUnit1Lib.swc"/>
             <param name="destSwcFile" value="${lib.dir}/FlexUnit1Lib.swc"/>
         </antcall>
+		
+		<!-- Get license file -->
+		<!--get src="" dest="${lib.dir}/fluint-LICENSE"/-->
     </target>
 	
 	
@@ -201,6 +205,9 @@
 	          <param name="destJarFile" value="${lib.dir}/hamcrest-as3-flex-1.1.3.swc"/>
 	        </antcall>
 	        <delete dir="${download.dir}/temp/hamcrest-as3-flex-1.1.3"/>
+			
+			<!-- Get license file -->
+			<get src="https://raw.github.com/drewbourne/hamcrest-as3/master/hamcrest/LICENSE" dest="${lib.dir}/hamcrest-LICENSE"/>
 	    </target>
 	    
 	    <target name="hamcrest-swc-check" description="Checks if hamcrest swc exists.">
@@ -236,6 +243,9 @@
 	            <param name="srcSwcFile" value="fluint-1_2.swc"/>
 	            <param name="destSwcFile" value="${lib.dir}/fluint-1_2.swc"/>
 	        </antcall>
+			
+			<!-- Get license file -->
+			<!--get src="" dest="${lib.dir}/fluint-LICENSE"/-->
 	    </target>
 		
 		<!--
@@ -261,6 +271,9 @@
 	          <param name="destJarFile" value="${lib.dir}/mockolate-0.9.5.swc"/>
 	        </antcall>
 	        <delete dir="${download.dir}/temp/mockolate-0.9.5"/>
+			
+			<!-- Get license file -->
+			<get src="https://raw.github.com/drewbourne/mockolate/master/LICENSE" dest="${lib.dir}/mockolate-LICENSE"/>
 	    </target>
 	
 </project>

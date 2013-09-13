@@ -33,8 +33,8 @@
 	       For Apache, the JARS must be removed from the repository.
 	       
 	       Licenses:
-            Maven Ant Tasks (2.1.3) - ?
-			Ant Contrib (1.0b3) - ?
+            maven-ant-tasks (2.1.3) - Apache 2.0
+			ant-contrib (1.0b3) - Apache 2.0
 	-->
 		     
     <!-- 
@@ -145,6 +145,7 @@
             <param name="srcJarFile" value="ant-contrib-1.0b3.jar"/>
             <param name="destJarFile" value="${lib.dir}/ant-contrib-1.0b3.jar"/>
         </antcall>
+	
     </target>
 	
 </project>
