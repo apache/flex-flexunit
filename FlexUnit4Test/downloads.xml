@@ -37,7 +37,7 @@
             flexunit1lib ()  - TODO license???
             hamcrest (1.1.3)  -  https://github.com/drewbourne/hamcrest-as3/blob/master/hamcrest/LICENSE
 			mockolate (0.9.5) - https://github.com/drewbourne/mockolate/blob/master/LICENSE
-			mock-as - TODO
+			mock-as - BSD
 	-->
 		     
     <!-- 
@@ -45,7 +45,7 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="prepare, flexunit1lib-swc, hamcrest-swc, fluint-swc, mockolate-swc"
+	<target name="main" depends="prepare, flexunit1lib-swc, hamcrest-swc, fluint-swc, mockolate-swc, mock-as-swc"
 		    description="Downloads all the required thirdparty SWCs"/>
 
     <target name="prepare" >
@@ -59,10 +59,7 @@
     <target name="clean" 
             description="Removes thirdparty downloads.">
         <delete includeEmptyDirs="true" failonerror="false">
-            <fileset dir="${download.dir}">
-             	<include name="hamcrest*/**"/>
-            	<include name="mockolate*/**"/>
-			</fileset>
+            <fileset dir="${download.dir}"  />
         </delete>
     </target>
     
@@ -180,13 +177,13 @@
     <target name="flexunit1lib-download-swc" depends="flexunit1lib-swc-check" unless="flexunit1lib.swc.exists"
             description="Downloads the flexunit1lib swc.">
         <antcall target="download-swc">
-            <param name="srcUrl" value="https://fluint.googlecode.com/svn-history/r268/branches/skunkworks/flexUnit4/FlexUnit4/libs"/>
+            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
             <param name="srcSwcFile" value="FlexUnit1Lib.swc"/>
             <param name="destSwcFile" value="${lib.dir}/FlexUnit1Lib.swc"/>
         </antcall>
 		
 		<!-- Get license file -->
-		<!--get src="" dest="${lib.dir}/fluint-LICENSE"/-->
+		<!--get src="" dest="${lib.dir}/flexunit1lib-LICENSE"/-->
     </target>
 	
 	
@@ -239,7 +236,7 @@
 	    <target name="fluint-download-swc" depends="fluint-swc-check" unless="fluint.swc.exists"
 	            description="Downloads the fluint swc.">
 	        <antcall target="download-swc">
-	            <param name="srcUrl" value="https://fluint.googlecode.com/svn-history/r268/branches/skunkworks/flexUnit4/FlexUnit4/libs"/>
+	            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
 	            <param name="srcSwcFile" value="fluint-1_2.swc"/>
 	            <param name="destSwcFile" value="${lib.dir}/fluint-1_2.swc"/>
 	        </antcall>
@@ -274,6 +271,32 @@
 			
 			<!-- Get license file -->
 			<get src="https://raw.github.com/drewbourne/mockolate/master/LICENSE" dest="${lib.dir}/mockolate-LICENSE"/>
+	    </target>
+		
+		<!--
+	        mock-as
+	    -->
+	    <target name="mock-as-swc-check" description="Checks if mock-as swc exists.">
+	    	<condition property="mock-as.swc.exists">
+	    	    <and>
+	    	        <available file="${lib.dir}/mock-as3.swc"/>
+	    	    </and>
+	        </condition>
+	    </target>
+
+	    <target name="mock-as-swc" depends="mock-as-swc-check" 
+	        unless="mock-as.swc.exists" 
+	        description="Downloads and copies mock-as to the lib directory.">
+	        <echo message="Obtaining lib/mock-as3.swc"/>
+			<antcall target="download-swc">
+	            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
+	            <param name="srcSwcFile" value="mock-as3.swc"/>
+	            <param name="destSwcFile" value="${lib.dir}/mock-as3.swc"/>
+	        </antcall>
+			
+			<!-- Get license file -->
+			<get src="https://raw.github.com/drewbourne/mock-as3/master/core/license.txt" dest="${lib.dir}/mock-as3-LICENSE"/>
+			
 	    </target>
 	
 </project>
