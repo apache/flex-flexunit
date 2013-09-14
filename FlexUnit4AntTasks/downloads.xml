@@ -60,12 +60,7 @@
     <target name="clean" 
             description="Removes thirdparty downloads.">
         <delete includeEmptyDirs="true" failonerror="false">
-            <fileset dir="${download.dir}">
-                <include name="junit*/**"/>
-				<include name="ant*/**"/>
-				<include name="dom4j*/**"/>
-				<include name="jaxen*/**"/>
-            </fileset>
+            <fileset dir="${download.dir}"/>
         </delete>
     </target>
     
@@ -100,6 +95,27 @@
     <!--
         junit
     -->
+	
+	<!--
+        CPL 1.0 Licesense Notification
+        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+        Section "Category B: Reciprocal Licenses"
+    -->
+    <target name="echo-cpl1.0-license" unless="build.noprompt">       
+        <input
+            message="Common Public License Version 1.0 (CPL):
+                ${line.separator}
+                ${line.separator}The contents of the file(s) are subject to the Common Public License Version 1.0 (CPL).
+                ${line.separator}You may not use the file(s) except in compliance with the License. 
+                ${line.separator}You may obtain a copy of the License here:
+                ${line.separator}    http://opensource.org/licenses/cpl1.0.txt. 
+                ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
+                ${line.separator}you agree to the terms and conditions of the applicable license agreement.
+                ${line.separator}
+                ${line.separator}I have read the CPL1.0 license information above?"
+            validargs="y"
+            defaultvalue="y"/>
+    </target>
     
     <target name="junit-jar-check" description="Checks if JUnit JAR exists.">
     	<condition property="junit.jar.exists">
@@ -112,6 +128,7 @@
     <target name="junit-jar" depends="junit-jar-check" unless="junit.jar.exists"
             description="Copies the JUnit JAR to the lib directory.">
         <echo message="Obtaining lib/junit-3.8.1.jar"/>
+		<antcall target="echo-cpl1.0-license"/>
         <antcall target="junit-download-jar"/>
     </target>
     
