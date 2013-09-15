@@ -37,8 +37,8 @@
 			ant-launcher (1.7.1) -  Apache 2.0
 			ant-testutil (1.7.1) -  Apache 2.0		   
             JUnit (3.8.1) - CPL 1.0 
-			dom4j (1.6.1) -  ?
-			jaxen (1.1) -  ?
+			dom4j (1.6.1) -  BSD
+			jaxen (1.1) -  BSD
 	-->
 		     
     <!-- 
@@ -61,6 +61,7 @@
             description="Removes thirdparty downloads.">
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${download.dir}"/>
+			<fileset dir="${lib.dir}"/>
         </delete>
     </target>
     

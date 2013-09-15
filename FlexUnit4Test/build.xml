@@ -139,11 +139,6 @@
 
    <target name="clean">
       <delete dir="${dist.loc}" />
-      <delete>
-         <fileset dir="${lib.loc}">
-            <exclude name="build/saxon*.jar" />
-         </fileset>
-      </delete>
 
 	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
    </target>

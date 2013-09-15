@@ -83,6 +83,7 @@
 
    <target name="clean">
       <delete dir="${dist.loc}" />
+  	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
    </target>
 
    <target name="init">

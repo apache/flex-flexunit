@@ -73,6 +73,8 @@ to contribute to our CI process.
 
    <!-- Cleans up all projects -->
    <target name="clean">
+   	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
+
       <!-- Ask each project to clean up -->
       <ant dir="${anttasks.loc}" target="clean" inheritall="false" />
       <ant dir="${core.loc}" target="clean" inheritall="false" />
@@ -82,11 +84,14 @@ to contribute to our CI process.
       <ant dir="${uilistener.loc}" target="clean" inheritall="false" />
       <ant dir="${aircilistener.loc}" target="clean" inheritall="false" />
       <ant dir="${flexcoverlistener.loc}" target="clean" inheritall="false" />
-
+	  
       <delete failonerror="false">
-         <fileset dir="${basedir}">
-            <include name="*.zip" />
-         </fileset>
+        <fileset dir="${basedir}">
+			<include name="*.zip" />
+        </fileset>
+		<fileset dir="FlexUnit4Turnkey/export">
+			<include name="*.zip" />
+		</fileset>
       </delete>
    </target>
    
@@ -342,6 +347,8 @@ to contribute to our CI process.
                 <exclude name="**/.settings/**"/>
                 <exclude name="**/.idea/**"/>
                 <exclude name="**/*.iml"/>
+				<!-- -->
+                <exclude name="**/LICENSE*"/>
                 <!--          End of source files           -->
                 <!--          Start of binary files           -->
                 <!-- exclude media (png, ico) -->
@@ -354,7 +361,7 @@ to contribute to our CI process.
                 <!--Exclude generated/downloaded doc and files -->
                 <exclude name="FlexUnit4/target/bin/" />
                 <exclude name="FlexUnit4/in/" />
-        		    <exclude name="FlexUnit4UIListener/target/"/>
+        		<exclude name="FlexUnit4UIListener/target/"/>
                 <exclude name="FlexUnit4Test/target/"/>
             </fileset>
         </rat:report>
