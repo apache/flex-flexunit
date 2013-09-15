@@ -106,7 +106,8 @@ Software Dependencies
     downloaded to your system.
 	
 		(jars)
-		junit - http://search.maven.org/remotecontent?filepath=junit/junit/3.8.1/junit-3.8.1.jar (License - CPL 1.0)				
+		junit - http://search.maven.org/remotecontent?filepath=junit/junit/3.8.1/junit-3.8.1.jar (License - CPL 1.0)
+		saxon9he - http://search.maven.org/remotecontent?filepath=net/sf/saxon/Saxon-HE/9.4/Saxon-HE-9.4.jar (License - MPL 1.1)
 
 
 Building Apache Flex (FlexUnit)

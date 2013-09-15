@@ -34,10 +34,11 @@
 	       
 	       Licenses:
 	       	fluint (1.2)  - MIT
-            flexunit1lib ()  - TODO license???
-            hamcrest (1.1.3)  -  https://github.com/drewbourne/hamcrest-as3/blob/master/hamcrest/LICENSE
-			mockolate (0.9.5) - https://github.com/drewbourne/mockolate/blob/master/LICENSE
+            flexunit1lib ()  - BSD
+            hamcrest (1.1.3)  -  BSD
+			mockolate (0.9.5) - MIT
 			mock-as - BSD
+			saxon9he - MPL 1.1
 	-->
 		     
     <!-- 
@@ -45,10 +46,10 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="prepare, flexunit1lib-swc, hamcrest-swc, fluint-swc, mockolate-swc, mock-as-swc"
+	<target name="main" depends="prepare, flexunit1lib-swc, hamcrest-swc, fluint-swc, mockolate-swc, mock-as-swc, saxon9he-jar"
 		    description="Downloads all the required thirdparty SWCs"/>
 
-    <target name="prepare" >
+    <target name="prepare" >	
         <mkdir dir="${lib.dir}" />
     </target>
     
@@ -297,6 +298,52 @@
 			<!-- Get license file -->
 			<get src="https://raw.github.com/drewbourne/mock-as3/master/core/license.txt" dest="${lib.dir}/mock-as3-LICENSE"/>
 			
+	    </target>
+		
+		
+		<!--
+			saxon9he
+		-->
+		
+		<!--
+			MPL 1.1 Licesense Notification
+			See http://www.apache.org/legal/3party.html#labeling-reciprocity
+			Section "Category B: Reciprocal Licenses"
+		-->
+		<target name="echo-mpl1.1-license" unless="build.noprompt">       
+			<input
+				message="Mozilla Public License Version 1.1:
+					${line.separator}
+					${line.separator}The contents of the file(s) are subject to the Mozilla Public License Version 1.1.
+					${line.separator}You may not use the file(s) except in compliance with the License. 
+					${line.separator}You may obtain a copy of the License here:
+					${line.separator}    http://www.mozilla.org/MPL/. 
+					${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
+					${line.separator}you agree to the terms and conditions of the applicable license agreement.
+					${line.separator}
+					${line.separator}I have read the MPL1.1 license information above?"
+				validargs="y"
+				defaultvalue="y"/>
+		</target>		
+		
+		<target name="saxon9he-jar-check" description="Checks if saxon9he jar exists.">
+	    	<condition property="saxon9he.jar.exists">
+	    	    <and>
+	    	        <available file="${lib.dir}/build/saxon9he.jar"/>
+	    	    </and>
+	        </condition>
+	    </target>
+
+	    <target name="saxon9he-jar" depends="saxon9he-jar-check" 
+	        unless="saxon9he.jar.exists" 
+	        description="Downloads and copies saxon9he.jar to the lib/build directory.">
+	        <echo message="Obtaining lib/build/saxon9he.jar"/>
+			<antcall target="echo-mpl1.1-license"/>			
+			<antcall target="download-swc">
+	            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=net/sf/saxon/Saxon-HE/9.4/"/>
+	            <param name="srcSwcFile" value="Saxon-HE-9.4.jar"/>
+	            <param name="destSwcFile" value="${lib.dir}/build/saxon9he.jar"/>
+	        </antcall>
 	    </target>
 	
 </project>
