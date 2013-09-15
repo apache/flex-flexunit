@@ -1,0 +1,139 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package math.testcases {
+	import flash.geom.Point;
+	
+	import matcher.CloseToPointMatcher;
+	
+	import net.digitalprimates.math.Circle;
+	
+	import org.flexunit.assertThat;
+	import org.flexunit.asserts.assertEquals;
+	import org.flexunit.asserts.assertFalse;
+	import org.flexunit.asserts.assertTrue;
+	import org.hamcrest.number.closeTo;
+	
+	public class BasicCircleTest {		
+
+		private static const TOLERANCE:Number = .0001;
+		private var circle:Circle;
+		
+		[BeforeClass]
+		public static function setUpClass():void {
+			trace( "Before Class" );
+		}
+		
+		[AfterClass]
+		public static function tearDownClass():void {
+			trace( "After Class " );
+		}
+		
+		[Before]
+		public function setMeUp():void {
+			circle = new Circle( new Point( 0, 0 ), 5 );
+			trace( "Before Test" );
+		}
+		
+		[After]
+		public function tearMeDown():void {
+			circle = null;
+			trace( "After Test" );
+		}
+		
+		[Test]
+		public function shouldReturnProvidedRadius():void {
+			trace( "Test" );
+			assertEquals( 5, circle.radius );
+		}
+		
+		[Test]
+		public function shouldComputeCorrectDiameter():void {
+			trace( "Test" );
+			assertEquals( 10, circle.diameter );
+		}
+		
+		[Test]
+		public function shouldReturnProvidedOrigin():void {
+			trace( "Test" );
+			assertEquals( 0, circle.origin.x );
+			assertEquals( 0, circle.origin.y );
+			
+		}
+		
+		[Test]
+		public function shouldReturnTrueForEqualCircle():void {
+			trace( "Test" );
+			var circle2:Circle = new Circle( new Point( 0, 0 ), 5 );
+			
+			assertTrue( circle.equals( circle2 ) );	
+		}
+		
+		[Test]
+		public function shouldReturnFalseForUnequalOrigin():void {
+			trace( "Test" );
+			var circle2:Circle = new Circle( new Point( 0, 5 ), 5);
+			
+			assertFalse( circle.equals( circle2 ) );
+		}
+		
+		[Test]
+		public function shouldReturnFalseForUnequalRadius():void {
+			trace( "Test" );
+			var circle2:Circle = new Circle( new Point( 0, 0 ), 7);
+			
+			assertFalse( circle.equals( circle2 ) );
+		}
+		
+		[Test]
+		public function shouldGetTopPointOnCircle():void {
+			trace( "Test" );
+			var point:Point = circle.getPointOnCircle( 0 );
+			
+			assertThat( point, new CloseToPointMatcher( new Point( 5, 0 ), TOLERANCE ) );
+		}
+		
+		[Test]
+		public function shouldGetBottomPointOnCircle():void {
+			trace( "Test" );
+			var point:Point = circle.getPointOnCircle( Math.PI );
+			
+			assertThat( point, new CloseToPointMatcher( new Point( -5, 0 ), TOLERANCE ) );
+		}
+		
+		[Test]
+		public function shouldGetRightPointOnCircle():void {
+			trace( "Test" );
+			var point:Point = circle.getPointOnCircle( Math.PI/2 );
+			
+			assertThat( point, new CloseToPointMatcher( new Point( 0, 5 ), TOLERANCE ) );
+		}
+		
+		[Test]
+		public function shouldGetLeftPointOnCircle():void {
+			trace( "Test" );
+			var point:Point = circle.getPointOnCircle( (3*Math.PI)/2 );
+			
+			assertThat( point, new CloseToPointMatcher( new Point( 0, -5 ), TOLERANCE ) );
+		}
+		
+		[Test(expects="RangeError")]
+		public function shouldThrowRangeError():void {
+			trace( "Test" );
+			var someCircle:Circle = new Circle( new Point( 10, 10 ), -5 );
+		}
+	}
+}

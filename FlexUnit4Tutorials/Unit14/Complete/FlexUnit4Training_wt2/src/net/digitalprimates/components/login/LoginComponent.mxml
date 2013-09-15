@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" layout="vertical" title="Please Login" height="168">
+	
+	<fx:Metadata>
+		[Event(name="loginRequested", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.validators.Validator;
+			protected function handleCancelClick( event:Event ):void {
+				usernameTI.text = '';
+				passwordTI.text = '';
+			}
+			
+			protected function handleLoginClick( event:Event ):void {
+				//var results:Array = Validator.validateAll( validators );
+				
+				//if ( results.length == 0 ) {
+					dispatchEvent( new Event( 'loginRequested' ) );	
+				//}
+			}
+			
+			public function get username():String {
+				return usernameTI.text;
+			}
+
+			public function get password():String {
+				return passwordTI.text;
+			}
+			
+			public function setSomeValue( value:String ):void {
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<fx:Array id="validators">
+			<mx:StringValidator id="sv1" required="true" minLength="1" maxLength="8" source="{usernameTI}" property="text"/>
+			<mx:StringValidator id="sv2" required="true" minLength="6" maxLength="10" source="{passwordTI}" property="text"/>
+		</fx:Array>
+	</fx:Declarations>
+
+	<mx:Form width="100%">
+		<mx:FormItem label="Username" required="true">
+			<mx:TextInput id="usernameTI"/>
+		</mx:FormItem>
+		<mx:FormItem  label="Password" required="true">
+			<mx:TextInput id="passwordTI" displayAsPassword="true"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:HBox width="100%" horizontalAlign="center">
+		<mx:Button id="loginBtn" label="Login" click="handleLoginClick( event )"/>
+		<mx:Button id="cancelBtn" label="Cancel" click="handleCancelClick( event )"/>
+	</mx:HBox>
+</mx:Panel>
