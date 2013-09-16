@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="downloads" default="main" basedir=".">
+	
+    <pathconvert property="compiler.tests" dirsep="/">
+        <path location="${basedir}"/>
+    </pathconvert>
+
+    <property name="lib.dir" value="${compiler.tests}/libs"/>
+    
+	<property name="download.dir" value="${compiler.tests}/in"/>
+    
+	<!-- 
+	   Notes:
+	       For Apache, the SWCs must be removed from the repository.
+	       
+	       Licenses:
+            asx.swc  - MIT
+			flexunit-core-flex - Apache 2.0
+			floxy - BDY
+            hamcrest (1.1.3)  - BSD
+			mockolate (0.9.3)  - MIT
+	-->
+		     
+    <!-- 
+        Because the downloads requires a network connection and the JARs don't change very often, 
+        they are each downloaded only if they don't already exist. 
+    -->
+    
+	<target name="main" depends="prepare, asx-swc, flexunit-core-flex-swc, floxy-swc, hamcrest-swc, mockolate-swc"
+		    description="Downloads all the required thirdparty SWCs"/>
+
+    <target name="prepare" >
+        <mkdir dir="${lib.dir}" />
+    </target>
+    
+    <!--
+		Cleanup
+	-->
+	
+    <target name="clean" 
+            description="Removes thirdparty downloads.">
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${lib.dir}" />
+			<fileset dir="${download.dir}" />
+        </delete>
+    </target>
+    
+    <!--
+	    Download thirdparty SWCs    
+	-->
+
+    <!--
+        Download a swc file and optionally verify the checksum.
+        If the checksum fails, this script fails.
+        
+        Params are:
+            srcUrl
+            srcSwcFile
+            destSwcFile
+            [md5]
+    -->
+    <target name="download-swc" 
+            description="Downloads swc, and optionally verifies checksum.">                    
+        <get src="${srcUrl}/${srcSwcFile}" dest="${destSwcFile}"/>
+        <checksum file="${destSwcFile}" algorithm="MD5" property="${we.failed}"/>
+        <antcall target="fail-with-message">
+            <param name="message" value="Checksum mismatch for ${destSwcFile}"/>
+        </antcall>
+    </target>
+	
+    <!--
+        Download a zip or gz file, extracts the jar file, and optionally copies the jar
+        file to a different location and optinally verifies the checksum.  
+        If the checksum fails, this script fails.
+
+        Params are:
+            srcUrl
+            zipFile - a .gz file for untar with gzip, else unzip
+            [md5]
+            [srcJarPath] - both src and dest required for the copy
+            [destJarFile]
+
+        Note: This is purposely coded without <if><else><then> so that a dependency on
+        ant-contrib.jar isn't required.        
+    -->
+	
+    <target name="download-zip"
+        description="Downloads tar/zip, and optionally verifies checksum and copies extracted swc.">                
+        
+        <mkdir dir="${download.dir}"/>        
+    	
+        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
+
+        <condition property="zip.compressed">
+            <matches string="${zipFile}" pattern="^*.zip$"/>      
+        </condition>
+ 
+        <antcall target="untar-file"/>
+        <antcall target="unzip-file"/>
+        
+        <antcall target="check-sum">
+            <param name="message" value="Checksum mismatch for ${download.dir}/${zipFile}"/>
+        </antcall>
+        
+        <condition property="destination.known">
+            <and>
+                <isset property="srcJarPath"/>
+                <isset property="destJarFile"/>
+            </and>
+        </condition> 
+        <antcall target="copy-downloaded-swc"/>
+     </target> 
+	
+    <target name="untar-file" unless="zip.compressed" description="Untars zipFile">
+        <untar src="${download.dir}/${zipFile}" dest="${download.dir}/temp" compression="gzip"/> 
+    </target>
+    
+    <target name="unzip-file" if="zip.compressed" description="Unzips zipFile">
+        <unzip src="${download.dir}/${zipFile}" dest="${download.dir}/temp"/>    
+    </target>
+    
+    <target name="check-sum" if="md5" 
+        description="Verifies MD5 checksum, and fails if checksum doesn't match">
+        
+        <checksum file="${download.dir}/${zipFile}" algorithm="MD5" property="${we.failed}"/>
+        <antcall target="fail-with-message">
+            <param name="message" value="${message}"/>
+        </antcall>
+    </target>
+	
+    <target name="copy-downloaded-swc" if="destination.known">
+        <mkdir dir="${lib.dir}"/>
+        <copy file="${download.dir}/temp/${srcJarPath}" toFile="${destJarFile}" verbose="true"/>
+    </target>
+	
+    <target name="fail-with-message" if="we.failed" 
+            description="Conditionally fails with the specified message">                
+        <fail message="${message}"/>
+    </target>
+	
+	<!--
+		asx
+	-->	    
+
+	<target name="asx-swc" depends="asx-swc-check" 
+		unless="asx.swc.exists" 
+		description="Downloads and copies hamcrest to the lib directory.">
+		<echo message="Obtaining lib/asx.swc"/>
+		<antcall target="download-swc">
+			<param name="srcUrl" value="https://github.com/drewbourne/mockolate/raw/master/mockolate/libs/"/>
+			<param name="srcSwcFile" value="asx.swc"/>
+			<param name="destSwcFile" value="${lib.dir}/asx.swc"/>
+		</antcall>
+				
+		<!-- Get license file -->
+		<get src="https://raw.github.com/drewbourne/asx/master/LICENSE" dest="${lib.dir}/asx-LICENSE"/>
+	</target>
+	
+	<target name="asx-swc-check" description="Checks if hamcrest swc exists.">
+		<condition property="asx.swc.exists">
+			<and>
+				<available file="${lib.dir}/asx.swc"/>
+			</and>
+		</condition>
+	</target>    
+	
+	<!--
+		flexunit-core-flex 
+	-->	    	
+	
+	<target name="flexunit-core-flex-swc" depends="flexunit-core-flex-swc-check" 
+		unless="flexunit.core.flex.swc.exists" 
+		description="Downloads and copies hamcrest to the lib directory.">
+		<echo message="Obtaining lib/hamcrest-as3-flex-1.1.3.swc"/>
+		<antcall target="download-swc">
+			<param name="srcUrl" value="https://builds.apache.org/job/flex-flexunit/lastSuccessfulBuild/artifact/FlexUnit4/target/"/>
+			<param name="srcSwcFile" value="flexunit-4.1.0-x-flex_y.y.y.y.swc"/>
+			<param name="destSwcFile" value="${lib.dir}/flexunit-core-flex.swc"/>
+		</antcall>
+				
+		<!-- Get license file -->
+		<get src="https://git-wip-us.apache.org/repos/asf?p=flex-flexunit.git;a=blob_plain;f=LICENSE;hb=refs/heads/develop" dest="${lib.dir}/flexunit-core-flex-LICENSE"/>
+	</target>
+	
+	<target name="flexunit-core-flex-swc-check" description="Checks if hamcrest swc exists.">
+		<condition property="flexunit.core.flex.swc.exists">
+			<and>
+				<available file="${lib.dir}/flexunit-core-flex.swc"/>
+			</and>
+		</condition>
+	</target>
+	
+	<!--
+		floxy
+	-->	   
+
+	<target name="floxy-swc" depends="floxy-swc-check" 
+		unless="floxy.swc.exists" 
+		description="Downloads and copies hamcrest to the lib directory.">
+		<echo message="Obtaining lib/floxy.swc"/>
+		<antcall target="download-swc">
+			<param name="srcUrl" value="https://github.com/drewbourne/mockolate/raw/master/mockolate/libs/"/>
+			<param name="srcSwcFile" value="FLoxy.swc"/>
+			<param name="destSwcFile" value="${lib.dir}/floxy.swc"/>
+		</antcall>
+				
+		<!-- Get license file -->
+		<get src="https://floxy.googlecode.com/svn/trunk/LICENSE.txt" dest="${lib.dir}/floxy-LICENSE"/>
+	</target>
+	
+	<target name="floxy-swc-check" description="Checks if hamcrest swc exists.">
+		<condition property="floxy.swc.exists">
+			<and>
+				<available file="${lib.dir}/floxy.swc"/>
+			</and>
+		</condition>
+	</target>        
+	
+   <!--
+		hamcrest-as3  
+	-->	    
+	<target name="hamcrest-swc" depends="hamcrest-swc-check" 
+		unless="hamcrest.swc.exists" 
+		description="Downloads and copies hamcrest to the lib directory.">
+		<echo message="Obtaining lib/hamcrest-as3-flex-1.1.3.swc"/>
+		<antcall target="download-zip">
+		  <param name="srcUrl" value="http://cloud.github.com/downloads/drewbourne/hamcrest-as3"/>
+		  <param name="zipFile" value="hamcrest-as3-flex-1.1.3.zip"/>
+		  <param name="srcJarPath" value="hamcrest-as3-flex-1.1.3/hamcrest-as3-flex-1.1.3.swc"/>
+		  <param name="md5" value="b73fe1bb5f443993adcf8b274f6a48b2"/>
+		  <param name="destJarFile" value="${lib.dir}/hamcrest-as3-flex-1.1.3.swc"/>
+		</antcall>
+		<delete dir="${download.dir}/temp/hamcrest-as3-flex-1.1.3"/>
+		
+		<!-- Get license file -->
+		<get src="https://raw.github.com/drewbourne/hamcrest-as3/master/hamcrest/LICENSE" dest="${lib.dir}/hamcrest-LICENSE"/>
+	</target>
+	
+	<target name="hamcrest-swc-check" description="Checks if hamcrest swc exists.">
+		<condition property="hamcrest.swc.exists">
+			<and>
+				<available file="${lib.dir}/hamcrest-as3-flex-1.1.3.swc"/>
+			</and>
+		</condition>
+	</target>
+	
+	<!--
+		mockolate
+	-->
+	<target name="mockolate-swc-check" description="Checks if mockolate swc exists.">
+		<condition property="mockolate.swc.exists">
+			<and>
+				<available file="${lib.dir}/mockolate-0.9.5.swc"/>
+			</and>
+		</condition>
+	</target>
+
+	<target name="mockolate-swc" depends="mockolate-swc-check" 
+		unless="mockolate.swc.exists" 
+		description="Downloads and copies mockolate to the lib directory.">
+		<echo message="Obtaining lib/mockolate-0.9.5.swc"/>
+		<antcall target="download-zip">
+		  <param name="srcUrl" value="http://cloud.github.com/downloads/drewbourne/mockolate"/>
+		  <param name="zipFile" value="mockolate-0.9.5.zip"/>
+		  <param name="srcJarPath" value="mockolate-0.9.5/mockolate-0.9.5.swc"/>
+		  <param name="md5" value="b73fe1bb5f443993adcf8b274f6a48b2"/>
+		  <param name="destJarFile" value="${lib.dir}/mockolate-0.9.5.swc"/>
+		</antcall>
+		<delete dir="${download.dir}/temp/mockolate-0.9.5"/>
+		
+		<!-- Get license file -->
+		<get src="https://raw.github.com/drewbourne/mockolate/master/LICENSE" dest="${lib.dir}/mockolate-LICENSE"/>
+	</target>
+	
+</project>
