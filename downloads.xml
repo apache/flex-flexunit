@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="downloads" default="main" basedir=".">
+	
+    <pathconvert property="compiler.tests" dirsep="/">
+        <path location="${basedir}"/>
+    </pathconvert>
+
+    <property name="lib.dir" value="${compiler.tests}/lib"/>
+    
+	<property name="download.dir" value="${compiler.tests}/in"/>
+    
+	<!-- 
+	   Notes:
+	       For Apache, the JARS must be removed from the repository.
+	       
+	       Licenses:
+            maven-ant-tasks (2.1.3) - Apache 2.0
+			ant-contrib (1.0b3) - Apache 2.0
+	-->
+		     
+    <!-- 
+        Because the downloads requires a network connection and the JARs don't change very often, 
+        they are each downloaded only if they don't already exist. 
+    -->
+    
+	<target name="main" depends="prepare, maven-ant-tasks-jar, ant-contrib-jar"
+		    description="Downloads all the required thirdparty JARs"/>
+
+    <target name="prepare" >
+        <mkdir dir="${lib.dir}" />
+    </target>
+    
+    <!--
+		Cleanup
+	-->
+	
+    <target name="clean" 
+            description="Removes thirdparty downloads.">
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${download.dir}" />
+            <fileset dir="${lib.dir}" />
+        </delete>
+    </target>
+    
+    <!--
+	    Download thirdparty JARs    
+	-->
+
+    <!--
+        Download a jar file and optionally verify the checksum.
+        If the checksum fails, this script fails.
+        
+        Params are:
+            srcUrl
+            srcJarFile
+            destJarFile
+            [md5]
+    -->
+    <target name="download-jar" 
+            description="Downloads jar, and optionally verifies checksum.">                    
+        <get src="${srcUrl}/${srcJarFile}" dest="${destJarFile}"/>
+        <checksum file="${destJarFile}" algorithm="MD5" property="${we.failed}"/>
+        <antcall target="fail-with-message">
+            <param name="message" value="Checksum mismatch for ${destJarFile}"/>
+        </antcall>
+    </target>
+
+    <target name="fail-with-message" if="we.failed" 
+            description="Conditionally fails with the specified message">                
+        <fail message="${message}"/>
+    </target>
+        
+    <!--
+        junit
+    -->
+    
+    <target name="maven-ant-tasks-jar-check" description="Checks if Maven Ant Tasks JAR exists.">
+    	<condition property="maven.ant.tasks.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/maven-ant-tasks-2.1.3.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="maven-ant-tasks-jar" depends="maven-ant-tasks-jar-check" unless="maven.ant.tasks.jar.exists"
+            description="Copies the Maven Ant Tasks JAR to the lib directory.">
+        <echo message="Obtaining lib/maven-ant-tasks-2.1.3.jar"/>
+        <antcall target="maven-ant-tasks-download-jar"/>
+    </target>
+    
+    <target name="maven-ant-tasks-download-jar" depends="maven-ant-tasks-jar-check" unless="maven.ant.tasks.jar.exists"
+            description="Downloads the Maven Ant Tasks jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=org/apache/maven/maven-ant-tasks/2.1.3"/>
+            <param name="srcJarFile" value="maven-ant-tasks-2.1.3.jar"/>
+            <param name="destJarFile" value="${lib.dir}/maven-ant-tasks-2.1.3.jar"/>
+        </antcall>
+    </target>
+	
+	<!--
+        ant contrib
+    -->
+    
+    <target name="ant-contrib-check" description="Checks if AntContrib JAR exists.">
+    	<condition property="ant.contrib.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/ant-contrib-1.0b3.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="ant-contrib-jar" depends="ant-contrib-check" unless="ant.contrib.jar.exists"
+            description="Copies the Ant Contrib JAR to the lib directory.">
+        <echo message="Obtaining lib/ant-contrib-1.0b3.jar"/>
+        <antcall target="ant-contrib-download-jar"/>
+    </target>
+    
+    <target name="ant-contrib-download-jar" depends="ant-contrib-check" unless="ant.contrib.jar.exists"
+            description="Downloads the Ant Contrib jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=ant-contrib/ant-contrib/1.0b3"/>
+            <param name="srcJarFile" value="ant-contrib-1.0b3.jar"/>
+            <param name="destJarFile" value="${lib.dir}/ant-contrib-1.0b3.jar"/>
+        </antcall>
+	
+    </target>
+	
+</project>

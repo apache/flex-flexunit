@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="downloads" default="main" basedir=".">
+	
+    <pathconvert property="compiler.tests" dirsep="/">
+        <path location="${basedir}"/>
+    </pathconvert>
+
+    <property name="lib.dir" value="${compiler.tests}/lib"/>
+    
+	<property name="download.dir" value="${compiler.tests}/in"/>
+    
+	<!-- 
+	   Notes:
+	       For Apache, the JARS must be removed from the repository.
+	       
+	       Licenses:
+			ant (1.7.1) -  Apache 2.0
+			ant-launcher (1.7.1) -  Apache 2.0
+			ant-testutil (1.7.1) -  Apache 2.0		   
+            JUnit (3.8.1) - CPL 1.0 
+			dom4j (1.6.1) -  BSD
+			jaxen (1.1) -  BSD
+	-->
+		     
+    <!-- 
+        Because the downloads requires a network connection and the JARs don't change very often, 
+        they are each downloaded only if they don't already exist. 
+    -->
+    
+	<target name="main" depends="prepare, junit-jar, ant-jar, ant-launcher-jar, ant-testutil-jar, dom4j-jar, jaxen-jar"
+		    description="Downloads all the required thirdparty JARs"/>
+
+    <target name="prepare" >
+        <mkdir dir="${lib.dir}" />
+    </target>
+    
+    <!--
+		Cleanup
+	-->
+	
+    <target name="clean" 
+            description="Removes thirdparty downloads.">
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${download.dir}"/>
+			<fileset dir="${lib.dir}"/>
+        </delete>
+    </target>
+    
+    <!--
+	    Download thirdparty JARs    
+	-->
+
+    <!--
+        Download a jar file and optionally verify the checksum.
+        If the checksum fails, this script fails.
+        
+        Params are:
+            srcUrl
+            srcJarFile
+            destJarFile
+            [md5]
+    -->
+    <target name="download-jar" 
+            description="Downloads jar, and optionally verifies checksum.">                    
+        <get src="${srcUrl}/${srcJarFile}" dest="${destJarFile}"/>
+        <checksum file="${destJarFile}" algorithm="MD5" property="${we.failed}"/>
+        <antcall target="fail-with-message">
+            <param name="message" value="Checksum mismatch for ${destJarFile}"/>
+        </antcall>
+    </target>
+
+    <target name="fail-with-message" if="we.failed" 
+            description="Conditionally fails with the specified message">                
+        <fail message="${message}"/>
+    </target>
+        
+    <!--
+        junit
+    -->
+	
+	<!--
+        CPL 1.0 Licesense Notification
+        See http://www.apache.org/legal/3party.html#labeling-reciprocity
+        Section "Category B: Reciprocal Licenses"
+    -->
+    <target name="echo-cpl1.0-license" unless="build.noprompt">       
+        <input
+            message="Common Public License Version 1.0 (CPL):
+                ${line.separator}
+                ${line.separator}The contents of the file(s) are subject to the Common Public License Version 1.0 (CPL).
+                ${line.separator}You may not use the file(s) except in compliance with the License. 
+                ${line.separator}You may obtain a copy of the License here:
+                ${line.separator}    http://opensource.org/licenses/cpl1.0.txt. 
+                ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
+                ${line.separator}you agree to the terms and conditions of the applicable license agreement.
+                ${line.separator}
+                ${line.separator}I have read the CPL1.0 license information above?"
+            validargs="y"
+            defaultvalue="y"/>
+    </target>
+    
+    <target name="junit-jar-check" description="Checks if JUnit JAR exists.">
+    	<condition property="junit.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/junit-3.8.1.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="junit-jar" depends="junit-jar-check" unless="junit.jar.exists"
+            description="Copies the JUnit JAR to the lib directory.">
+        <echo message="Obtaining lib/junit-3.8.1.jar"/>
+		<antcall target="echo-cpl1.0-license"/>
+        <antcall target="junit-download-jar"/>
+    </target>
+    
+    <target name="junit-download-jar" depends="junit-jar-check" unless="junit.jar.exists"
+            description="Downloads the JUnit jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=junit/junit/3.8.1"/>
+            <param name="srcJarFile" value="junit-3.8.1.jar"/>
+            <param name="destJarFile" value="${lib.dir}/junit-3.8.1.jar"/>
+        </antcall>
+    </target>
+	
+	<!--
+        ant
+    -->
+    
+    <target name="ant-jar-check" description="Checks if Ant JAR exists.">
+    	<condition property="ant.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/ant-1.7.1.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="ant-jar" depends="ant-jar-check" unless="ant.jar.exists"
+            description="Copies the Ant JAR to the lib directory.">
+        <echo message="Obtaining lib/ant-1.7.1.jar"/>
+        <antcall target="ant-download-jar"/>
+    </target>
+    
+    <target name="ant-download-jar" depends="ant-jar-check" unless="ant.jar.exists"
+            description="Downloads the ant jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=org/apache/ant/ant/1.7.1"/>
+            <param name="srcJarFile" value="ant-1.7.1.jar"/>
+            <param name="destJarFile" value="${lib.dir}/ant-1.7.1.jar"/>
+        </antcall>
+    </target>
+	
+	<!--
+        ant launcher
+    --> 	
+	
+	 <target name="ant-launcher-jar-check" description="Checks if Ant launcher JAR exists.">
+    	<condition property="ant.launcher.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/ant-launcher-1.7.1.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="ant-launcher-jar" depends="ant-launcher-jar-check" unless="ant.launcher.jar.exists"
+            description="Copies the Ant launcher JAR to the lib directory.">
+        <echo message="Obtaining lib/ant-launcher-1.7.1.jar"/>
+        <antcall target="ant-launcher-download-jar"/>
+    </target>
+    
+    <target name="ant-launcher-download-jar" depends="ant-launcher-jar-check" unless="ant.launcher.jar.exists"
+            description="Downloads the ant launcher jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=org/apache/ant/ant-launcher/1.7.1"/>
+            <param name="srcJarFile" value="ant-launcher-1.7.1.jar"/>
+            <param name="destJarFile" value="${lib.dir}/ant-launcher-1.7.1.jar"/>
+        </antcall>
+    </target>
+    
+	<!--
+		ant testutil
+    -->
+	
+	<target name="ant-testutil-jar-check" description="Checks if Ant testutil JAR exists.">
+    	<condition property="ant.testutil.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/ant-testutil-1.7.1.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="ant-testutil-jar" depends="ant-testutil-jar-check" unless="ant.testutil.jar.exists"
+            description="Copies the Ant testutil JAR to the lib directory.">
+        <echo message="Obtaining lib/ant-testutil-1.7.1.jar"/>
+        <antcall target="ant-testutil-download-jar"/>
+    </target>
+    
+    <target name="ant-testutil-download-jar" depends="ant-testutil-jar-check" unless="ant.testutil.jar.exists"
+            description="Downloads the ant testutil jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=org/apache/ant/ant-testutil/1.7.1"/>
+            <param name="srcJarFile" value="ant-testutil-1.7.1.jar"/>
+            <param name="destJarFile" value="${lib.dir}/ant-testutil-1.7.1.jar"/>
+        </antcall>
+    </target>
+	
+	<!--
+		dom4j
+    -->
+
+	<target name="dom4j-jar-check" description="Checks if dom4j JAR exists.">
+    	<condition property="dom4j.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/dom4j-1.6.1.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="dom4j-jar" depends="dom4j-jar-check" unless="dom4j.jar.exists"
+            description="Copies the dom4j JAR to the lib directory.">
+        <echo message="Obtaining lib/dom4j-1.6.1.jar"/>
+        <antcall target="dom4j-download-jar"/>
+    </target>
+    
+    <target name="dom4j-download-jar" depends="dom4j-jar-check" unless="dom4j.jar.exists"
+            description="Downloads the dom4j jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=dom4j/dom4j/1.6.1"/>
+            <param name="srcJarFile" value="dom4j-1.6.1.jar"/>
+            <param name="destJarFile" value="${lib.dir}/dom4j-1.6.1.jar"/>
+        </antcall>
+    </target>
+
+	<!--
+		jaxen-1.1-beta-6
+    -->
+	
+	<target name="jaxen-jar-check" description="Checks if jaxen JAR exists.">
+    	<condition property="jaxen.jar.exists">
+    	    <and>
+    	        <available file="${lib.dir}/jaxen-1.1-beta-6.jar"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="jaxen-jar" depends="jaxen-jar-check" unless="jaxen.jar.exists"
+            description="Copies the jaxen JAR to the lib directory.">
+        <echo message="Obtaining lib/jaxen-1.1-beta-6.jar"/>
+        <antcall target="jaxen-download-jar"/>
+    </target>
+    
+    <target name="jaxen-download-jar" depends="jaxen-jar-check" unless="jaxen.jar.exists"
+            description="Downloads the jaxen jar.">
+        <antcall target="download-jar">
+            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=jaxen/jaxen/1.1-beta-6"/>
+            <param name="srcJarFile" value="jaxen-1.1-beta-6.jar"/>
+            <param name="destJarFile" value="${lib.dir}/jaxen-1.1-beta-6.jar"/>
+        </antcall>
+    </target>
+	
+</project>

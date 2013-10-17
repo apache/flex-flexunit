@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="downloads" default="main" basedir=".">
+	
+    <pathconvert property="compiler.tests" dirsep="/">
+        <path location="${basedir}"/>
+    </pathconvert>
+
+    <property name="lib.dir" value="${compiler.tests}/libs"/>
+    
+	<property name="download.dir" value="${compiler.tests}/in"/>
+    
+	<!-- 
+	   Notes:
+	       For Apache, the SWCs must be removed from the repository.
+	       
+	       Licenses:
+            fluint (1.2)  - MIT
+	-->
+		     
+    <!-- 
+        Because the downloads requires a network connection and the JARs don't change very often, 
+        they are each downloaded only if they don't already exist. 
+    -->
+    
+	<target name="main" depends="prepare, fluint-swc"
+		    description="Downloads all the required thirdparty SWCs"/>
+
+    <target name="prepare" >
+        <mkdir dir="${lib.dir}" />
+    </target>
+    
+    <!--
+		Cleanup
+	-->
+	
+    <target name="clean" 
+            description="Removes thirdparty downloads.">
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${download.dir}"/>
+			<fileset dir="${lib.dir}"/>
+        </delete>
+    </target>
+    
+    <!--
+	    Download thirdparty JARs    
+	-->
+
+    <!--
+        Download a swc file and optionally verify the checksum.
+        If the checksum fails, this script fails.
+        
+        Params are:
+            srcUrl
+            srcSwcFile
+            destSwcFile
+            [md5]
+    -->
+    <target name="download-swc" 
+            description="Downloads swc, and optionally verifies checksum.">                    
+        <get src="${srcUrl}/${srcSwcFile}" dest="${destSwcFile}"/>
+        <checksum file="${destSwcFile}" algorithm="MD5" property="${we.failed}"/>
+        <antcall target="fail-with-message">
+            <param name="message" value="Checksum mismatch for ${destSwcFile}"/>
+        </antcall>
+    </target>
+
+    <target name="fail-with-message" if="we.failed" 
+            description="Conditionally fails with the specified message">                
+        <fail message="${message}"/>
+    </target>
+        
+    <!--
+        fluint
+    -->
+    
+    <target name="fluint-swc-check" description="Checks if fluint swc exists.">
+    	<condition property="fluint.swc.exists">
+    	    <and>
+    	        <available file="${lib.dir}/fluint-1_2.swc"/>
+    	    </and>
+        </condition>
+    </target>
+    
+    <target name="fluint-swc" depends="fluint-swc-check" unless="fluint.swc.exists"
+            description="Copies the fluint swc to the lib directory.">
+        <echo message="Obtaining libs/fluint-1_2.swc"/>
+        <antcall target="fluint-download-swc"/>
+    </target>
+    
+    <target name="fluint-download-swc" depends="fluint-swc-check" unless="fluint.swc.exists"
+            description="Downloads the fluint swc.">
+        <antcall target="download-swc">
+            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
+            <param name="srcSwcFile" value="fluint-1_2.swc"/>
+            <param name="destSwcFile" value="${lib.dir}/fluint-1_2.swc"/>
+        </antcall>
+    </target>
+	
+</project>
