@@ -28,14 +28,14 @@ the build order is as such:
 Reporting is something each project implements which we then have hooked into Hudson
 to contribute to our CI process.
 -->
-<project name="FlexUnit4" basedir="." default="package">
+<project name="FlexUnit4" basedir="." default="main">
    <property environment="env" />
 
    <!-- Version info -->
    <property file="${basedir}/version.properties" />
 
    <!-- Configuration -->
-   <property name="finalName" value="flexunit-${build.version}-${build.number}-${build.sdk}" />
+   <property name="finalName" value="flexunit-${build.version}-${build.sdk}" />
 
    <!-- Project locations -->
    <property name="anttasks.loc" location="${basedir}/FlexUnit4AntTasks" />
@@ -86,7 +86,7 @@ to contribute to our CI process.
       <ant dir="${flexcoverlistener.loc}" target="clean" inheritall="false" />
 	  
       <delete failonerror="false">
-        <fileset dir="${basedir}">
+        <fileset dir="${basedir}/out">
 			<include name="*.zip" />
         </fileset>
 		<fileset dir="FlexUnit4Turnkey/export">
@@ -94,6 +94,8 @@ to contribute to our CI process.
 		</fileset>
       </delete>
    </target>
+	
+	<target name="main" depends="anttasks,core,fluint,cilistener,flexcoverlistener" />
    
     <target name="thirdparty-downloads">
 		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />	
@@ -180,17 +182,60 @@ to contribute to our CI process.
       </ant>
    </target>
 
-   <!-- Prepares and assembles the final zip artifact with all of the FlexUnit4 components and docs -->
-   <target name="package" depends="test,listeners">
-      <zip destfile="${basedir}/${finalName}.zip">
+	<target name="package" depends="package-src-zip,package-bin-zip,package-src-gzip,package-bin-gzip">
+		<mkdir dir="${basedir}/out"/>
+	</target>
+	
+   <!-- Prepares and assembles the final source zip with all of the FlexUnit4 components and docs -->
+   <target name="package-src-zip">
+      <zip destfile="${basedir}/out/${finalName}-src.zip">
+      	 <!-- Important Files -->
+      	 <zipfileset dir="${basedir}" includes="LICENSE,README,RELEASE_NOTES,build.xml,jenkins.xml,utils.xml,version.properties" />
+      	
+         <!-- Source -->
+         <zipfileset dir="${anttasks.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**,**/*.swf" prefix="FlexUnit4AntTasks" />
+         <zipfileset dir="${core.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**" prefix="FlexUnit4" />
+		 <zipfileset dir="${fluint.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4FluintExtensions" />
+         <zipfileset dir="${cilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4CIListener" />
+         <zipfileset dir="${uilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4UIListener" />
+         <zipfileset dir="${aircilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4AirCIListener" />
+         <zipfileset dir="${flexcoverlistener.loc}" excludes="**/target/**,**/libs/**,**/in/*" prefix="FlexUnit4FlexCoverListener" />
+         	
          <!-- Docs -->
-         <zipfileset dir="${anttasks.loc}/target/docs" prefix="flexunit/docs/anttasks" />
-         <zipfileset dir="${core.loc}/target/docs" prefix="flexunit/docs/flexunit" />
-		 <zipfileset dir="${fluint.loc}/target/docs" prefix="flexunit/docs/flexUnit4FluintExtensions" />
-         <zipfileset dir="${cilistener.loc}/target/docs" prefix="flexunit/docs/cilistener" />
-         <zipfileset dir="${uilistener.loc}/target/docs" prefix="flexunit/docs/uilistener" />
-         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="flexunit/docs/aircilistener" />
-         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="flexunit/docs/flexcoverlistener" />
+         <zipfileset dir="${anttasks.loc}/target/docs" prefix="${anttasks.loc}/target/docs" />
+         <zipfileset dir="${core.loc}/target/docs" prefix="${core.loc}/target/docs" />
+		 <zipfileset dir="${fluint.loc}/target/docs" prefix="${fluint.loc}/target/docs" />
+         <zipfileset dir="${cilistener.loc}/target/docs" prefix="${cilistener.loc}/target/doc" />
+         <zipfileset dir="${uilistener.loc}/target/docs" prefix="${uilistener.loc}/target/docs" />
+         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="${aircilistener.loc}/target/docs" />
+         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="${flexcoverlistener.loc}/target/docs" />
+      </zip>
+   </target>
+
+   <!-- Prepares and assembles the final source gzip with all of the FlexUnit4 components and docs -->
+   <target name="package-src-gzip" depends="package-src-zip">
+   	  <mkdir dir="${basedir}/out/temp"/>
+   	  <unzip src="${basedir}/out/${finalName}-src.zip" dest="${basedir}/out/temp" />
+      <tar compression="gzip" destfile="${basedir}/out/${finalName}-src.tar.gz">
+      	 <fileset dir="${basedir}/out/temp" />
+      </tar>
+   	  <delete dir="${basedir}/out/temp" />
+   </target>
+		
+   <!-- Prepares and assembles the final zip artifact with all of the FlexUnit4 components and docs -->
+   <target name="package-bin-zip" depends="test,listeners">
+      <zip destfile="${basedir}/out/${finalName}-bin.zip">
+     	 <!-- Important Files -->
+     	 <zipfileset dir="${basedir}" includes="LICENSE.bin,README,RELEASE_NOTES" />
+      	
+         <!-- Docs -->
+         <zipfileset dir="${anttasks.loc}/target/docs" prefix="docs/anttasks" />
+         <zipfileset dir="${core.loc}/target/docs" prefix="docs/flexunit" />
+		 <zipfileset dir="${fluint.loc}/target/docs" prefix="docs/flexUnit4FluintExtensions" />
+         <zipfileset dir="${cilistener.loc}/target/docs" prefix="docs/cilistener" />
+         <zipfileset dir="${uilistener.loc}/target/docs" prefix="docs/uilistener" />
+         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="docs/aircilistener" />
+         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="docs/flexcoverlistener" />
 
          <!-- Artifacts -->
          <zipfileset dir="${anttasks.loc}/target" prefix="flexunit">
@@ -216,49 +261,59 @@ to contribute to our CI process.
          </zipfileset>
          
          <!-- Turnkey -->
-         <zipfileset dir="${turnkey.loc}" prefix="flexunit/turnkey">
+         <zipfileset dir="${turnkey.loc}" prefix="turnkey">
          	<exclude name="**/export/**/*" />
          </zipfileset>
-         <zipfileset dir="${core.loc}/target" prefix="flexunit/turnkey/libs">
+         <zipfileset dir="${core.loc}/target" prefix="turnkey/libs">
             <include name="flexunit*flex*.swc" />
          </zipfileset>
-		<zipfileset dir="${core.loc}/libs" prefix="flexunit/turnkey/libs">
+		<zipfileset dir="${core.loc}/libs" prefix="turnkey/libs">
             <include name="*.swc" />
  			<exclude name="fluint-1_2.swc" />
          </zipfileset>
-		<zipfileset dir="${fluint.loc}/target" prefix="flexunit/turnkey/libs">
+		<zipfileset dir="${fluint.loc}/target" prefix="turnkey/libs">
             <include name="*.swc" />
          </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target" prefix="flexunit/turnkey/libs">
+         <zipfileset dir="${uilistener.loc}/target" prefix="turnkey/libs">
             <include name="*.swc" />
          </zipfileset>
          
          <!-- Sample CI project -->
-         <zipfileset dir="${sampleCI.loc}" prefix="flexunit/sampleCIProject">
+         <zipfileset dir="${sampleCI.loc}" prefix="sampleCIProject">
             <exclude name="**/libs/**/*" />
          </zipfileset>
-         <zipfileset dir="${anttasks.loc}/target" prefix="flexunit/sampleCIProject/libs">
+         <zipfileset dir="${anttasks.loc}/target" prefix="sampleCIProject/libs">
             <include name="*.jar" />
          </zipfileset>
-         <zipfileset dir="${core.loc}/target" prefix="flexunit/sampleCIProject/libs">
+         <zipfileset dir="${core.loc}/target" prefix="sampleCIProject/libs">
             <include name="flexunit*.swc" />
          </zipfileset>
-		 <zipfileset dir="${fluint.loc}/target" prefix="flexunit/sampleCIProject/libs">
+		 <zipfileset dir="${fluint.loc}/target" prefix="sampleCIProject/libs">
             <include name="fluint*.swc" />
          </zipfileset>
-		 <zipfileset dir="${fluint.loc}/libs" prefix="flexunit/sampleCIProject/libs">
+		 <zipfileset dir="${fluint.loc}/libs" prefix="sampleCIProject/libs">
             <include name="fluint*.swc" />
          </zipfileset>
-         <zipfileset dir="${cilistener.loc}/target" prefix="flexunit/sampleCIProject/libs">
+         <zipfileset dir="${cilistener.loc}/target" prefix="sampleCIProject/libs">
             <include name="*.swc" />
          </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target" prefix="flexunit/sampleCIProject/libs">
+         <zipfileset dir="${uilistener.loc}/target" prefix="sampleCIProject/libs">
             <include name="*.swc" />
          </zipfileset>
-         <zipfileset dir="${aircilistener.loc}/target" prefix="flexunit/sampleCIProject/libs">
+         <zipfileset dir="${aircilistener.loc}/target" prefix="sampleCIProject/libs">
             <include name="*.swc" />
          </zipfileset>
       </zip>
+   </target>
+	
+   <!-- Prepares and assembles the final gzip artifact with all of the FlexUnit4 components and docs -->
+   <target name="package-bin-gzip" depends="package-bin-zip,test,listeners">
+       <mkdir dir="${basedir}/out/temp"/>
+       <unzip src="${basedir}/out/${finalName}-bin.zip" dest="${basedir}/out/temp" />
+       <tar compression="gzip" destfile="${basedir}/out/${finalName}-bin.tar.gz">
+       	 <fileset dir="${basedir}/out/temp" />
+       </tar>
+       <delete dir="${basedir}/out/temp" />
    </target>
    
    <target name="sonatype" depends="thirdparty-downloads" description="Target used to generate bundles for deployment to Sonatype.">
