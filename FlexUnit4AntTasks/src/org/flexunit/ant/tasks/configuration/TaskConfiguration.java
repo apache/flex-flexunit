@@ -17,8 +17,8 @@
 package org.flexunit.ant.tasks.configuration;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,13 +58,22 @@ public class TaskConfiguration
    
    //Used to verify that a string is also a properly formatted URL
    //When determining if the passed 'swf' property value is remote or local this is crucial.
-   protected boolean isValidURI(String uriStr) {
+   protected boolean isValidURL(String urlStr ) {
 	    try {
-	      URI uri = new URI(uriStr);
-	      return true;
+	    	URL url = new URL( urlStr );
+	    	LoggingUtil.log("my protocol " + url.getProtocol().toString() );
+	    	if( url.getProtocol().toUpperCase().equals("HTTP") || url.getProtocol().toUpperCase().equals("HTTPS") ) {
+	    		LoggingUtil.log("Valid URL returning TRUE" );
+	    		return true;	    		
+	    	} else {
+	    		//no protocol so this isn't a URL at all, it might a local path or an invalid address
+	    		LoggingUtil.log("Valid URL returning FALSE" );
+	    		return false;
+	    	}
+	    	
 	    }
-	    catch (URISyntaxException e) {
-	        return false;
+	    catch( MalformedURLException e ) {
+	    	return false;
 	    }
 	}
    
@@ -154,13 +163,18 @@ public class TaskConfiguration
    public void setSwf(String swf)
    {
 	   //match the swf URL to see if it's a remote location, if so, set the url instead of swf.
-		if( isValidURI( swf ) ) {
-			testRunConfiguration.setUrl(swf);
-			LoggingUtil.log("Remote path to SWF was given, setting URL property instead of SWF");
-		} else {
-			testRunConfiguration.setSwf(project.resolveFile(swf));
-			LoggingUtil.log("Local path to SWF was given, SWF property as usual.");
-		} 
+	   
+	   File localFile = project.resolveFile(swf);
+	   
+	   if( localFile.exists() ) {
+		   testRunConfiguration.setSwf(localFile);
+		   LoggingUtil.log("Local path to SWF was given and SWF property will be used.");  
+	   } else if( isValidURL( swf ) ) {
+		   testRunConfiguration.setUrl(swf);
+		   LoggingUtil.log("Remote path to SWF was given, setting URL property instead of SWF");
+	   } else {
+		   LoggingUtil.log("SWF and URL not set, file did not resolve to a local path or a remote path, please verify your format and try again.");
+	   }
 	   
    }
    
@@ -221,14 +235,15 @@ public class TaskConfiguration
       
       //Check to make sure we have a valid swf, testsource or remote url before proceeding.
       //Otherwise, notify the user to fix this before continuing.
-      if ((swf == null || !swf.exists()) && noTestSources && (swfURL == "" || swfURL == null) )
+      if ((swf == null || !swf.exists()) && noTestSources && ( swfURL == null || swfURL.equals("") ) )
       {
          throw new BuildException("The provided 'swf' property value [" + (swf == null ? "" : swf.getPath()) + "] could not be found or is not a valid remote URL.");
       }
       
-      if( (swfURL != null && swfURL != "") && testRunConfiguration.isLocalTrusted() ) 
+      //Including a check for the swfURL
+      if( ( swf == null ) && (swfURL != null && swfURL != "") && testRunConfiguration.isLocalTrusted() ) 
       {
-    	  throw new BuildException("The provided 'swf' property value points to a remote location.  Please set localTrusted = false or change the location of your swf to a local path.");
+    	  throw new BuildException("The provided 'swf' property points to a remote location.  Please set localTrusted = false or change the location of your swf to a local path.");
       }
       
       if(swf != null && !noTestSources)
