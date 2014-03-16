@@ -34,7 +34,7 @@ then
 	exit 1
 fi
 
-FLEX_VERSION="$1"
+FLEX_VERSION="$2"
 CHECK=`echo "$FLEX_VERSION" | grep -q -E '[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}$'`
 
 if [ $? -ne 0 ]
@@ -54,9 +54,9 @@ fi
 
 # Assumes FLEXUNIT_DEV_AREA has been set up and point to SVN checked out dev area
 
-VERSION_DIR="${FLEXUNIT_DEV_AREA}/sdk/${FLEXUNIT_VERSION}"
-RC_DIR="${FLEXUNIT_DEV_AREA}/sdk/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}"
-BIN_DIR="${FLEXUNIT_DEV_AREA}/sdk/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}/binaries"
+VERSION_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}"
+RC_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}"
+BIN_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}/binaries"
 
 function checkFile() {
 	FILE="$1"
