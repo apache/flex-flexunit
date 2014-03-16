@@ -1,7 +1,7 @@
-Apache Flex (FlexUnit) 4.2
+Apache Flex FlexUnit 4.2
 =================
 
-Apache Flex (FlexUnit) 4.2 is an update to FlexUnit 4.1 and first release under Apache. 
+Apache Flex FlexUnit 4.2 is an update to FlexUnit 4.1 and first release under Apache. 
 
 Differences from FlexUnit 4.1 include:
 
@@ -27,5 +27,5 @@ Please report new issues to our bugbase at:
 
     https://issues.apache.org/jira/browse/FLEX
 
-                                          The Apache Flex Project
-                                          <http://flex.apache.org/>
+The Apache Flex Project
+<http://flex.apache.org/>
