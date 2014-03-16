@@ -1,7 +1,7 @@
-Apache Flex (FlexUnit)
+Apache Flex FlexUnit
 ==================
 
-Apache Flex (FlexUnit) is a unit testing framework for Apache Flex and ActionScript 3.0 
+Apache Flex FlexUnit is a unit testing framework for Apache Flex and ActionScript 3.0 
 applications and libraries. It mimics the functionality of JUnit, a Java 
 unit testing framework, and comes with a graphical test runner.
 
@@ -17,10 +17,10 @@ Getting the latest sources via git
 
     For further information visit http://flex.apache.org/download-source.html
 
-Building Apache Flex (FlexUnit)
+Building Apache Flex FlexUnit
 =========================
 
-    Apache Flex (FlexUnit) requires some build tools which must be installed
+    Apache Flex FlexUnit requires some build tools which must be installed
     prior to building FlexUnit and it depends on some external software which
     are downloaded as part of the build process.  Some of these have different licenses.
     See the Software Dependencies section for more information on the external software
@@ -70,8 +70,8 @@ Install Prerequisites
 Software Dependencies
 ---------------------
 
-    Apache Flex (FlexUnit) uses third-party code that will be downloaded as part of the Apache
-    Flex (FlexUnit) build.  
+    Apache Flex FlexUnit uses third-party code that will be downloaded as part of the Apache
+    Flex FlexUnit build.  
 
     When you have all the prerequisites in place and the environment variables set, 
     (see Install Prerequisites above), use
@@ -110,22 +110,24 @@ Software Dependencies
 		saxon9he - http://search.maven.org/remotecontent?filepath=net/sf/saxon/Saxon-HE/9.4/Saxon-HE-9.4.jar (License - MPL 1.1)
 
 
-Building Apache Flex (FlexUnit)
+Building Apache Flex FlexUnit
 -----------------------------------------------
 
     When you have all the prerequisites in place and the environment variables set, 
-    (see Install Prerequisites above), use
+    (see Install Prerequisites above), to build Apache Flex FlexUnit use:
 
         cd <flexunit.dir>
         ant
-    
-    build Apache Flex (FlexUnit).
-	¨
-	To clean the build use
+	
+	To clean the build use:
     
         ant clean 
+        
+ 	To package the build use:
+    
+        ant package        
 		
-Thanks for using Apache Flex (FlexUnit).  Enjoy!
+Thanks for using Apache Flex FlexUnit.  Enjoy!
 
-                                          The Apache Flex Project
-                                          <http://flex.apache.org>
+The Apache Flex Project
+<http://flex.apache.org>
