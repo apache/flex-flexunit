@@ -22,15 +22,15 @@
 
 if [ $# -ne 2 ]
 then
-    echo "Usage: deploy_release_candidate flex_version ([0-99].[0-99].[0-999]) release_candidate ([0-100])"
+    echo "Usage: deploy_release_candidate flexunit_version ([0-99].[0-99].[0-999]) release_candidate ([0-100])"
 fi
 
-FLEX_VERSION="$1"
-CHECK=`echo "$FLEX_VERSION" | grep -q -E '[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}$'`
+FLEXUNIT_VERSION="$1"
+CHECK=`echo "$FLEXUNIT_VERSION" | grep -q -E '[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}$'`
 
 if [ $? -ne 0 ]
 then
-	echo "Apache Flex version needs to be in the form [0-99].[0-99].[0-999]"
+	echo "Apache FlexUnit version needs to be in the form [0-99].[0-99].[0-999]"
 	exit 1;
 fi
 
@@ -39,16 +39,15 @@ CHECK=`echo "$RELEASE_CANDIDATE" | grep -q -E '[0-9]{1,2}'`
 
 if [ $? -ne 0 ]
 then
-	echo "Apache Flex release candidate to be in the range 1-99"
+	echo "Apache FlexUnit release candidate to be in the range 1-99"
 	exit 1;
 fi
 
-# Assumes FLEX_DEV_AREA has been set up and point to SVN checked out dev area
+# Assumes FLEXUNIT_DEV_AREA has been set up and point to SVN checked out dev area
 
-VERSION_DIR="${FLEX_DEV_AREA}/sdk/${FLEX_VERSION}"
-RC_DIR="${FLEX_DEV_AREA}/sdk/${FLEX_VERSION}/rc${RELEASE_CANDIDATE}"
-BIN_DIR="${FLEX_DEV_AREA}/sdk/${FLEX_VERSION}/rc${RELEASE_CANDIDATE}/binaries"
-DOC_DIR="${FLEX_DEV_AREA}/sdk/${FLEX_VERSION}/rc${RELEASE_CANDIDATE}/docs"
+VERSION_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}"
+RC_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}"
+BIN_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}/binaries"
 
 echo "RC directory is ${RC_DIR}"
 
@@ -67,17 +66,10 @@ then
 	mkdir "${BIN_DIR}"
 fi
 
-if [ ! -d "${DOC_DIR}" ]
-then
-	mkdir "${DOC_DIR}"
-fi
-
 cp README "${RC_DIR}"
 cp RELEASE_NOTES "${RC_DIR}"
 cp ./out/*-src.* "${RC_DIR}"
 cp ./out/*-bin.* "${BIN_DIR}"
-cp ./out/*-config.xml "${BIN_DIR}"
-cp ./out/*-asdocs.* "${DOC_DIR}"
 
 
 
