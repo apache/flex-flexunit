@@ -35,7 +35,7 @@ to contribute to our CI process.
    <property file="${basedir}/version.properties" />
 
    <!-- Configuration -->
-   <property name="finalName" value="flexunit-${build.version}-${build.sdk}" />
+   <property name="finalName" value="apache-flexunit-${build.version}-${build.sdk}" />
 
    <!-- Project locations -->
    <property name="anttasks.loc" location="${basedir}/FlexUnit4AntTasks" />
