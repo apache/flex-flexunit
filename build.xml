@@ -182,12 +182,14 @@ to contribute to our CI process.
       </ant>
    </target>
 
-	<target name="package" depends="package-src-zip,package-bin-zip,package-src-gzip,package-bin-gzip">
+	<target name="package" depends="rat-report,allpackages">
 		<mkdir dir="${basedir}/out"/>
 	</target>
 	
+	<target name="allpackages" depends="package-src-zip,package-bin-zip,package-src-gzip,package-bin-gzip" />
+	
    <!-- Prepares and assembles the final source zip with all of the FlexUnit4 components and docs -->
-   <target name="package-src-zip">
+   <target name="package-src-zip" depends="test,listeners">
       <zip destfile="${basedir}/out/${finalName}-src.zip">
       	 <!-- Important Files -->
       	 <zipfileset dir="${basedir}" includes="LICENSE,README,RELEASE_NOTES,build.xml,jenkins.xml,utils.xml,version.properties" />
