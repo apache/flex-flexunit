@@ -43,7 +43,7 @@ git push -u origin develop:release${FLEXUNIT_VERSION}
 cd ..
 mkdir "ApacheFlexUnit${FLEXUNIT_VERSION}"
 cd "ApacheFlexUnit${FLEXUNIT_VERSION}"
-git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git .
+git clone https://git-wip-us.apache.org/repos/asf/flex-flexunit .
 git checkout release${FLEXUNIT_VERSION}
 git tag -a apache-flexunit-${FLEXUNIT_VERSION}RC1 -m \'"Apache FlexUnit ${FLEXUNIT_VERSION} RC1"\'
 git push --tags
