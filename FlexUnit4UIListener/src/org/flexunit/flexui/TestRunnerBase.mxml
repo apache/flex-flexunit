@@ -540,12 +540,12 @@
          />
       
       <controls:Title
-         text="{ FlexUnitLabels.POWERED_BY_ADOBE_CONSULTING }"
+         text="{ FlexUnitLabels.POWERED_BY_APACHE_FLEX }"
          styleName="panelTitleSubStyle"
          useHandCursor="true"
          buttonMode="true"
          mouseChildren= "false"
-         click="navigateToURL( new URLRequest( 'http://www.adobe.com/consulting/' ) )"
+         click="navigateToURL( new URLRequest( 'http://flex.apache.org' ) )"
          />
       
    </mx:HBox>
@@ -572,5 +572,5 @@
          />
    
    </mx:HDividedBox>
-
+			  
 </mx:Panel>

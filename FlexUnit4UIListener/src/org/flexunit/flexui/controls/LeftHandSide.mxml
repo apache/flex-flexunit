@@ -107,4 +107,6 @@
       label="Tree"
      />
 
+	<mx:Label text="{ FlexUnitLabels.TRADEMARKS }" fontSize="9" />
+
 </mx:VBox>

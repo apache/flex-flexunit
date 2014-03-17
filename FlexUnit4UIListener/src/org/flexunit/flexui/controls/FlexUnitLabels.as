@@ -24,10 +24,11 @@ package org.flexunit.flexui.controls
       public static const FLEXUNIT_RUNNER : String = "FlexUnit Runner";
 	  public static const FLEXUNIT : String = "FlexUnit";
 	  public static const RUNNER : String = "Runner";
-      public static const POWERED_BY_ADOBE_CONSULTING : String = "powered by Adobe Consulting";
+      public static const POWERED_BY_APACHE_FLEX : String = "powered by Apache Flex®";
       public static const TEST_CASES : String = "TEST CASES";
       public static const TEST_SUITE : String = "TEST SUITE";
       public static const RESULT_DETAILS : String = "RESULT DETAILS";
+	  public static const TRADEMARKS : String = "Copyright © 2014 The Apache Software Foundation, Licensed under the Apache License, Version 2.0 Apache Flex, Apache and the Apache feather logo are trademarks of The Apache Software Foundation.";
       
       /* FILTERS */
       public static const ALL : String = "All results";
