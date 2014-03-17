@@ -192,7 +192,7 @@ to contribute to our CI process.
    <target name="package-src-zip" depends="test,listeners">
       <zip destfile="${basedir}/out/${finalName}-src.zip">
       	 <!-- Important Files -->
-      	 <zipfileset dir="${basedir}" includes="LICENSE,README,RELEASE_NOTES,build.xml,jenkins.xml,utils.xml,version.properties" />
+      	 <zipfileset dir="${basedir}" includes="LICENSE,NOTICE,README,RELEASE_NOTES,build.xml,jenkins.xml,utils.xml,version.properties" />
       	
          <!-- Source -->
          <zipfileset dir="${anttasks.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**,**/*.swf" prefix="FlexUnit4AntTasks" />
@@ -228,7 +228,7 @@ to contribute to our CI process.
    <target name="package-bin-zip" depends="test,listeners">
       <zip destfile="${basedir}/out/${finalName}-bin.zip">
      	 <!-- Important Files -->
-     	 <zipfileset dir="${basedir}" includes="LICENSE.bin,README,RELEASE_NOTES" />
+     	 <zipfileset dir="${basedir}" includes="LICENSE.bin,NOTICE.bin,README,RELEASE_NOTES" />
       	
          <!-- Docs -->
          <zipfileset dir="${anttasks.loc}/target/docs" prefix="docs/anttasks" />
