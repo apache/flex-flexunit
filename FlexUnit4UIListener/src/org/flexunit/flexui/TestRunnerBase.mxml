@@ -36,23 +36,6 @@
       [Event( name="testsComplete", type="org.flexunit.flexui.event.TestsCompleteEvent")]
    </mx:Metadata>
 	<mx:Style>
-		@font-face {
-			font-family: "Myriad Pro SemiCond";
-			src: url("/fonts/fonts.swf");
-		}
-		
-		/* Font for anything else */
-		@font-face {
-			font-family: "Myriad Pro";
-			src: url("/fonts/fonts.swf");
-		}
-		
-		@font-face {
-			font-family: "Myriad Pro";
-			font-weight: bold;
-			src: url("/fonts/fonts.swf");
-		}
-		
 		/* Class-selectors are the only way to apply styles to components */
 		.flexUnitApplication {
 			backgroundColor: #3872b2;
@@ -60,7 +43,6 @@
 			backgroundGradientAlphas: 1, 1;
 			themeColor: #ffffff;
 			color: #444444;
-			fontFamily: "Myriad Pro";
 			fontSize: 12;
 			verticalScrollBarStyleName: flexUnitScrollBar;
 			horizontalScrollBarStyleName: flexUnitScrollBar;
@@ -69,7 +51,6 @@
 		}
 		
 		.myToolTip {
-			fontFamily: "Myriad Pro";
 			background-color: #3872b2;
 			leading: 5;
 		}
@@ -172,13 +153,11 @@
 		}
 		
 		.panelTitleStyle {
-			fontFamily: "Myriad Pro SemiCond";
 			fontSize: 24;
 			textIndent: 20;
 		}
 		
 		.panelTitleSubStyle {
-			fontFamily: "Myriad Pro SemiCond";
 			fontSize: 16;
 		}
 		
@@ -189,7 +168,6 @@
 		}
 		
 		.h1 {
-			fontFamily: "Myriad Pro SemiCond";
 			fontSize: 18;
 		}
 		
