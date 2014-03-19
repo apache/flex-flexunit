@@ -204,13 +204,15 @@ to contribute to our CI process.
          <zipfileset dir="${flexcoverlistener.loc}" excludes="**/target/**,**/libs/**,**/in/*" prefix="FlexUnit4FlexCoverListener" />
          	
          <!-- Docs -->
-         <zipfileset dir="${anttasks.loc}/target/docs" prefix="${anttasks.loc}/target/docs" />
-         <zipfileset dir="${core.loc}/target/docs" prefix="${core.loc}/target/docs" />
-		 <zipfileset dir="${fluint.loc}/target/docs" prefix="${fluint.loc}/target/docs" />
-         <zipfileset dir="${cilistener.loc}/target/docs" prefix="${cilistener.loc}/target/doc" />
-         <zipfileset dir="${uilistener.loc}/target/docs" prefix="${uilistener.loc}/target/docs" />
-         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="${aircilistener.loc}/target/docs" />
-         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="${flexcoverlistener.loc}/target/docs" />
+         <zipfileset dir="${core.loc}/target/docs" prefix="FlexUnit4/target/docs" />
+      	 <!--
+         <zipfileset dir="${anttasks.loc}/target/docs" prefix="FlexUnit4AntTasks/target/docs" />
+		 <zipfileset dir="${fluint.loc}/target/docs" prefix="FlexUnit4FluintExtensions/target/docs" />
+         <zipfileset dir="${cilistener.loc}/target/docs" prefix="FlexUnit4CIListener/target/doc" />
+         <zipfileset dir="${uilistener.loc}/target/docs" prefix="FlexUnit4UIListener/target/docs" />
+         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="FlexUnit4AirCIListener/target/docs" />
+         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="FlexUnit4FlexCoverListener}/target/docs" />
+         -->
       </zip>
    </target>
 
@@ -231,13 +233,15 @@ to contribute to our CI process.
      	 <zipfileset dir="${basedir}" includes="LICENSE.bin,NOTICE.bin,README,RELEASE_NOTES" />
       	
          <!-- Docs -->
+      	 <zipfileset dir="${core.loc}/target/docs" prefix="docs/flexunit" />
+      	 <!--
          <zipfileset dir="${anttasks.loc}/target/docs" prefix="docs/anttasks" />
-         <zipfileset dir="${core.loc}/target/docs" prefix="docs/flexunit" />
 		 <zipfileset dir="${fluint.loc}/target/docs" prefix="docs/flexUnit4FluintExtensions" />
          <zipfileset dir="${cilistener.loc}/target/docs" prefix="docs/cilistener" />
          <zipfileset dir="${uilistener.loc}/target/docs" prefix="docs/uilistener" />
          <zipfileset dir="${aircilistener.loc}/target/docs" prefix="docs/aircilistener" />
          <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="docs/flexcoverlistener" />
+         -->
 
          <!-- Artifacts -->
          <zipfileset dir="${anttasks.loc}/target" prefix="flexunit">
@@ -404,8 +408,11 @@ to contribute to our CI process.
                 <exclude name="**/.settings/**"/>
                 <exclude name="**/.idea/**"/>
                 <exclude name="**/*.iml"/>
-				<!-- -->
-                <exclude name="**/LICENSE*"/>
+				<!-- NOTICE and LICENSE files -->
+            	<exclude name="**/*LICENSE*"/>
+            	<exclude name="**/*NOTICE*"/>
+            	<!-- Java docs and AS docs -->
+            	<exclude name="**/target/docs/**"/>
                 <!--          End of source files           -->
                 <!--          Start of binary files           -->
                 <!-- exclude media (png, ico) -->
