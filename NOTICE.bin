@@ -4,6 +4,9 @@ Copyright 2014 The Apache Software Foundation
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
 
+FlexUnit4AntTasks/lib/jaxen-1.1-beta-6.jar
+Copyright 2001-2005 (C) MetaStuff, Ltd. All Rights Reserved.
+
 FlexUnit4AntTasks/lib/dom4j-1.6.1.jar
 Copyright 2001-2005 (c) MetaStuff, Ltd. All Rights Reserved.
 
@@ -35,5 +38,3 @@ Copyright (c) 2010, Drew Bourne.
 
 FlexUnit4Test/libs/builds/saxon9he.jar
 Copyright (c) 2004-2010, Saxonica Limited. All rights reserved.
-
-
