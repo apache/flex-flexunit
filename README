@@ -60,10 +60,25 @@ Install Prerequisites
          On Linux make sure you path include ANT_HOME and JAVA_HOME.
 
     *2)  If you are using Java SDK 1.7 or greater on a Mac you must use Ant 1.8 or 
-         greater. If you use Java 1.7 with Ant 1.7, ant reports the java version as 1.6 
+         greater.
+         
+         If you use Java 1.7 with Ant 1.7, ant reports the java version as 1.6 
          so the JVM args for the data model (-d32/-d64) will not be set correctly and
          you will get compile errors.
-        
+         
+         Also if you use Java SDK 1.7 you may encounter SSL errors when downloading
+         3rd party files as part of the build process to fix this issue
+         
+         On Windows:
+         
+            create an environment variable called ANT_OPTS with the value
+            -Djsse.enableSNIExtension=false
+            
+         On the Mac (bash):
+         
+             export ANT_OPTS="-Djsse.enableSNIExtension=false"
+         
+   
     *3) FLEX_HOME should be set to a valid Apache Flex installation.
 	
 	
@@ -125,8 +140,14 @@ Building Apache Flex FlexUnit
         
  	To package the build use:
     
-        ant package        
-		
+        ant package   
+        
+For information on setting up FlexUnit, creating tests, using FlexUnit with
+ant or continuous integration please see the FlexUnit section of the Apache
+Flex wiki.
+
+https://cwiki.apache.org/confluence/display/FLEX/FlexUnit
+     
 Thanks for using Apache Flex FlexUnit.  Enjoy!
 
 The Apache Flex Project
