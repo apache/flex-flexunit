@@ -95,7 +95,7 @@ to contribute to our CI process.
       </delete>
    </target>
 	
-	<target name="main" depends="anttasks,core,fluint,cilistener,flexcoverlistener" />
+	<target name="main" depends="anttasks,core,fluint,cilistener,flexcoverlistener,listeners" />
    
     <target name="thirdparty-downloads">
 		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />	
