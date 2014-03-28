@@ -89,6 +89,15 @@ to contribute to our CI process.
         <fileset dir="${basedir}/out">
 			<include name="*.zip" />
         </fileset>
+        <fileset dir="${basedir}/out">
+			<include name="*.tar.gz" />
+        </fileset>
+        <fileset dir="${basedir}/out">
+			<include name="*.md5" />
+        </fileset>
+        <fileset dir="${basedir}/out">
+			<include name="*.asc" />
+        </fileset>
 		<fileset dir="FlexUnit4Turnkey/export">
 			<include name="*.zip" />
 		</fileset>
@@ -408,6 +417,10 @@ to contribute to our CI process.
                 <exclude name="**/.settings/**"/>
                 <exclude name="**/.idea/**"/>
                 <exclude name="**/*.iml"/>
+            	<exclude name="**/flexUnit1/**/*.as" />
+            	<exclude name="**/FlexUnit4UIListener/**/*.as" />
+                <exclude name="**/FlexUnit4UIListener/**/*.mxml" />
+            	
 				<!-- NOTICE and LICENSE files -->
             	<exclude name="**/*LICENSE*"/>
             	<exclude name="**/*NOTICE*"/>
