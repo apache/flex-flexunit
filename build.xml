@@ -418,8 +418,11 @@ to contribute to our CI process.
                 <exclude name="**/.idea/**"/>
                 <exclude name="**/*.iml"/>
             	<exclude name="**/flexUnit1/**/*.as" />
+		<!--- BSD/MIT licences -->
             	<exclude name="**/FlexUnit4UIListener/**/*.as" />
                 <exclude name="**/FlexUnit4UIListener/**/*.mxml" />
+                <exclude name="**/FlexUnit4CIListener/**/TestCaseReport.as" />
+                <exclude name="**/FlexUnit4CIListener/**/TestSuiteReport.as" />
             	
 				<!-- NOTICE and LICENSE files -->
             	<exclude name="**/*LICENSE*"/>
