@@ -161,6 +161,22 @@
       </java>
    </target>
    
+   <target name="asdocs" description="AS docs">
+      <!-- Pull in class file list to use with asdoc -->
+      <property file="${bin.loc}/flexLib.properties" />
+
+      <!-- Generate asdocs -->
+      <java jar="${FLEX_HOME}/lib/asdoc.jar" fork="true" failonerror="true">
+         <jvmarg value="-Xmx256M" />
+         <arg line="+flexlib '${FLEX_HOME}/frameworks'" />
+         <arg line="-doc-classes ${src.class-list}" />
+         <arg line="-source-path+='${src.loc}'" />
+         <arg line="-output '${doc.loc}'" />
+         <arg line="-library-path+='${lib.loc}'" />
+         <arg line="-define=CONFIG::useFlexClasses,true" />
+      </java>
+   </target>
+	
    <target name="pmdReport" if="build.pmd">
       <taskdef name="pmd" classname="com.adobe.ac.pmd.ant.FlexPmdAntTask" />
       <taskdef name="cpd" classname="com.adobe.ac.cpd.ant.FlexCpdAntTask" />
@@ -179,7 +195,7 @@
       <metrics sourcedirectory="${src.loc}" outputfile="${report.loc}/javancss.xml" />
    </target>
 
-   <target name="package" depends="package-default,package-instrument,report" />
+   <target name="package" depends="package-default,package-instrument,asdocs" />
 
    <target name="package-default" depends="compile">
       <copy file="${bin.loc}/${build.finalName.as3}.${build.packaging}" todir="${dist.loc}" />
