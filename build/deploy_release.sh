@@ -45,13 +45,12 @@ fi
 # Assumes FLEXUNIT_DEV_AREA has been set up and point to SVN dev area
 # Assumes FLEXUNIT_REL_AREA has been set up and point to SVN release area
 
-RC_DIR="${FLEXUNIT_DEV_AREA}/sdk/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}"
-RC_BIN_DIR="${FLEXUNIT_DEV_AREA}/sdk/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}/binaries"
+RC_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}"
+RC_BIN_DIR="${FLEXUNIT_DEV_AREA}/flexunit/${FLEXUNIT_VERSION}/rc${RELEASE_CANDIDATE}/binaries"
 
-REL_VERSION_DIR="${FLEXUNIT_REL_AREA}/${FLEXUNIT_VERSION}"
-REL_DIR="${FLEXUNIT_REL_AREA}/${FLEXUNIT_VERSION}"
-REL_BIN_DIR="${FLEXUNIT_REL_AREA}/${FLEXUNIT_VERSION}/binaries"
-REL_DOC_DIR="${FLEXUNIT_REL_AREA}/${FLEXUNIT_VERSION}/docs"
+REL_VERSION_DIR="${FLEXUNIT_REL_AREA}/flexunit/${FLEXUNIT_VERSION}"
+REL_DIR="${FLEXUNIT_REL_AREA}/flexunit/${FLEXUNIT_VERSION}"
+REL_BIN_DIR="${FLEXUNIT_REL_AREA}/flexunit/${FLEXUNIT_VERSION}/binaries"
 
 echo "RC directory is ${RC_DIR}"
 echo "Release directory is ${REL_DIR}"
@@ -64,11 +63,6 @@ fi
 if [ ! -d "${REL_BIN_DIR}" ]
 then
 	mkdir "${REL_BIN_DIR}"
-fi
-
-if [ ! -d "${REL_DOC_DIR}" ]
-then
-	mkdir "${REL_DOC_DIR}"
 fi
 
 cp "${RC_DIR}"/README "${REL_DIR}"
