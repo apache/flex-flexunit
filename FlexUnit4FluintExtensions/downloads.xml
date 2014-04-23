@@ -109,7 +109,7 @@
     <target name="fluint-download-swc" depends="fluint-swc-check" unless="fluint.swc.exists"
             description="Downloads the fluint swc.">
         <antcall target="download-swc">
-            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
+            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs"/>
             <param name="srcSwcFile" value="fluint-1_2.swc"/>
             <param name="destSwcFile" value="${lib.dir}/fluint-1_2.swc"/>
         </antcall>
