@@ -72,6 +72,7 @@
 
    <target name="compile" depends="init">
       <compc output="${bin.loc}/${build.finalName}.${build.packaging}">
+         <load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
          <include-sources dir="${src.loc}" includes="*" append="true" />
          <source-path path-element="${src.loc}" />
          <compiler.external-library-path dir="${lib.loc}" append="true">
