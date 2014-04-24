@@ -179,7 +179,7 @@
     <target name="flexunit1lib-download-swc" depends="flexunit1lib-swc-check" unless="flexunit1lib.swc.exists"
             description="Downloads the flexunit1lib swc.">
         <antcall target="download-swc">
-            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
+            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs"/>
             <param name="srcSwcFile" value="FlexUnit1Lib.swc"/>
             <param name="destSwcFile" value="${lib.dir}/FlexUnit1Lib.swc"/>
         </antcall>
