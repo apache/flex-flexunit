@@ -291,7 +291,7 @@
 	        description="Downloads and copies mock-as to the lib directory.">
 	        <echo message="Obtaining lib/mock-as3.swc"/>
 			<antcall target="download-swc">
-	            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/"/>
+	            <param name="srcUrl" value="https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs"/>
 	            <param name="srcSwcFile" value="mock-as3.swc"/>
 	            <param name="destSwcFile" value="${lib.dir}/mock-as3.swc"/>
 	        </antcall>
@@ -341,7 +341,7 @@
 	        <echo message="Obtaining lib/build/saxon9he.jar"/>
 			<antcall target="echo-mpl1.1-license"/>			
 			<antcall target="download-swc">
-	            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=net/sf/saxon/Saxon-HE/9.4/"/>
+	            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=net/sf/saxon/Saxon-HE/9.4"/>
 	            <param name="srcSwcFile" value="Saxon-HE-9.4.jar"/>
 	            <param name="destSwcFile" value="${lib.dir}/build/saxon9he.jar"/>
 	        </antcall>
