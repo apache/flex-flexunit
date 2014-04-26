@@ -331,7 +331,7 @@ to contribute to our CI process.
        <delete dir="${basedir}/out/temp" />
    </target>
    
-   <target name="sonatype" depends="thirdparty-downloads" description="Target used to generate bundles for deployment to Sonatype.">
+   <target name="apache-maven" depends="thirdparty-downloads" description="Target used to generate bundles for deployment to Apaches Maven Repository.">
       <ant dir="${anttasks.loc}" target="deploy" inheritall="false">
          <propertyset>
             <propertyref prefix="build" />
@@ -368,24 +368,24 @@ to contribute to our CI process.
          </propertyset>
       </ant>
       
-      <zip destfile="${basedir}/sonatype-${finalName}.zip">
-         <zipfileset dir="${anttasks.loc}/target/sonatype">
-            <include name="sonatype-*.zip" />
+      <zip destfile="${basedir}/apache-maven-${finalName}.zip">
+         <zipfileset dir="${anttasks.loc}/target/apache-maven">
+            <include name="apache-maven-*.zip" />
          </zipfileset>
-         <zipfileset dir="${core.loc}/target/sonatype">
-            <include name="sonatype-*.zip" />
+         <zipfileset dir="${core.loc}/target/apache-maven">
+            <include name="apache-maven-*.zip" />
          </zipfileset>
-         <zipfileset dir="${cilistener.loc}/target/sonatype">
-            <include name="sonatype-*.zip" />
+         <zipfileset dir="${cilistener.loc}/target/apache-maven">
+            <include name="apache-maven-*.zip" />
          </zipfileset>
-         <zipfileset dir="${flexcoverlistener.loc}/target/sonatype">
-            <include name="sonatype-*.zip" />
+         <zipfileset dir="${flexcoverlistener.loc}/target/apache-maven">
+            <include name="apache-maven-*.zip" />
          </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target/sonatype">
-            <include name="sonatype-*.zip" />
+         <zipfileset dir="${uilistener.loc}/target/apache-maven">
+            <include name="apache-maven-*.zip" />
          </zipfileset>
-         <zipfileset dir="${aircilistener.loc}/target/sonatype">
-            <include name="sonatype-*.zip" />
+         <zipfileset dir="${aircilistener.loc}/target/apache-maven">
+            <include name="apache-maven-*.zip" />
          </zipfileset>
       </zip>
 

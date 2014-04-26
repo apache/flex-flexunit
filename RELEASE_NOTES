@@ -7,6 +7,7 @@ Differences from FlexUnit 4.2.0 include:
 
 Changes
 --------
+- Updated the maven example to using apache flex 4.12 and flexmojos 7.0.0
 
 Bug Fixes
 ----------

@@ -26,10 +26,12 @@
              classpath="lib/ant-contrib-0.6.jar"/>
 
     <!-- defined maven snapshots and staging repository id and url -->
-    <property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
-    <property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
+    <property name="maven-staging-repository-id" value="apache.releases.https" />
+    <property name="maven-staging-repository-url"
+              value="https://repository.apache.org/service/local/staging/deploy/maven2" />
+    <property name="maven-pgp-passphrase" value=""/>
 
-    <macrodef name="sonatype-deploy">
+    <macrodef name="apache-deploy">
         <attribute name="binaryFile"/>
         <attribute name="sourcesFile" default=""/>
         <attribute name="docFile" default=""/>
@@ -68,6 +70,7 @@
                 <artifact:arg value="-DrepositoryId=${maven-staging-repository-id}"/>
                 <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
                 <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}.@{type}"/>
+                <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
                 <artifact:arg value="-Pgpg"/>
             </artifact:mvn>
 
@@ -82,6 +85,7 @@
                         <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
                         <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}-sources.@{type}"/>
                         <artifact:arg value="-Dclassifier=sources"/>
+                        <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
                         <artifact:arg value="-Pgpg"/>
                     </artifact:mvn>
 
@@ -93,6 +97,7 @@
                         <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
                         <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}-javadoc.@{type}"/>
                         <artifact:arg value="-Dclassifier=javadoc"/>
+                        <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
                         <artifact:arg value="-Pgpg"/>
                     </artifact:mvn>
                 </then>

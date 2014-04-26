@@ -16,9 +16,9 @@
   limitations under the License.
 -->
 <!-- 
-   Please note that this build file is an example of how to implement FlexMojos to execute all tests for a project following
-   Maven conventions.  This is just one possible way to utilize FlexMojos and Maven.  Please note, this build will fail
-   due to the sample test failures in this project.
+   Please note that this build file is an example of how to implement FlexMojos to execute all tests for a project
+   following Maven conventions. This is just one possible way to utilize FlexMojos and Maven. Please note, this build
+   will fail due to the sample test failures in this project.
    
    Please note to use the unit testing support baked into FlexMojos in this example, the Flash Player executable must be 
    available on the PATH available to Maven.
@@ -29,15 +29,15 @@
 
    <modelVersion>4.0.0</modelVersion>
 
-   <groupId>org.flexunit</groupId>
+   <groupId>org.apache.flex.flexunit</groupId>
    <artifactId>demo</artifactId>
    <version>1.0.0</version>
    <packaging>swf</packaging>
    <name>FlexUnit4 Demo</name>
 
    <properties>
-      <flex.sdk.version>3.5.0.12683</flex.sdk.version>
-      <flexmojos.version>3.6.1</flexmojos.version>
+      <flex.sdk.version>4.12.0.20140303</flex.sdk.version>
+      <flexmojos.version>7.1.0-SNAPSHOT</flexmojos.version>
    </properties>
 
    <build>
@@ -45,7 +45,7 @@
       <testSourceDirectory>src/test/flex</testSourceDirectory>
       <plugins>
          <plugin>
-            <groupId>org.sonatype.flexmojos</groupId>
+            <groupId>net.flexmojos.oss</groupId>
             <artifactId>flexmojos-maven-plugin</artifactId>
             <version>${flexmojos.version}</version>
             <extensions>true</extensions>
@@ -57,9 +57,12 @@
                </includeTestFiles>
             </configuration>
             <dependencies>
-               <!-- Nice POM bundle available per SDK on Sonatype thanks to Flex-Mojos -->
+               <!--
+                    These bundles currently have to be created by a tool called
+                    the Mavenizer, which is part of the flex-utilities
+               -->
                <dependency>
-                  <groupId>com.adobe.flex</groupId>
+                  <groupId>org.apache.flex</groupId>
                   <artifactId>compiler</artifactId>
                   <version>${flex.sdk.version}</version>
                   <type>pom</type>
@@ -70,47 +73,24 @@
    </build>
 
    <dependencies>
-      <!-- Nice POM bundle available per SDK on Sonatype thanks to Flex-Mojos -->
+       <!--
+            These bundles currently have to be created by a tool called
+            the Mavenizer, which is part of the flex-utilities
+       -->
       <dependency>
-         <groupId>com.adobe.flex.framework</groupId>
+         <groupId>org.apache.flex.framework</groupId>
          <artifactId>flex-framework</artifactId>
          <version>${flex.sdk.version}</version>
          <type>pom</type>
       </dependency>
+
       <!-- Based on testing library dependency specified, FlexMojos will know how to test your application -->
       <dependency>
-         <groupId>com.adobe.flexunit</groupId>
-         <artifactId>flexunit</artifactId>
-         <version>4.0-rc-1</version>
-         <type>swc</type>
-         <scope>test</scope>
+          <groupId>org.apache.flex.flexunit</groupId>
+          <artifactId>flexunit-flex</artifactId>
+          <version>4.3.0</version>
+          <type>swc</type>
       </dependency>
    </dependencies>
 
-   <!-- Ideally this would go into your ~/.m2/settings.xml file -->
-   <repositories>
-      <repository>
-         <id>flex-mojos-repository</id>
-         <url>http://repository.sonatype.org/content/groups/flexgroup</url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </repository>
-   </repositories>
-   <pluginRepositories>
-      <pluginRepository>
-         <id>flex-mojos-plugin-repository</id>
-         <url>http://repository.sonatype.org/content/groups/flexgroup</url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </pluginRepository>
-   </pluginRepositories>
-   
 </project>

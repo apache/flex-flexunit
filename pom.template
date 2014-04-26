@@ -17,14 +17,27 @@
 -->
 <project>
    <modelVersion>4.2.0</modelVersion>
+
+   <parent>
+      <groupId>org.apache</groupId>
+      <artifactId>apache</artifactId>
+      <version>14</version>
+   </parent>
+
    <groupId>org.apache.flex.flexunit</groupId>
    <artifactId>@ARTIFACT@</artifactId>
-   <packaging>@TYPE@</packaging>
-   <name>@NAME@</name>
    <version>@VERSION@</version>
+   <packaging>@TYPE@</packaging>
+
+   <name>@NAME@</name>
    <description>@DESCRIPTION@</description>
    <url>http://flex.apache.org/flexunit/tutorial</url>
-   
+
+   <organization>
+      <name>The Apache Software Foundation</name>
+      <url>http://www.apache.org/</url>
+   </organization>
+
    <licenses>
       <license>
          <name>Apache 2.0 License</name>
@@ -33,24 +46,58 @@
       </license>
    </licenses>
    
-   <developers>
-      <developer>
-         <id>apacheflex</id>
-         <name>Apache Flex</name>
-         <email>dev@flex.apache.org</email>
-         <url>http:/flex.apache.org/</url>
-         <organization>The Apache Software Foundation</organization>
-         <organizationUrl>http://www.apache.org</organizationUrl>
-         <roles>
-            <role>developer</role>
-         </roles>
-         <timezone>0</timezone>
-      </developer>
-   </developers>
-   
    <scm>
-      <connection>scm:git:git@github.com:/apache/flex-flexunit.git</connection>
-      <developerConnection>scm:git:git@github.com:/apache/flex-flexunit.git</developerConnection>
-      <url>git@github.com:/apache/flex-flexunit.git</url>
+      <connection>scm:git:https://git-wip-us.apache.org/repos/asf/flex-flexunit.git</connection>
+      <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/flex-flexunit.git</developerConnection>
+      <url>https://git-wip-us.apache.org/repos/asf/flex-flexunit.git</url>
    </scm>
+
+   <issueManagement>
+      <system>jira</system>
+      <url>https://issues.apache.org/jira/browse/FLEX</url>
+   </issueManagement>
+
+   <repositories>
+      <repository>
+         <id>apache.releases</id>
+         <name>Apache Release Repository</name>
+         <url>https://repository.apache.org/content/repositories/releases</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </repository>
+      <repository>
+         <id>apache.snapshots</id>
+         <name>Apache Snapshot Repository</name>
+         <url>https://repository.apache.org/content/repositories/snapshots</url>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+   </repositories>
+
+   <mailingLists>
+      <mailingList>
+         <name>Apache Flex Developer List</name>
+         <subscribe>dev-subscribe@flex.apache.org</subscribe>
+         <unsubscribe>dev-unsubscribe@flex.apache.org</unsubscribe>
+         <post>dev@flex.apache.org</post>
+         <archive>http://mail-archives.apache.org/mod_mbox/flex-users/</archive>
+      </mailingList>
+      <mailingList>
+         <name>Apache Flex User List</name>
+         <subscribe>users-subscribe@flex.apache.org</subscribe>
+         <unsubscribe>users-unsubscribe@flex.apache.org</unsubscribe>
+         <post>users@flex.apache.org</post>
+         <archive>http://mail-archives.apache.org/mod_mbox/flex-dev/</archive>
+      </mailingList>
+   </mailingLists>
+
 </project>

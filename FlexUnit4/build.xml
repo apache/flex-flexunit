@@ -35,7 +35,7 @@
 
    <!-- Generated -->
    <property name="dist.loc" location="${basedir}/target" />
-   <property name="sonatype.loc" location="${dist.loc}/sonatype" />
+   <property name="apache-maven.loc" location="${dist.loc}/apache-maven" />
    <property name="bin.loc" location="${basedir}/target/bin" />
    <property name="report.loc" location="${basedir}/target/report" />
    <property name="doc.loc" location="${basedir}/target/docs" />
@@ -89,7 +89,7 @@
    <target name="init">
       <!-- Create paths -->
       <mkdir dir="${dist.loc}" />
-      <mkdir dir="${sonatype.loc}" />
+      <mkdir dir="${apache-maven.loc}" />
       <mkdir dir="${bin.loc}" />
       <mkdir dir="${report.loc}" />
       <mkdir dir="${doc.loc}" />
@@ -208,28 +208,28 @@
    </target>
    
    <target name="deploy" depends="package" description="Requires Ant-Contrib and GPG to work.">
-      <!-- deploy flex swc to sonatype -->
-      <sonatype-deploy
+      <!-- deploy flex swc to apache-maven -->
+      <apache-deploy
            binaryFile="${bin.loc}/${build.finalName.flex}.${build.packaging}"
-           todir="${sonatype.loc}/flex"
+           todir="${apache-maven.loc}/flex"
            pomTemplate="${basedir}/../pom.template"
            artifact="${build.artifactId}-flex"
            type="${build.packaging}"
            name="${build.deploy.name}"
            version="${build.version}"
            description="${build.deploy.description}">
-      </sonatype-deploy>
+      </apache-deploy>
 
-       <!-- deploy as3 swc to sonatype -->
-       <sonatype-deploy
+       <!-- deploy as3 swc to apache-maven -->
+       <apache-deploy
            binaryFile="${bin.loc}/${build.finalName.as3}.${build.packaging}"
-           todir="${sonatype.loc}/as3"
+           todir="${apache-maven.loc}/as3"
            pomTemplate="${basedir}/../pom.template"
            artifact="${build.artifactId}-as3"
            type="${build.packaging}"
            name="${build.deploy.name}"
            version="${build.version}"
            description="${build.deploy.description}">
-       </sonatype-deploy>
+       </apache-deploy>
    </target>
 </project>

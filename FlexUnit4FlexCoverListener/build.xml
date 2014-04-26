@@ -32,7 +32,7 @@
 
 	<!-- Generated -->
 	<property name="dist.loc" location="${basedir}/target" />
-	<property name="sonatype.loc" location="${dist.loc}/sonatype" />
+	<property name="apache-maven.loc" location="${dist.loc}/apache-maven" />
 	<property name="bin.loc" location="${basedir}/target/bin" />
 	<property name="doc.loc" location="${basedir}/target/docs" />
 
@@ -56,7 +56,7 @@
 
 	<target name="init">
 		<mkdir dir="${dist.loc}" />
-		<mkdir dir="${sonatype.loc}" />
+		<mkdir dir="${apache-maven.loc}" />
 		<mkdir dir="${bin.loc}" />
 		<mkdir dir="${doc.loc}" />
 
@@ -113,16 +113,16 @@
 	</target>
 
 	<target name="deploy" depends="package" description="Requires Ant-Contrib and GPG to work.">
-      <!-- deploy to sonatype repo -->
-      <sonatype-deploy
+      <!-- deploy to apache-maven repo -->
+      <apache-deploy
          binaryFile="${bin.loc}/${build.finalName}.${build.packaging}"
-         todir="${sonatype.loc}" 
+         todir="${apache-maven.loc}"
          pomTemplate="${basedir}/../pom.template" 
          artifact="${build.artifactId}" 
          type="${build.packaging}" 
          name="${build.deploy.name}" 
          version="${build.version}" 
          description="${build.deploy.description}">
-	  </sonatype-deploy>
+	  </apache-deploy>
 	</target>
 </project>
