@@ -339,7 +339,8 @@
 	        unless="saxon9he.jar.exists" 
 	        description="Downloads and copies saxon9he.jar to the lib/build directory.">
 	        <echo message="Obtaining lib/build/saxon9he.jar"/>
-			<antcall target="echo-mpl1.1-license"/>			
+			<antcall target="echo-mpl1.1-license"/>
+			<mkdir dir="${lib.dir}/build"/>
 			<antcall target="download-swc">
 	            <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=net/sf/saxon/Saxon-HE/9.4/"/>
 	            <param name="srcSwcFile" value="Saxon-HE-9.4.jar"/>
