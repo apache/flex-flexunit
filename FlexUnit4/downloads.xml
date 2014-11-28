@@ -105,7 +105,7 @@
         
         <mkdir dir="${download.dir}"/>        
     	
-        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
+        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}" />
 
         <condition property="zip.compressed">
             <matches string="${zipFile}" pattern="^*.zip$"/>      
@@ -191,8 +191,8 @@
 	        description="Downloads and copies hamcrest to the lib directory.">
 	        <echo message="Obtaining lib/hamcrest-as3-flex-1.1.3.swc"/>
 	        <antcall target="download-zip">
-	          <param name="srcUrl" value="https://cloud.github.com/downloads/drewbourne/hamcrest-as3"/>
-	          <param name="zipFile" value="hamcrest-as3-flex-1.1.3.zip"/>
+              <param name="srcUrl" value="https://cloud.github.com/downloads/drewbourne/hamcrest-as3"/>
+              <param name="zipFile" value="hamcrest-as3-flex-1.1.3.zip"/>
 	          <param name="srcJarPath" value="hamcrest-as3-flex-1.1.3/hamcrest-as3-flex-1.1.3.swc"/>
 	          <param name="md5" value="b73fe1bb5f443993adcf8b274f6a48b2"/>
 	          <param name="destJarFile" value="${lib.dir}/hamcrest-as3-flex-1.1.3.swc"/>
