@@ -41,9 +41,9 @@ package org.flexunit.runner {
 	import org.flexunit.utils.ClassNameUtil;
 	import org.fluint.uiImpersonation.VisualTestEnvironmentBuilder;
 
-	[Event(type="testsComplete", type="flash.events.Event")]
-	[Event(type="runnerStart", type="flash.events.Event")]
-	[Event(type="testsStopped", type="flash.events.Event")]
+	[Event(name="testsComplete", type="flash.events.Event")]
+	[Event(name="runnerStart", type="flash.events.Event")]
+	[Event(name="testsStopped", type="flash.events.Event")]
 
 	/**  
 	 * FlexUnit4 Version: 4.2.0<br/>
