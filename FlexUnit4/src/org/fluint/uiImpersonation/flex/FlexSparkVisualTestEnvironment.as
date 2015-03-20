@@ -20,8 +20,6 @@ package org.fluint.uiImpersonation.flex
 
 	/**
 	 * Builds a visual test environment for Flex 4.0 and above projects 
-	 * @author jadkins
-	 * 
 	 */
 	public class FlexSparkVisualTestEnvironment extends FlexMXVisualTestEnvironment
 	{

@@ -19,8 +19,6 @@ package org.flexunit.runner.manipulation.fields {
 
 	/**
 	 * Interface for all instances to be considered field sorters
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IFieldSorter {
 		/**

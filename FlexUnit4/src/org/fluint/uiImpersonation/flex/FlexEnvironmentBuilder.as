@@ -28,8 +28,6 @@ package org.fluint.uiImpersonation.flex {
 
 	/**
 	 * Builds a visual test environment for Flex projects 
-	 * @author mlabriola
-	 * 
 	 */
 	public class FlexEnvironmentBuilder implements IVisualEnvironmentBuilder {
 		/**

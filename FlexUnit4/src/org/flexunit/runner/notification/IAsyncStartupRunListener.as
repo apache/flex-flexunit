@@ -18,10 +18,7 @@ package org.flexunit.runner.notification {
 	
 	/**
 	 * Interface to be implemented by listeners that need to perform async operations at startup
-	 * that must be completed before the core can begin executing tests
-	 * 
-	 * @author mlabriola
-	 * 
+	 * that must be completed before the core can begin executing tests 
 	 */
 	public interface IAsyncStartupRunListener extends IAsyncRunListener {
 		/**

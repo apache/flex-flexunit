@@ -19,9 +19,6 @@ package org.flexunit.runner.external {
 	 * Allows the user to specify a static variable of type IExternalDependencyLoader. This class
 	 * is responsible for asynchronously loading and parsing any data needed for the test and 
 	 * notifying the test framework on success or failure.
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IExternalDependencyLoader {
 		/**

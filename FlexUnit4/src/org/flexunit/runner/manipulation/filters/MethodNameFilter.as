@@ -21,8 +21,6 @@ package org.flexunit.runner.manipulation.filters {
 	 * 
 	 * Filter that matches method names. A matching method name means the method will be executed
 	 * 
-	 * @author mlabriola
-	 * 
 	 */
 	public class MethodNameFilter extends AbstractFilter {
 		/**

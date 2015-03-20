@@ -20,9 +20,6 @@ package org.fluint.sequence
 
 	/**
 	 * A sequence step that calls a method
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public class SequenceCaller implements ISequenceAction
 	{

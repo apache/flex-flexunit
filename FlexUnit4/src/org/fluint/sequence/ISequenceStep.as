@@ -19,8 +19,6 @@ package org.fluint.sequence {
 	
 	/**
 	 * Interface describing a step in a sequence  
-	 * @author mlabriola
-	 * 
 	 */
 	public interface ISequenceStep {
 

@@ -19,9 +19,7 @@ package org.flexunit.runner.manipulation.filters
 	import org.flexunit.runner.IDescription;
 
 	/**
-	 * Implementation of a filter that includes all children 
-	 * @author mlabriola
-	 * 
+	 * Implementation of a filter that includes all children  
 	 */
 	public class IncludeAllFilter extends AbstractFilter {
 		/**

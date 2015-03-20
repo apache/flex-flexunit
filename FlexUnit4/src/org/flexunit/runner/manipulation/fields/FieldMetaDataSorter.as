@@ -25,8 +25,6 @@ package org.flexunit.runner.manipulation.fields {
 
 	/**
 	 * A field sorter capable of sorting fields based on the order argument 
-	 * @author mlabriola
-	 * 
 	 */
 	public class FieldMetaDataSorter implements IFieldSorter {
 		
