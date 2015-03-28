@@ -26,10 +26,7 @@ package org.flexunit.runner.manipulation.sortingInheritance {
 	
 	/**
 	 * ISortingInheritanceCache implementation that will allow querying of the inheritance order of a given method
-	 * relative to its definition super and subclasses
-	 *  
-	 * @author mlabriola
-	 * 
+	 * relative to its definition super and subclasses 
 	 */	
 	public class ClassInheritanceOrderCache implements ISortingInheritanceCache {
 		/**

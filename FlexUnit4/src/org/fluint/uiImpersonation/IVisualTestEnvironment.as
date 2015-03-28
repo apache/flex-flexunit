@@ -21,9 +21,6 @@ package org.fluint.uiImpersonation
 	
 	/**
 	 * Implemented by visual test environment facades
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IVisualTestEnvironment
 	{

@@ -21,8 +21,7 @@ package org.fluint.sequence {
 
 	/**
 	 * A sequence step that delays the sequence for a given time period.
-	 * 
-  	 * @author Jurgen Failenschmid
+	 *
      * @see http://code.google.com/p/fluint/wiki/Sequences Test sequences 
 	 */
 	public class SequenceDelay extends SequenceWaiter {

@@ -17,9 +17,6 @@
 package org.flexunit.token {
 	/**
 	 * Interface describing viable tokens to be passed between test stages
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IAsyncTestToken {
 

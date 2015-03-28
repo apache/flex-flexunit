@@ -22,8 +22,6 @@ package org.fluint.uiImpersonation.actionScript
 	
 	/**
 	 * A proxy visual test environment for ActionScript projects
-	 * @author mlabriola
-	 * 
 	 */
 	public class ActionScriptVisualTestEnvironment extends VisualTestEnvironment {
 		

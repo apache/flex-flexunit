@@ -20,10 +20,7 @@ package org.flexunit.internals.requests {
 	
 	/**
 	 * A QualifyingRequest is a request that verifies each class passed to it is in fact a viable
-	 * test before attempting to include it.
-	 *  
-	 * @author mlabriola
-	 * 
+	 * test before attempting to include it. 
 	 */
 	public class QualifyingRequest extends Request {
 		/**

@@ -22,8 +22,6 @@ package org.flexunit.internals.runners.statements {
 
 	/**
 	 * Base implemention class for an IMethodRule. Provides scaffolding for extension 
-	 * @author mlabriola
-	 * 
 	 */	
 	public class MethodRuleBase extends AsyncStatementBase implements IAsyncStatement {
 		/**

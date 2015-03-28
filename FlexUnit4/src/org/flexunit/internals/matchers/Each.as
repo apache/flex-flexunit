@@ -19,9 +19,7 @@ package org.flexunit.internals.matchers
 	import org.hamcrest.Matcher;
 
 	/**
-	 * Implements an EachMatcher for internal framework use 
-	 * @author mlabriola
-	 * 
+	 * Implements an EachMatcher for internal framework use  
 	 */	
 	public class Each {
 		/**
@@ -44,8 +42,6 @@ import org.hamcrest.collection.hasItem;
 
 /**
  * Internal implementation of each matcher 
- * @author mlabriola
- * 
  */
 class EachMatcher extends BaseMatcher {
 

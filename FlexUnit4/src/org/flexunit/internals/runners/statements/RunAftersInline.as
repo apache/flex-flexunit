@@ -24,9 +24,6 @@ package org.flexunit.internals.runners.statements {
 	/**
 	 * Runs the [After] methods of a test in the BlockFlexUnit4ClassRunner inline after
 	 * the actual test has executed.
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public class RunAftersInline extends AsyncStatementBase implements IAsyncStatement {
 		/**

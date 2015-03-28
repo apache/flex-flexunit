@@ -25,8 +25,6 @@ package org.flexunit.internals.builders {
 	 * for a test by choosing the FlexUnit 4 builder as the default, this Builder only returns
 	 * builders for recognized tests types.
 	 * 
-	 * @author mlabriola
-	 * 
 	 */
 	public class OnlyRecognizedTestClassBuilder extends AllDefaultPossibilitiesBuilder {
 		/**

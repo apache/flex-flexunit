@@ -27,9 +27,6 @@ package org.flexunit.runners.model {
 	 * Used to expand on the number of methods in a class in the presence of a TestNG style
 	 * Parameterized runner where a Test is provided a dataProvider. One of these classes is
 	 * constructed for each dataset 
-	 *  
-	 * @author mlabriola
-	 * 
 	 */	
 	public class ParameterizedMethod extends FrameworkMethod {
 		/**
