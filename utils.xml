@@ -30,6 +30,7 @@
     <property name="maven-staging-repository-url"
               value="https://repository.apache.org/service/local/staging/deploy/maven2" />
     <property name="maven-pgp-passphrase" value=""/>
+    <property name="maven-pgp-keyname" value=""/>
 
     <macrodef name="apache-deploy">
         <attribute name="binaryFile"/>
@@ -71,6 +72,7 @@
                 <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
                 <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}.@{type}"/>
                 <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
+                <artifact:arg value="-Dgpg.keyname=${maven-pgp-keyname}"/>
                 <artifact:arg value="-Pgpg"/>
             </artifact:mvn>
 
@@ -86,6 +88,7 @@
                         <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}-sources.@{type}"/>
                         <artifact:arg value="-Dclassifier=sources"/>
                         <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
+                        <artifact:arg value="-Dgpg.keyname=${maven-pgp-keyname}"/>
                         <artifact:arg value="-Pgpg"/>
                     </artifact:mvn>
 
@@ -98,6 +101,7 @@
                         <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}-javadoc.@{type}"/>
                         <artifact:arg value="-Dclassifier=javadoc"/>
                         <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
+                        <artifact:arg value="-Dgpg.keyname=${maven-pgp-keyname}"/>
                         <artifact:arg value="-Pgpg"/>
                     </artifact:mvn>
                 </then>
