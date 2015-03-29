@@ -46,8 +46,8 @@
 
         <sequential>
             <!-- Create POM from template -->
-            <copy file="@{pomTemplate}" tofile="@{todir}/pom.xml"/>
-            <replace file="@{todir}/pom.xml">
+            <copy file="@{pomTemplate}" tofile="@{todir}/@{artifact}-@{version}.pom"/>
+            <replace file="@{todir}/@{artifact}-@{version}.pom">
                 <replacefilter token="@ARTIFACT@" value="@{artifact}"/>
                 <replacefilter token="@TYPE@" value="@{type}"/>
                 <replacefilter token="@NAME@" value="@{name}"/>
@@ -69,7 +69,7 @@
                 <artifact:arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file"/>
                 <artifact:arg value="-Durl=${maven-staging-repository-url}"/>
                 <artifact:arg value="-DrepositoryId=${maven-staging-repository-id}"/>
-                <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
+                <artifact:arg value="-DpomFile=@{todir}/@{artifact}-@{version}.pom"/>
                 <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}.@{type}"/>
                 <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
                 <artifact:arg value="-Dgpg.keyname=${maven-pgp-keyname}"/>
@@ -84,7 +84,7 @@
                         <artifact:arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file"/>
                         <artifact:arg value="-Durl=${maven-staging-repository-url}"/>
                         <artifact:arg value="-DrepositoryId=${maven-staging-repository-id}"/>
-                        <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
+                        <artifact:arg value="-DpomFile=@{todir}/@{artifact}-@{version}.pom"/>
                         <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}-sources.@{type}"/>
                         <artifact:arg value="-Dclassifier=sources"/>
                         <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
@@ -97,7 +97,7 @@
                         <artifact:arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file"/>
                         <artifact:arg value="-Durl=${maven-staging-repository-url}"/>
                         <artifact:arg value="-DrepositoryId=${maven-staging-repository-id}"/>
-                        <artifact:arg value="-DpomFile=@{todir}/pom.xml"/>
+                        <artifact:arg value="-DpomFile=@{todir}/@{artifact}-@{version}.pom"/>
                         <artifact:arg value="-Dfile=@{todir}/@{artifact}-@{version}-javadoc.@{type}"/>
                         <artifact:arg value="-Dclassifier=javadoc"/>
                         <artifact:arg value="-Dgpg.passphrase=${maven-pgp-passphrase}"/>
