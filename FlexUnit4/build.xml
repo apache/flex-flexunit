@@ -102,7 +102,7 @@
 		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
     </target>
 
-   <target name="compile" depends="init, thirdparty-downloads, compile-flex" />
+   <target name="compile" depends="init, thirdparty-downloads, compile-flex,compile-as3,as3-linker-check" />
    
    <target name="compile-flex">
       <!-- Pull in class file list for compc -->
