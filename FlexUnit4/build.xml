@@ -232,4 +232,9 @@
            description="${build.deploy.description}">
        </apache-deploy>
    </target>
+   
+   <target name="clean_as3">
+       <delete file="${bin.loc}/${build.finalName.as3}.${build.packaging}" failonerror="false" />
+       <delete file="${dist.loc}/${build.finalName.as3}.${build.packaging}" failonerror="false" />
+   </target>
 </project>

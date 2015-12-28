@@ -469,4 +469,7 @@ to contribute to our CI process.
         <echo message="not found in anttask.classpath"/>
     </target>
    
+   <target name="clean_as3">
+       <ant dir="FlexUnit4" target="clean_as3" />
+   </target>
 </project>
