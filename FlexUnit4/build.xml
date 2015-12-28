@@ -198,7 +198,9 @@
    <target name="package" depends="package-default,package-instrument,asdocs" />
 
    <target name="package-default" depends="compile">
-      <copy file="${bin.loc}/${build.finalName.as3}.${build.packaging}" todir="${dist.loc}" />
+   <!-- Temporarily disabling as3 compilation to determine if that's why some unit tests are failing
+      <copy file="${bin.loc}/${build.finalName.as3}.${build.packaging}" todir="${dist.loc}" /> 
+    -->
       <copy file="${bin.loc}/${build.finalName.flex}.${build.packaging}" todir="${dist.loc}" />
    </target>
 
@@ -221,6 +223,7 @@
       </apache-deploy>
 
        <!-- deploy as3 swc to apache-maven -->
+       <!-- Temporarily disabling as3 compilation to determine if that's why some unit tests are failing
        <apache-deploy
            binaryFile="${bin.loc}/${build.finalName.as3}.${build.packaging}"
            todir="${apache-maven.loc}/as3"
@@ -231,5 +234,6 @@
            version="${build.version}"
            description="${build.deploy.description}">
        </apache-deploy>
+        -->
    </target>
 </project>
