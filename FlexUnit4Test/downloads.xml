@@ -109,7 +109,9 @@
         
         <mkdir dir="${download.dir}"/>        
     	
-        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
+        <antcall target="copy-before-get" />
+        
+        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}" skipexisting="true"/>
 
         <condition property="zip.compressed">
             <matches string="${zipFile}" pattern="^*.zip$"/>      
@@ -131,6 +133,16 @@
         <antcall target="copy-downloaded-swc"/>
      </target> 
 	
+    <target name="copy-before-get" depends="copy-exists" if="have-copy">
+        <copy file="${basedir}/../FlexUnit4/libs/hamcrest-as3-flex-1.1.3.swc"
+            tofile="${basedir}/libs/hamcrest-as3-flex-1.1.3.swc" />
+    </target>
+    <target name="copy-exists" >
+        <condition property="have-copy">
+            <available file="${basedir}/../FlexUnit4/libs/hamcrest-as3-flex-1.1.3.swc" />
+        </condition>
+    </target>
+    
     <target name="untar-file" unless="zip.compressed" description="Untars zipFile">
         <untar src="${download.dir}/${zipFile}" dest="${download.dir}/temp" compression="gzip"/> 
     </target>
