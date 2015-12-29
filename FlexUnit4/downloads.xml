@@ -105,7 +105,7 @@
         
         <mkdir dir="${download.dir}"/>        
     	
-        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}" />
+        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}" skipexisting="true"/>
 
         <condition property="zip.compressed">
             <matches string="${zipFile}" pattern="^*.zip$"/>      
