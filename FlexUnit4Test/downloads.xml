@@ -275,7 +275,7 @@
 	        description="Downloads and copies mockolate to the lib directory.">
 	        <echo message="Obtaining lib/mockolate-0.9.5.swc"/>
 	        <antcall target="download-zip">
-	          <param name="srcUrl" value="http://cloud.github.com/downloads/drewbourne/mockolate"/>
+	          <param name="srcUrl" value="https://github.com/downloads/drewbourne/mockolate"/   >
 	          <param name="zipFile" value="mockolate-0.9.5.zip"/>
 	          <param name="srcJarPath" value="mockolate-0.9.5/mockolate-0.9.5.swc"/>
 	          <param name="md5" value="b73fe1bb5f443993adcf8b274f6a48b2"/>
