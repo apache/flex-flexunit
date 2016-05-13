@@ -1,6 +1,5 @@
-------------------------------------------------------------------------
 Configuration
-------------------------------------------------------------------------
+-------------
 This is a sample project showing how the FlexUnit4 Ant task can be used to build a project.
 In terms of this sample project, the project folder layout is as such:
 
@@ -87,9 +86,8 @@ as such:
 - build.custom.xml
 - pom.xml
 
-------------------------------------------------------------------------
 Disclaimer and support
-------------------------------------------------------------------------
+----------------------
 The builds in the sample project were tested using Ant 1.7.1, Maven 2.0.10, and FlexMojos 
 3.6.1.  The FlexUnit4 Ant task JAR was built for Java 5 using JDK 6.  Validation of the 
 source for the sample project was built using Flex 3.5.0.12683 and Flash Player 10.0 r42.  
