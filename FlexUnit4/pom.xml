@@ -49,12 +49,16 @@
       <artifactId>flexunit</artifactId>
       <version>1.0.0</version>
       <type>swc</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/FlexUnit1Lib.swc</systemPath>
     </dependency>
     <dependency>
       <groupId>hamcrest-as3</groupId>
       <artifactId>hamcrest-as3</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.3</version>
       <type>swc</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/hamcrest-as3-flex-1.1.3.swc</systemPath>
     </dependency>
   </dependencies>
 
