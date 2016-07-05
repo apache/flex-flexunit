@@ -94,7 +94,6 @@
   <modules>
     <module>FlexUnit4</module>
     <module>FlexUnit4AirCIListener</module>
-    <!--module>FlexUnit4AntTasks</module-->
     <module>FlexUnit4CIListener</module>
     <module>FlexUnit4FlexCoverListener</module>
     <module>FlexUnit4FluintExtensions</module>
@@ -102,6 +101,8 @@
     <!--module>FlexUnit4Test</module-->
     <!--module>FlexUnit4Turnkey</module-->
     <module>FlexUnit4UIListener</module>
+
+    <module>FlexUnit4AntTasks</module>
   </modules>
 
   <build>
