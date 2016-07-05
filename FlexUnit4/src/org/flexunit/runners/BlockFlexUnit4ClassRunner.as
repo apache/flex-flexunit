@@ -424,8 +424,6 @@ package org.flexunit.runners {
 		 * any throws an Exception, stop execution and pass the exception on.
 		 */
 		protected function withBefores( method:FrameworkMethod, target:Object, statement:IAsyncStatement ):IAsyncStatement {
-			var statement:IAsyncStatement;
-			
 			var befores:Array = testClass.getMetaDataMethods( AnnotationConstants.BEFORE );
 			var sortMethod:Function;
 			
@@ -454,7 +452,6 @@ package org.flexunit.runners {
 		 * <code>MultipleFailureException</code>.
 		 */
 		protected function withAfters( method:FrameworkMethod, target:Object, statement:IAsyncStatement ):IAsyncStatement {
-			var statement:IAsyncStatement;
 			var afters:Array = testClass.getMetaDataMethods( AnnotationConstants.AFTER );
 
 			if ( afters.length > 1 ) {

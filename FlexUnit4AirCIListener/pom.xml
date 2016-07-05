@@ -27,14 +27,13 @@
     <version>4.3.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>FlexUnit4SampleCIProject</artifactId>
+  <artifactId>FlexUnit4AirCIListener</artifactId>
   <version>4.3.0-SNAPSHOT</version>
   <packaging>swc</packaging>
 
-  <name>Apache Flex - FlexUnit: FlexUnit4SampleCIProject</name>
+  <name>Apache Flex - FlexUnit: FlexUnit4AirCIListener</name>
 
   <build>
-    <sourceDirectory>src/main/flex</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.flex.flexjs.compiler</groupId>
@@ -46,9 +45,17 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.flex.framework</groupId>
-      <artifactId>mx</artifactId>
-      <version>${flex.version}</version>
+      <groupId>com.adobe.air.framework</groupId>
+      <artifactId>airglobal</artifactId>
+      <version>${air.version}</version>
+      <type>swc</type>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.flex.flexunit</groupId>
+      <artifactId>FlexUnit4CIListener</artifactId>
+      <version>4.3.0-SNAPSHOT</version>
       <type>swc</type>
     </dependency>
   </dependencies>

@@ -20,7 +20,7 @@ package flexUnitTests.flexUnit4.suites.frameworkSuite.cases
 	import flash.utils.Timer;
 	
 	import flexUnitTests.flexUnit4.suites.frameworkSuite.cases.helper.ParamDataExt;
-	import flexUnitTests.flexUnit4.suites.frameworkSuite.cases.helper.ParamDataHelper;
+	import flexUnitTests.flexUnit4.suites.frameworkSuite.parameterizedSuite.helper.ParamDataHelper;
 	
 	import mx.rpc.AsyncToken;
 	import mx.rpc.Responder;

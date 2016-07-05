@@ -28,13 +28,14 @@
    POSSIBILITY OF SUCH DAMAGE.
 -->
 <mx:Label 
-   xmlns:mx="http://www.adobe.com/2006/mxml"
+   xmlns:mx="library://ns.adobe.com/flex/mx"
+   xmlns:fx="http://ns.adobe.com/mxml/2009"
+   xmlns:filters="flash.filters.*"
    styleName="h1">
 
    <mx:filters>
 
-         <flash.filters:DropShadowFilter
-            xmlns:flash.filters="flash.filters.*"
+         <filters:DropShadowFilter
             distance="1"
             angle="90"
             color="0xffffff"

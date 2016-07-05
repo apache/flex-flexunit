@@ -18,7 +18,7 @@
 <mx:Canvas 
     height="300"
     width="400"
-    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
     >
 
     <security>

@@ -145,7 +145,7 @@ package org.flexunit.runner {
 		 * Returns the version number.
 		 */
 		public static function get version():String {
-			return "4.2.0";
+			return "4.3.0";
 		}
 		
 		/**

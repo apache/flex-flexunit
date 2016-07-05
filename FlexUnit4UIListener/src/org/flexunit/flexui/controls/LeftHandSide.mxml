@@ -28,7 +28,8 @@
    POSSIBILITY OF SUCH DAMAGE.
 -->
 <mx:VBox
-   xmlns:mx="http://www.adobe.com/2006/mxml"
+   xmlns:mx="library://ns.adobe.com/flex/mx"
+   xmlns:fx="http://ns.adobe.com/mxml/2009"
    xmlns:controls="org.flexunit.flexui.controls.*"
    xmlns:left="org.flexunit.flexui.controls.left.*"
    width="100%" height="100%"
@@ -38,7 +39,7 @@
    verticalGap="2"
    >
 
-   <mx:Script>
+   <fx:Script>
       <![CDATA[
          import org.flexunit.flexui.data.AbstractRowData;
          import org.flexunit.flexui.data.TestRunnerBasePresentationModel;
@@ -88,7 +89,7 @@
          }
 
       ]]>
-   </mx:Script>
+   </fx:Script>
 
    <controls:Title
       text="{ FlexUnitLabels.TEST_CASES }"

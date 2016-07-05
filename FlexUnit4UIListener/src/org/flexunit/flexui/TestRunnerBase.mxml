@@ -28,7 +28,8 @@
    POSSIBILITY OF SUCH DAMAGE.
 -->
 <mx:Panel
-   xmlns:mx="http://www.adobe.com/2006/mxml"
+   xmlns:mx="library://ns.adobe.com/flex/mx"
+	 xmlns:fx="http://ns.adobe.com/mxml/2009"
    xmlns="*"
    xmlns:data="org.flexunit.flexui.data.*"
    xmlns:controls="org.flexunit.flexui.controls.*"
@@ -44,10 +45,11 @@
    implements="org.flexunit.runner.notification.ITemporalRunListener"
    creationComplete="handleCreationComplete()" >
 
-   <mx:Metadata>
+   <fx:Metadata>
       [Event( name="testsComplete", type="org.flexunit.flexui.event.TestsCompleteEvent")]
-   </mx:Metadata>
-	<mx:Style>
+   </fx:Metadata>
+
+	<fx:Style>
 		/* Class-selectors are the only way to apply styles to components */
 		.flexUnitApplication {
 			backgroundColor: #3872b2;
@@ -322,9 +324,9 @@
 				scaleGridLeft="8", scaleGridTop="1", 
 				scaleGridRight="270", scaleGridBottom="17" );
 		}
-	</mx:Style>
+	</fx:Style>
 	   
-   <mx:Script>
+   <fx:Script>
       <![CDATA[
 		  import flash.net.navigateToURL;
 		  
@@ -505,20 +507,22 @@
          }
 
       ]]>
-   </mx:Script>
+   </fx:Script>
 
-   <data:TestRunnerBasePresentationModel
-      id="model"
-      rowSelectedChanged="updateRowSummaryToDisplay()"
-      testSuiteRunDurationChanged="rightHandSide.updateRunDuration()"
-      totalErrorsChanged="rightHandSide.updateTotalErrorUI()"
-      totalFailuresChanged="rightHandSide.updateTotalFailureUI()"
-	  totalIgnoredChanged="rightHandSide.updateTotalIgnoredUI()"
-      progressChanged="rightHandSide.onTestEnd()"
-      filterEnableChanged="leftHandSide.updateFilterSectionEnable()"
-      filterChanged="leftHandSide.refreshTree()"
-      />
-   
+	<fx:Declarations>
+		<data:TestRunnerBasePresentationModel
+						id="model"
+						rowSelectedChanged="updateRowSummaryToDisplay()"
+						testSuiteRunDurationChanged="rightHandSide.updateRunDuration()"
+						totalErrorsChanged="rightHandSide.updateTotalErrorUI()"
+						totalFailuresChanged="rightHandSide.updateTotalFailureUI()"
+						totalIgnoredChanged="rightHandSide.updateTotalIgnoredUI()"
+						progressChanged="rightHandSide.onTestEnd()"
+						filterEnableChanged="leftHandSide.updateFilterSectionEnable()"
+						filterChanged="leftHandSide.refreshTree()"
+		/>
+	</fx:Declarations>
+
    <mx:HBox
       verticalAlign="bottom"
       horizontalGap="0">

@@ -28,7 +28,8 @@
    POSSIBILITY OF SUCH DAMAGE.
 -->
 <mx:VBox
-   xmlns:mx="http://www.adobe.com/2006/mxml"
+   xmlns:mx="library://ns.adobe.com/flex/mx"
+   xmlns:fx="http://ns.adobe.com/mxml/2009"
    xmlns:controls="org.flexunit.flexui.controls.*"
    width="100%"
    verticalScrollPolicy="off"
@@ -36,14 +37,14 @@
    horizontalAlign="right"
    creationComplete="handleCreateComplete()" verticalGap="0">
 
-   <mx:Metadata>
+   <fx:Metadata>
       [Event( name="filterChanged", type="flash.events.Event")]
       [Event( name="filterTextChanged", type="flash.events.Event")]
       [Event( name="filterResultChanged", type="flash.events.Event")]
       [Event( name="filterAssertionChanged", type="flash.events.Event")]
-   </mx:Metadata>
+   </fx:Metadata>
 
-   <mx:Script>
+   <fx:Script>
       <![CDATA[
          import org.flexunit.flexui.controls.FlexUnitLabels;
          import org.flexunit.flexui.controls.left.events.SearchBarEvent;
@@ -132,7 +133,7 @@
          }
          
       ]]>
-   </mx:Script>
+   </fx:Script>
 
    <mx:HBox
       width="100%"

@@ -15,13 +15,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:Application xmlns:mx="library://ns.adobe.com/flex/mx"
+   xmlns:fx="http://ns.adobe.com/mxml/2009"
    xmlns:demo="org.flexunit.demo.*"
    width="100%"
    height="100%" 
    layout="vertical">
    
-   <mx:Script>
+   <fx:Script>
       <![CDATA[
          import mx.controls.Alert;
          import mx.events.DynamicEvent;
@@ -32,7 +33,7 @@
 			
          }
       ]]>
-   </mx:Script>
+   </fx:Script>
    
    <demo:EchoPanel id="echoPanel"
       width="400"

@@ -15,13 +15,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="400"  headerHeight="30"  headerColors="0x0000FF" title="FlexUnit Test Run"  verticalAlign="middle" horizontalAlign="center" initialize="{initializeLocalizeString()}" >
+<mx:Panel xmlns:mx="library://ns.adobe.com/flex/mx"
+					xmlns:fx="http://ns.adobe.com/mxml/2009"
+					width="500" height="400"  headerHeight="30"  headerColors="0x0000FF"
+					title="FlexUnit Test Run"  verticalAlign="middle" horizontalAlign="center"
+					initialize="{initializeLocalizeString()}" >
 	
-	<mx:Metadata>
+	<fx:Metadata>
 		[ResourceBundle("FlexUnitTestRunner")]
-	</mx:Metadata>
+	</fx:Metadata>
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import org.flexunit.internals.listeners.XMLListener;
 			import suite.cases.MySuite;
@@ -135,7 +139,7 @@
 				}
 			}
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
 	<mx:VBox  horizontalAlign="centre">
 		<mx:Label  id="l1" height="50" text='{testRunningLabel}' fontSize="20" horizontalCenter="true"/>

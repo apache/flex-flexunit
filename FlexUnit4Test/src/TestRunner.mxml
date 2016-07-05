@@ -16,10 +16,11 @@
   limitations under the License.
 -->
 <mx:Application 
-	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
 	creationComplete="runMe()" >
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import compilationSuite.SuitesToRun;
 			
@@ -40,5 +41,5 @@
 				core.run( compilationSuite.SuitesToRun );
 			}
 		]]>
-	</mx:Script>
+	</fx:Script>
 </mx:Application>

@@ -16,10 +16,12 @@
   limitations under the License.
 -->
 <mx:Application 
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	creationComplete="runMe()" xmlns:adobe="http://www.adobe.com/2009/flexUnitUIRunner">
-	
-	<mx:Script>
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:adobe="http://www.adobe.com/2009/flexUnitUIRunner"
+	creationComplete="runMe()">
+
+	<fx:Script>
 		<![CDATA[
 			import compilationSuite.SuitesToRun;
 			
@@ -36,6 +38,7 @@
 				core.run( SuitesToRun );
 			}
 		]]>
-	</mx:Script>
+	</fx:Script>
+
 	<adobe:TestRunnerBase id="uiListener" width="100%" height="100%"  />
 </mx:Application>

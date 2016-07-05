@@ -26,7 +26,7 @@
    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
    POSSIBILITY OF SUCH DAMAGE.
 */
-﻿package flexUnitTests.flexUnit1.framework
+package flexUnitTests.flexUnit1.framework
 {
 
    import flexunit.framework.TestSuite;

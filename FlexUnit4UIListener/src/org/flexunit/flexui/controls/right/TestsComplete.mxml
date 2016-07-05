@@ -28,7 +28,8 @@
    POSSIBILITY OF SUCH DAMAGE.
 -->
 <mx:HBox
-   xmlns:mx="http://www.adobe.com/2006/mxml"
+   xmlns:mx="library://ns.adobe.com/flex/mx"
+   xmlns:fx="http://ns.adobe.com/mxml/2009"
    width="100%"
    verticalAlign="middle"
    horizontalAlign="left"
@@ -36,7 +37,7 @@
    horizontalScrollPolicy="off"
    verticalScrollPolicy="off">
 
-   <mx:Script>
+   <fx:Script>
       <![CDATA[
          import org.flexunit.flexui.controls.FlexUnitLabels;
          import org.flexunit.flexui.data.TestRunnerBasePresentationModel;
@@ -109,7 +110,7 @@
             }
          }
       ]]>
-   </mx:Script>
+   </fx:Script>
 
    <mx:Image
       id="result" 

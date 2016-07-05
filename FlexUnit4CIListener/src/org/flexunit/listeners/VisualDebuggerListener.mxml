@@ -15,8 +15,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="setupConnection(event)" implements="org.flexunit.runner.notification.IAsyncStartupRunListener">
-	<mx:Script>
+<mx:HBox xmlns:mx="library://ns.adobe.com/flex/mx"
+				 xmlns:fx="http://ns.adobe.com/mxml/2009"
+				 creationComplete="setupConnection(event)"
+				 implements="org.flexunit.runner.notification.IAsyncStartupRunListener">
+	<fx:Script>
 		<![CDATA[
 			import flash.events.DataEvent;
 			import flash.events.Event;
@@ -307,7 +310,7 @@
 			}
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	<mx:VBox width="100%" height="100%">
 		<mx:Label text="Data In"/>
 		<mx:TextArea width="100%" height="100%" text="{dataIn}"/>

@@ -59,7 +59,7 @@ package org.flexunit.runners.model {
 		 * 
 		 */
 		override public function invokeExplosively( target:Object, ...params ):Object {
-			applyExplosively( target, arguments );
+			applyExplosively( target, params );
 			return null;
 		}
 		

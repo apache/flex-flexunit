@@ -29,7 +29,7 @@ package org.flexunit.async.mocks
 		{
 			mock.addzEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
-		
+
 		public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false):void
 		{
 			mock.removezEventListener(type, listener, useCapture);

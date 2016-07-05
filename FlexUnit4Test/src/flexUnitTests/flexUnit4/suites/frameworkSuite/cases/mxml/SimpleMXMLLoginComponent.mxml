@@ -15,12 +15,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" title="Please Login" height="168">
-	<mx:Metadata>
+<mx:Panel xmlns:mx="library://ns.adobe.com/flex/mx"
+					xmlns:fx="http://ns.adobe.com/mxml/2009"
+					layout="vertical" title="Please Login" height="168">
+	<fx:Metadata>
 		[Event('loginRequested')]
-	</mx:Metadata>
+	</fx:Metadata>
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import mx.validators.Validator;
 			protected function handleCancelClick( event:Event ):void {
@@ -47,12 +49,14 @@
 			public function setSomeValue( value:String ):void {
 			}
 		]]>
-	</mx:Script>
-	
-	<mx:Array id="validators">
-		<mx:StringValidator id="sv1" required="true" minLength="1" maxLength="8" source="{usernameTI}" property="text"/>
-		<mx:StringValidator id="sv2" required="true" minLength="6" maxLength="10" source="{passwordTI}" property="text"/>
-	</mx:Array>
+	</fx:Script>
+
+	<fx:Declarations>
+		<fx:Array id="validators">
+			<mx:StringValidator id="sv1" required="true" minLength="1" maxLength="8" source="{usernameTI}" property="text"/>
+			<mx:StringValidator id="sv2" required="true" minLength="6" maxLength="10" source="{passwordTI}" property="text"/>
+		</fx:Array>
+	</fx:Declarations>
 
 	<mx:Form width="100%">
 		<mx:FormItem label="Username" required="true">

@@ -15,11 +15,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	creationComplete="runMe()" xmlns:flexUnitUIRunner="http://www.adobe.com/2009/flexUnitUIRunner" 
-	styleName="flexUnitApplication" >
+<mx:Application xmlns:mx="library://ns.adobe.com/flex/mx"
+								xmlns:fx="http://ns.adobe.com/mxml/2009"
+								xmlns:flexUnitUIRunner="http://www.adobe.com/2009/flexUnitUIRunner"
+								creationComplete="runMe()"
+								styleName="flexUnitApplication" >
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import flexUnitTests.flexUnit1.framework.AllFrameworkTests;
 			import flexUnitTests.flexUnit4.suites.frameworkSuite.FlexUnit4Suite;
@@ -86,8 +88,8 @@
 				//The only really important thing is that you pass them all at once. You don't want to call core.run() more than once at this time
 			}
 		]]>
-	</mx:Script>
-	<mx:Style>
+	</fx:Script>
+	<fx:Style>
 		Application {
 			   backgroundColor: #3872b2;
 			   backgroundGradientColors: #3872b2, #0c1a3d;
@@ -97,7 +99,7 @@
 			   fontFamily: "Myriad Pro Semibold";
 			   fontSize: 12;
 			}
-	</mx:Style>
+	</fx:Style>
 	
 	<flexUnitUIRunner:TestRunnerBase id="uiListener" 
 		width="100%" height="100%" />	

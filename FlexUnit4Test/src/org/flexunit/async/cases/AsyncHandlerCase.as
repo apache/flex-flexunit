@@ -45,7 +45,7 @@ package org.flexunit.async.cases
 			passThroughData = new Object();
 			timeoutHandler = new Function();
 			runner = new RunnerMock();
-			asyncHandler = new AsyncHandler(runner, eventHandler, timeout, passThroughData, timeoutHandler);
+			asyncHandler = new AsyncHandler(eventHandler, timeout, passThroughData, timeoutHandler);
 		}
 		
 		[After(description="Destroy the instance of the AsyncHandler")]
