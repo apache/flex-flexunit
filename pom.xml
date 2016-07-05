@@ -251,6 +251,7 @@
       <artifactId>framework</artifactId>
       <version>${flex.version}</version>
       <type>pom</type>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 

@@ -57,6 +57,7 @@
       <artifactId>FlexUnit4</artifactId>
       <version>4.3.0-SNAPSHOT</version>
       <type>swc</type>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.flex.framework.themes</groupId>
