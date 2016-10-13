@@ -19,6 +19,8 @@ package org.flexunit.ant.tasks.configuration;
 import java.io.File;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.types.Commandline;
+import org.apache.tools.ant.types.CommandlineJava;
 import org.apache.tools.ant.types.FileSet;
 import org.flexunit.ant.LoggingUtil;
 import org.flexunit.ant.tasks.types.LibraryPaths;
@@ -27,6 +29,7 @@ import org.flexunit.ant.tasks.types.SourcePaths;
 
 public class CompilationConfiguration implements StepConfiguration
 {
+   private Commandline commandLine = new Commandline();
    private SourcePaths sources;
    private SourcePaths testSources;
    private LibraryPaths libraries;
@@ -156,5 +159,13 @@ public class CompilationConfiguration implements StepConfiguration
    {
        return loadConfig;
    }
-   
+
+    public Commandline.Argument createVmArgument() {
+        return getCommandLine().createArgument();
+    }
+
+    public Commandline getCommandLine() {
+        return commandLine;
+    }
+
 }

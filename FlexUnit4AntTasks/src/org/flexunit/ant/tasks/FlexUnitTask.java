@@ -20,6 +20,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DynamicElement;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.types.FileSet;
 import org.flexunit.ant.tasks.configuration.TaskConfiguration;
 import org.flexunit.ant.tasks.types.LoadConfig;
@@ -172,7 +173,16 @@ public class FlexUnitTask extends Task implements DynamicElement
    {
       configuration.setWorkingDir(workingDirPath);
    }
-   
+
+   /**
+    * Adds a JVM argument.
+    *
+    * @return JVM argument created.
+    */
+   public Commandline.Argument createJvmarg() {
+      return configuration.createVmArgument();
+   }
+
    /**
     * Called by Ant to execute the task.
     */
