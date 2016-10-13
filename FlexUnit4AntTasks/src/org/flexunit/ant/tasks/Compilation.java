@@ -161,12 +161,18 @@ public class Compilation
       String frameworksPath = configuration.getFlexHome().getAbsolutePath() + File.separatorChar + FRAMEWORKS_RELATIVE_PATH;
       
       Java task = new Java();
+
       task.setFork(true);
       task.setFailonerror(true);
       task.setJar(new File(mxmlcPath));
       task.setProject(project);
       task.setDir(project.getBaseDir());
-      task.setMaxmemory("256M"); //MXMLC needs to eat
+
+      // MXMLC needs to eat - recommend using Xmx of 256 or greater
+      setVmArguments(task, configuration.getCommandLine().getArguments());
+
+      LoggingUtil.log("java command line: " + task.getCommandLine().toString());
+
       task.setErrorProperty("MXMLC_ERROR");
       
       Argument flexLibArgument = task.createArg();
@@ -200,8 +206,13 @@ public class Compilation
       
       return task;
    }
-   
-   
+
+   private void setVmArguments(final Java java, final String[] arguments) {
+      for (String argument : arguments) {
+         java.createJvmarg().setValue(argument);
+      }
+   }
+
    private void determineLoadConfigArgument(Java java)
    {
        if(configuration.getLoadConfig() != null)

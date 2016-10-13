@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.types.FileSet;
 import org.flexunit.ant.LoggingUtil;
 import org.flexunit.ant.tasks.types.LoadConfig;
@@ -124,7 +125,11 @@ public class TaskConfiguration
       fileset.setProject(project);
       compilationConfiguration.addLibrary(fileset);
    }
-   
+
+   public Commandline.Argument createVmArgument() {
+      return compilationConfiguration.createVmArgument();
+   }
+
    public void setHeadless(boolean headless)
    {
       testRunConfiguration.setHeadless(headless);
