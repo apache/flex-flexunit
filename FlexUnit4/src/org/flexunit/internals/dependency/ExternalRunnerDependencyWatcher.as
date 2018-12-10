@@ -25,8 +25,6 @@ package org.flexunit.internals.dependency {
 	 * and passed to all IExteranalDependencyRunner instances to monitor their resolution.
 	 * 
 	 * It effectively prevents the core from beginning tests until all dependencies are resolved.
-	 *  
-	 * @author mlabriola
 	 * 
 	 */
 	public class ExternalRunnerDependencyWatcher implements IExternalRunnerDependencyWatcher {

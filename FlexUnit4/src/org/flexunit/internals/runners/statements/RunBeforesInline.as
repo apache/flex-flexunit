@@ -23,9 +23,6 @@ package org.flexunit.internals.runners.statements {
 	/**
 	 * Runs the [Before] methods of a test in the BlockFlexUnit4ClassRunner inline before
 	 * procceding to the actual test.
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public class RunBeforesInline extends AsyncStatementBase implements IAsyncStatement {
 		/**

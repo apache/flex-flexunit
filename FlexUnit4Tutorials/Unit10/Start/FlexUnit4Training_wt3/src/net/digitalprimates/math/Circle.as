@@ -19,9 +19,6 @@ package net.digitalprimates.math {
 
 	/**
 	 * Class to represent a mathematical circle in addition to circle-specific convenience methods.
-	 *  
-	 * @author mlabriola
-	 * 
 	 */	
 	public class Circle {
 		/**

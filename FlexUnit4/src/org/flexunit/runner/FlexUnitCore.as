@@ -41,12 +41,12 @@ package org.flexunit.runner {
 	import org.flexunit.utils.ClassNameUtil;
 	import org.fluint.uiImpersonation.VisualTestEnvironmentBuilder;
 
-	[Event(type="testsComplete", type="flash.events.Event")]
-	[Event(type="runnerStart", type="flash.events.Event")]
-	[Event(type="testsStopped", type="flash.events.Event")]
+	[Event(name="testsComplete", type="flash.events.Event")]
+	[Event(name="runnerStart", type="flash.events.Event")]
+	[Event(name="testsStopped", type="flash.events.Event")]
 
 	/**  
-	 * FlexUnit4 Version: 4.1.00<br/>
+	 * FlexUnit4 Version: 4.2.0<br/>
 	 * 
 	 * The <code>FlexUnitCore</code> is responsible for executing objects that implement an <code>IRequest</code>
 	 * interface.  There are several ways that the <code>IRequest</code> can be provided to the 
@@ -145,7 +145,7 @@ package org.flexunit.runner {
 		 * Returns the version number.
 		 */
 		public static function get version():String {
-			return "4.1.0";
+			return "4.2.0";
 		}
 		
 		/**

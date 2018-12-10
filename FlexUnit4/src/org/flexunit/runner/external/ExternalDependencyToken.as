@@ -23,9 +23,6 @@ package org.flexunit.runner.external {
 	/**
 	 * ExternalDependencyToken follows a pattern similar to the AsyncToken in Flex
 	 * to notify interested resolvers when a dependency has been resolved.
-	 * 
-	 * @author mlabriola
-	 * 
 	 */
 	public class ExternalDependencyToken {
 		/**

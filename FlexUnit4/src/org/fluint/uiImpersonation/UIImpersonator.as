@@ -27,9 +27,7 @@
 
 	/**
 	 *
-	 * Provides access to the visual test environment through static methods 
-	 * @author mlabriola
-	 * 
+	 * Provides access to the visual test environment through static methods  
 	 */
 	public class UIImpersonator extends Assert
 	{

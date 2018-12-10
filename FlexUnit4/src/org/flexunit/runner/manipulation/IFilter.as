@@ -20,9 +20,6 @@ package org.flexunit.runner.manipulation {
 	/**
 	 * Interface describing an IFilter which can be applied to a Request to filter
 	 * the executed tests
-	 *  
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IFilter {
 		/**

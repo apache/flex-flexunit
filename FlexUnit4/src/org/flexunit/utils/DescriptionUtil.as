@@ -20,8 +20,6 @@ package org.flexunit.utils {
 	/**
 	 * This is a temporary class to work around parsing name issues with the Description when using parameterized
 	 * testing. It is my hope that it can be removed and replaced with a better solution for 4.2 
-	 * @author mlabriola
-	 * 
 	 */	
 	public class DescriptionUtil {
 		/**

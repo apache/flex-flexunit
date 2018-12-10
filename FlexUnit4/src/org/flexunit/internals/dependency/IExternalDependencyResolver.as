@@ -22,8 +22,6 @@ package org.flexunit.internals.dependency {
 	/**
 	 * IExternalDependencyResolver are responsible for resolving external dependencies on
 	 * a test class
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IExternalDependencyResolver extends IEventDispatcher {
 		/**

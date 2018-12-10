@@ -23,9 +23,6 @@ package org.flexunit.runner.external {
 	/**
 	 * IExternalDependencyRunner instances are IRunners which support the notion of external
 	 * dependencies or data that is not present until a potentially asynchronous operation occurs
-	 * 
-	 * @author mlabriola
-	 * 
 	 */
 	public interface IExternalDependencyRunner extends IRunner {
 		/**

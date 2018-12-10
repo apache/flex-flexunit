@@ -19,8 +19,6 @@ package org.fluint.uiImpersonation.flex {
 	
 	/**
 	 * A visual test environment for Flex projects
-	 * @author mlabriola
-	 * 
 	 */
 	public class FlexMXVisualTestEnvironment extends VisualTestEnvironment {
 		

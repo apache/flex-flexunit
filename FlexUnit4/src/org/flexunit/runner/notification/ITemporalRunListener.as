@@ -19,10 +19,7 @@ package org.flexunit.runner.notification {
 
 	/**
 	 * Interface to be implemented by a listener that needs information on a test
-	 * methods total execution time.
-	 * 
-	 * @author mlabriola
-	 * 
+	 * methods total execution time. 
 	 */
 	public interface ITemporalRunListener extends IRunListener {
 		/**

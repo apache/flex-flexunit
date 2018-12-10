@@ -23,9 +23,6 @@ package flex.lang.reflect.builders {
 
 	/**
 	 * Object responsible for building method objects
-	 * 
-	 * @author mlabriola
-	 * 
 	 */	
 	public class MethodBuilder {
 		/**

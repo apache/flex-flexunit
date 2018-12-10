@@ -156,7 +156,7 @@
 		description="Downloads and copies coverageagent to the lib directory.">
 		<echo message="Obtaining lib/CoverageAgent.swc" />
 		<antcall target="download-zip">
-			<param name="srcUrl" value="https://flexcover.googlecode.com/files" />
+			<param name="srcUrl" value="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/flexcover" />
 			<param name="zipFile" value="flexcover-0.90.zip" />
 			<param name="srcJarPath" value="flexcover-0.90/CoverageAgent/bin/CoverageAgent.swc" />
 			<param name="md5" value="b73fe1bb5f443993adcf8b274f6a48b2" />

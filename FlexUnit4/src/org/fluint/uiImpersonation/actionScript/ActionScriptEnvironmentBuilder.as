@@ -25,8 +25,6 @@ package org.fluint.uiImpersonation.actionScript {
 
 	/**
 	 * Builds a visual test environment for ActionScript only projects 
-	 * @author mlabriola
-	 * 
 	 */
 	public class ActionScriptEnvironmentBuilder implements IVisualEnvironmentBuilder {
 		/**

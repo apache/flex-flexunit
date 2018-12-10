@@ -29,8 +29,6 @@ package org.flexunit.internals.builders
 	 * This class is used as an alternate builder for FlexUnit 4. Normally FlexUnit4 is the default
 	 * builder, so it accepts all classes. In this class we determine if it is actually a FlexUnit 4
 	 * test
-	 *  
-	 * @author mlabriola
 	 * 
 	 */
 	public class FlexUnit4QualifiedBuilder extends FlexUnit4Builder {

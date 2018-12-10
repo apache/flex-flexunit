@@ -200,3 +200,17 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+   
+   
+   Some of the code in the directories FlexUnit4UIListener and
+   FlexUnit4CIListener of FLexUnit is based on Flex Unit 1. This code is
+   licensed under the BSD 3-clause license and copyright (c) 2003-2010 by
+   Adobe Systems Incorporated. See the file headers for the full license text.
+   
+   
+   The file PromptingTextInput.as is licensed under the MIT license and
+   copyright (c) 2007 FlexLib Contributors. See the file header for
+   the full license text.
+   
+   
+   

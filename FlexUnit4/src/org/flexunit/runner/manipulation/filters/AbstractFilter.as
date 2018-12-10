@@ -20,9 +20,7 @@ package org.flexunit.runner.manipulation.filters {
 	import org.flexunit.runner.manipulation.IFilterable;
 	
 	/**
-	 * Potential base class implementing IFilter 
-	 * @author mlabriola
-	 * 
+	 * Potential base class implementing IFilter  
 	 */
 	public class AbstractFilter implements IFilter {
 		/**
