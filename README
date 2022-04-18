@@ -11,7 +11,7 @@ Getting the latest sources via git
     You can always checkout the latest source via git using the following
     command:
 	
-	 git clone https://git-wip-us.apache.org/repos/asf/flex-flexunit.git flexunit
+	 git clone https://github.com/apache/flex-flexunit.git flexunit
 	 cd flexunit
 	 git checkout develop
 
