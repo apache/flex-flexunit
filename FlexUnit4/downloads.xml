@@ -34,7 +34,7 @@
 	       
 	       Licenses:
             flexunit1lib ()  - TODO license???
-            harmcrest (1.1.3)  - (https://github.com/drewbourne/hamcrest-as3/blob/master/hamcrest/LICENSE)
+            hamcrest (1.1.3)  - (https://github.com/drewbourne/hamcrest-as3/blob/master/hamcrest/LICENSE)
 	-->
 		     
     <!-- 
@@ -203,7 +203,7 @@
 			<get src="https://raw.github.com/drewbourne/hamcrest-as3/master/hamcrest/LICENSE" dest="${lib.dir}/hamcrest-LICENSE"/>			
 	    </target>
 	    
-	    <target name="hamcrest-swc-check" description="Checks if harmcrest swc exists.">
+	    <target name="hamcrest-swc-check" description="Checks if hamcrest swc exists.">
 	    	<condition property="hamcrest.swc.exists">
 	    	    <and>
 	    	        <available file="${lib.dir}/hamcrest-as3-flex-1.1.3.swc"/>
