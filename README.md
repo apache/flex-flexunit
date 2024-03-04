@@ -97,9 +97,9 @@ Version 2.0 license.  You will not be prompted to acknowledge the download.
 ### swcs
  - coverageagent - https://flexcover.googlecode.com/files/flexcover-0.90.zip (MIT License)
  - fluint - https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/fluint-1_2.swc (MIT License)
- - mockolate - http://cloud.github.com/downloads/drewbourne/hamcrest-as3/hamcrest-as3-flex-1.1.3.zip (MIT License)	
+ - hamcrest - http://cloud.github.com/downloads/drewbourne/hamcrest-as3/hamcrest-as3-flex-1.1.3.zip (MIT License)	
  - mock-as - https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/mock-as3.swc (BSD License)	
- - hamcrest - http://cloud.github.com/downloads/drewbourne/hamcrest-as3/mockolate-0.9.5.zip (BSD License)
+ - mockolate - http://cloud.github.com/downloads/drewbourne/hamcrest-as3/mockolate-0.9.5.zip (BSD License)
  - flexunit1lib - https://github.com/flexunit/flexunit/raw/master/FlexUnit4Test/libs/FlexUnit1Lib.swc (BSD License)
 	
 The following dependencies have licenses which Apache considers to be reciprocal
