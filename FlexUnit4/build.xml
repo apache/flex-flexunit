@@ -17,6 +17,7 @@
 -->
 <project name="FlexUnit4Core" basedir="." default="package">
 	<import file="${basedir}/../utils.xml" />
+    <property file="${basedir}/../env.properties"/>
 	<property environment="env" />
 
 	<!-- Configuration -->
@@ -41,14 +42,12 @@
 	<property name="doc.loc" location="${basedir}/target/docs" />
 
 	<!-- Setup Flex Ant Resources -->
-	<available file="${env.FLEX_HOME}/lib/compc.jar"
-		type="file" 
-		property="FLEX_HOME"
-		value="${env.FLEX_HOME}"/>
-	<available file="${basedir}/../../flex-sdk/lib/compc.jar"
-		type="file" 
-		property="FLEX_HOME"
-		value="${basedir}/../../flex-sdk"/>
+	<condition property="FLEX_HOME" value="${env.FLEX_HOME}">
+		<available file="${env.FLEX_HOME}/lib/compc.jar" type="file" />
+	</condition>
+	<condition property="FLEX_HOME" value="${basedir}/../../flex-sdk">
+		<available file="${basedir}/../../flex-sdk/lib/compc.jar" type="file" />
+	</condition>
 	<property name="FLEX_COVER_HOME" location="${env.FLEX_COVER_HOME}" />
 	<taskdef resource="flexTasks.tasks" >
 		<classpath>

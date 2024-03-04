@@ -29,6 +29,7 @@ Reporting is something each project implements which we then have hooked into Hu
 to contribute to our CI process.
 -->
 <project name="FlexUnit4" basedir="." default="main">
+    <property file="${basedir}/env.properties"/>
 	<property environment="env" />
 
 	<!-- Version info -->

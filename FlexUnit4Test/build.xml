@@ -21,6 +21,7 @@
 	dependency which would be more difficult to manage from a build perspective.
 -->
 <project name="FlexUnit4Test" basedir="." default="test">
+    <property file="${basedir}/../env.properties"/>
 	<property environment="env" />
 
 	<!-- Configuration -->
@@ -42,14 +43,12 @@
 	<property name="report.flexcover.loc" location="${basedir}/target/report/flexcover" />
 
 	<!-- Setup Flex Ant Resources -->
-	<available file="${env.FLEX_HOME}/lib/compc.jar"
-		type="file" 
-		property="FLEX_HOME"
-		value="${env.FLEX_HOME}"/>
-	<available file="${basedir}/../../flex-sdk/lib/compc.jar"
-		type="file" 
-		property="FLEX_HOME"
-		value="${basedir}/../../flex-sdk"/>
+	<condition property="FLEX_HOME" value="${env.FLEX_HOME}">
+		<available file="${env.FLEX_HOME}/lib/compc.jar" type="file" />
+	</condition>
+	<condition property="FLEX_HOME" value="${basedir}/../../flex-sdk">
+		<available file="${basedir}/../../flex-sdk/lib/compc.jar" type="file" />
+	</condition>
 	<property name="FLEX_COVER_VIEWER" location="${env.FLEX_COVER_VIEWER}" />
 	<taskdef resource="flexTasks.tasks" >
 		<classpath>
