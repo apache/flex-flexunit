@@ -29,3 +29,5 @@ FlexUnit4UIListener/target/*
 */.settings
 /lib/
 env.properties
+/out/
+rat.report
