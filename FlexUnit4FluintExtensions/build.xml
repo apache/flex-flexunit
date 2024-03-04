@@ -37,7 +37,14 @@
    <property name="doc.loc" location="${basedir}/target/docs" />
 
    <!-- Setup Flex Ant Resources -->
-   <property name="FLEX_HOME" location="${env.FLEX_HOME}" />
+   <available file="${env.FLEX_HOME}/lib/compc.jar"
+      type="file" 
+      property="FLEX_HOME"
+      value="${env.FLEX_HOME}"/>
+   <available file="${basedir}/../../flex-sdk/lib/compc.jar"
+      type="file" 
+      property="FLEX_HOME"
+      value="${basedir}/../../flex-sdk"/>
 	<taskdef resource="flexTasks.tasks" >
 		<classpath>
 			<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
