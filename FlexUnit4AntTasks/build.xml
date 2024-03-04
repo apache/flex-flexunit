@@ -7,7 +7,7 @@
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+		http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,96 +16,96 @@
   limitations under the License.
 -->
 <project name="FlexUnitAntTasks" basedir="." default="package">
-   <import file="${basedir}/../utils.xml" />
+	<import file="${basedir}/../utils.xml" />
 
-   <!--Configuration-->
-   <property name="build.artifactId" value="flexUnitTasks" />
-   <property name="build.finalName" value="${build.artifactId}-${build.version}-${build.number}" />
-   <property name="build.packaging" value="jar" />
-   <property name="build.deploy.name" value="FlexUnit Ant Tasks" />
-   <property name="build.deploy.description" value="Ant tasks which allow the compilation, execution, and reporting for FlexUnit test suites." />
+	<!--Configuration-->
+	<property name="build.artifactId" value="flexUnitTasks" />
+	<property name="build.finalName" value="${build.artifactId}-${build.version}-${build.number}" />
+	<property name="build.packaging" value="jar" />
+	<property name="build.deploy.name" value="FlexUnit Ant Tasks" />
+	<property name="build.deploy.description" value="Ant tasks which allow the compilation, execution, and reporting for FlexUnit test suites." />
 
-   <!-- Existing -->
-   <property name="src.loc" location="${basedir}/src" />
-   <property name="lib.loc" location="${basedir}/lib" />
+	<!-- Existing -->
+	<property name="src.loc" location="${basedir}/src" />
+	<property name="lib.loc" location="${basedir}/lib" />
 
-   <!-- Generated -->
-   <property name="dist.loc" location="${basedir}/target" />
-   <property name="apache-maven.loc" location="${dist.loc}/apache-maven" />
-   <property name="bin.loc" location="${basedir}/target/bin" />
-   <property name="doc.loc" location="${basedir}/target/docs" />
+	<!-- Generated -->
+	<property name="dist.loc" location="${basedir}/target" />
+	<property name="apache-maven.loc" location="${dist.loc}/apache-maven" />
+	<property name="bin.loc" location="${basedir}/target/bin" />
+	<property name="doc.loc" location="${basedir}/target/docs" />
 
-   <target name="clean">
-      <delete dir="${dist.loc}" />
+	<target name="clean">
+		<delete dir="${dist.loc}" />
   	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
-   </target>
-   
-    <target name="thirdparty-downloads">
+	</target>
+	
+	 <target name="thirdparty-downloads">
 		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
-    </target>
+	 </target>
 
-   <target name="init">
-      <mkdir dir="${dist.loc}" />
-      <mkdir dir="${apache-maven.loc}" />
-      <mkdir dir="${bin.loc}" />
-      <mkdir dir="${doc.loc}" />
-   </target>
+	<target name="init">
+		<mkdir dir="${dist.loc}" />
+		<mkdir dir="${apache-maven.loc}" />
+		<mkdir dir="${bin.loc}" />
+		<mkdir dir="${doc.loc}" />
+	</target>
 
-   <target name="compile" depends="init, thirdparty-downloads">
-      <javac target="1.8" source="1.8" fork="true" memoryMaximumSize="256m" srcdir="${src.loc}" failonerror="yes" verbose="false" nowarn="true" destdir="${bin.loc}">
-         <classpath>
-            <fileset dir="${lib.loc}">
-               <include name="**/*.jar" />
-            </fileset>
-         </classpath>
-      </javac>
-   </target>
+	<target name="compile" depends="init, thirdparty-downloads">
+		<javac target="1.8" source="1.8" fork="true" memoryMaximumSize="256m" srcdir="${src.loc}" failonerror="yes" verbose="false" nowarn="true" destdir="${bin.loc}">
+			<classpath>
+				<fileset dir="${lib.loc}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
 
-   <target name="report" depends="compile" if="build.report">
-      <javadoc destdir="${doc.loc}" packagenames="org.flexunit.ant.*" sourcepath="${src.loc}" access="private" Author="true" version="true" Use="true" noindex="true" Windowtitle="FlexUnit Ant Tasks " Doctitle="FlexUnit Ant Tasks" failonerror="true" />
-   </target>
+	<target name="report" depends="compile" if="build.report">
+		<javadoc destdir="${doc.loc}" packagenames="org.flexunit.ant.*" sourcepath="${src.loc}" access="private" Author="true" version="true" Use="true" noindex="true" Windowtitle="FlexUnit Ant Tasks " Doctitle="FlexUnit Ant Tasks" failonerror="true" />
+	</target>
 
-   <target name="package" depends="report">
-      <!-- prep bin dir to be JARd -->
-      <copy file="${src.loc}/flexUnitTasks.tasks" todir="${bin.loc}" />
-      <copy file="${src.loc}/flexUnitDescriptor.template" todir="${bin.loc}" />
-   	  <copy file="${src.loc}/TestRunner.template" todir="${bin.loc}" />
+	<target name="package" depends="report">
+		<!-- prep bin dir to be JARd -->
+		<copy file="${src.loc}/flexUnitTasks.tasks" todir="${bin.loc}" />
+		<copy file="${src.loc}/flexUnitDescriptor.template" todir="${bin.loc}" />
+		  <copy file="${src.loc}/TestRunner.template" todir="${bin.loc}" />
 
-      <unjar src="${lib.loc}/dom4j-1.6.1.jar" dest="${bin.loc}" />
-      <unjar src="${lib.loc}/jaxen-1.1-beta-6.jar" dest="${bin.loc}" />
+		<unjar src="${lib.loc}/dom4j-1.6.1.jar" dest="${bin.loc}" />
+		<unjar src="${lib.loc}/jaxen-1.1-beta-6.jar" dest="${bin.loc}" />
 
-      <!-- Create JAR for binaries, source and javadoc -->
-      <jar destfile="${dist.loc}/${build.finalName}.${build.packaging}">
-         <fileset dir="${bin.loc}">
-            <include name="**/*" />
-         </fileset>
-      </jar>
-      
-      <jar destfile="${dist.loc}/${build.finalName}-sources.${build.packaging}">
-         <fileset dir="${src.loc}">
-            <include name="**/*" />
-         </fileset>
-      </jar>
-      
-      <jar destfile="${dist.loc}/${build.finalName}-javadoc.${build.packaging}">
-         <fileset dir="${doc.loc}">
-            <include name="**/*" />
-         </fileset>
-      </jar>
-   </target>
-   
-   <target name="deploy" depends="package" description="Requires Ant-Contrib and GPG to work.">
-      <apache-deploy
-         binaryFile="${dist.loc}/${build.finalName}.${build.packaging}"
-         sourcesFile="${dist.loc}/${build.finalName}-sources.${build.packaging}"
-         docFile="${dist.loc}/${build.finalName}-javadoc.${build.packaging}"
-         todir="${apache-maven.loc}"
-         pomTemplate="${basedir}/../pom.template" 
-         artifact="${build.artifactId}" 
-         type="${build.packaging}" 
-         name="${build.deploy.name}" 
-         version="${build.version}" 
-         description="${build.deploy.description}">
-      </apache-deploy>
-   </target>
+		<!-- Create JAR for binaries, source and javadoc -->
+		<jar destfile="${dist.loc}/${build.finalName}.${build.packaging}">
+			<fileset dir="${bin.loc}">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+		
+		<jar destfile="${dist.loc}/${build.finalName}-sources.${build.packaging}">
+			<fileset dir="${src.loc}">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+		
+		<jar destfile="${dist.loc}/${build.finalName}-javadoc.${build.packaging}">
+			<fileset dir="${doc.loc}">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+	</target>
+	
+	<target name="deploy" depends="package" description="Requires Ant-Contrib and GPG to work.">
+		<apache-deploy
+			binaryFile="${dist.loc}/${build.finalName}.${build.packaging}"
+			sourcesFile="${dist.loc}/${build.finalName}-sources.${build.packaging}"
+			docFile="${dist.loc}/${build.finalName}-javadoc.${build.packaging}"
+			todir="${apache-maven.loc}"
+			pomTemplate="${basedir}/../pom.template" 
+			artifact="${build.artifactId}" 
+			type="${build.packaging}" 
+			name="${build.deploy.name}" 
+			version="${build.version}" 
+			description="${build.deploy.description}">
+		</apache-deploy>
+	</target>
 </project>

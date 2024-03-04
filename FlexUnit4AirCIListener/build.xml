@@ -7,7 +7,7 @@
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+		http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,35 +16,35 @@
   limitations under the License.
 -->
 <project name="FlexUnit4AirCIListener" basedir="." default="package">
-   <import file="${basedir}/../utils.xml" />
-   <property environment="env" />
+	<import file="${basedir}/../utils.xml" />
+	<property environment="env" />
 
-   <!-- Configuration -->
-   <property name="build.artifactId" value="flexunit-aircilistener" />
-   <property name="build.finalName" value="${build.artifactId}-${build.version}-${build.number}-${build.sdk}" />
-   <property name="build.packaging" value="swc" />
-   <property name="build.deploy.name" value="FlexUnit AIR CI Listener" />
-   <property name="build.deploy.description" value="Continuous integration listener to be used with the FlexUnit Ant Tasks and AIR-based TestRunners." />
+	<!-- Configuration -->
+	<property name="build.artifactId" value="flexunit-aircilistener" />
+	<property name="build.finalName" value="${build.artifactId}-${build.version}-${build.number}-${build.sdk}" />
+	<property name="build.packaging" value="swc" />
+	<property name="build.deploy.name" value="FlexUnit AIR CI Listener" />
+	<property name="build.deploy.description" value="Continuous integration listener to be used with the FlexUnit Ant Tasks and AIR-based TestRunners." />
 
-   <!-- Existing -->
-   <property name="src.loc" location="${basedir}/src" />
-   <property name="lib.loc" location="${basedir}/libs" />
+	<!-- Existing -->
+	<property name="src.loc" location="${basedir}/src" />
+	<property name="lib.loc" location="${basedir}/libs" />
 
-   <!-- Generated -->
-   <property name="dist.loc" location="${basedir}/target" />
-   <property name="apache-maven.loc" location="${dist.loc}/apache-maven" />
-   <property name="bin.loc" location="${basedir}/target/bin" />
-   <property name="doc.loc" location="${basedir}/target/docs" />
+	<!-- Generated -->
+	<property name="dist.loc" location="${basedir}/target" />
+	<property name="apache-maven.loc" location="${dist.loc}/apache-maven" />
+	<property name="bin.loc" location="${basedir}/target/bin" />
+	<property name="doc.loc" location="${basedir}/target/docs" />
 
-   <!-- Setup Flex Ant Resources -->
-   <available file="${env.FLEX_HOME}/lib/compc.jar"
-      type="file" 
-      property="FLEX_HOME"
-      value="${env.FLEX_HOME}"/>
-   <available file="${basedir}/../../flex-sdk/lib/compc.jar"
-      type="file" 
-      property="FLEX_HOME"
-      value="${basedir}/../../flex-sdk"/>
+	<!-- Setup Flex Ant Resources -->
+	<available file="${env.FLEX_HOME}/lib/compc.jar"
+		type="file" 
+		property="FLEX_HOME"
+		value="${env.FLEX_HOME}"/>
+	<available file="${basedir}/../../flex-sdk/lib/compc.jar"
+		type="file" 
+		property="FLEX_HOME"
+		value="${basedir}/../../flex-sdk"/>
 	<taskdef resource="flexTasks.tasks" >
 		<classpath>
 			<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
@@ -52,78 +52,78 @@
 		</classpath>
 	</taskdef>
 	
-   <target name="clean">
-      <delete dir="${dist.loc}" failonerror="false" />
-      <delete failonerror="false">
-         <fileset dir="${lib.loc}" />
-      </delete>
-   </target>
+	<target name="clean">
+		<delete dir="${dist.loc}" failonerror="false" />
+		<delete failonerror="false">
+			<fileset dir="${lib.loc}" />
+		</delete>
+	</target>
 
-   <target name="init">
-      <mkdir dir="${lib.loc}" />
-      <mkdir dir="${dist.loc}" />
-      <mkdir dir="${apache-maven.loc}" />
-      <mkdir dir="${bin.loc}" />
-      <mkdir dir="${doc.loc}" />
+	<target name="init">
+		<mkdir dir="${lib.loc}" />
+		<mkdir dir="${dist.loc}" />
+		<mkdir dir="${apache-maven.loc}" />
+		<mkdir dir="${bin.loc}" />
+		<mkdir dir="${doc.loc}" />
 
-      <!-- Copy required dependencies -->
-      <copy todir="${lib.loc}" overwrite="true" failonerror="false">
-         <fileset dir="${basedir}/../FlexUnit4/target">
-            <include name="flexunit*as3*.swc" />
-         </fileset>
-         <fileset dir="${basedir}/../FlexUnit4CIListener/target">
-            <include name="*.swc" />
-         </fileset>
-      </copy>
-   </target>
+		<!-- Copy required dependencies -->
+		<copy todir="${lib.loc}" overwrite="true" failonerror="false">
+			<fileset dir="${basedir}/../FlexUnit4/target">
+				<include name="flexunit*as3*.swc" />
+			</fileset>
+			<fileset dir="${basedir}/../FlexUnit4CIListener/target">
+				<include name="*.swc" />
+			</fileset>
+		</copy>
+	</target>
 
-   <target name="compile" depends="init">
-      <compc output="${bin.loc}/${build.finalName}.${build.packaging}">
-         <load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
-         <include-sources dir="${src.loc}" includes="*" append="true" />
-         <source-path path-element="${src.loc}" />
-         <compiler.external-library-path dir="${lib.loc}" append="true">
-            <include name="*.swc" />
-         </compiler.external-library-path>
-         <compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
-            <include name="flex.swc" />
-            <include name="framework.swc" />
-            <include name="rpc.swc" />
-            <include name="utilities.swc" />
-            <include name="air/airglobal.swc" />
-         </compiler.external-library-path>
-         <compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
-         <compiler.headless-server>true</compiler.headless-server>
-      </compc>
-   </target>
+	<target name="compile" depends="init">
+		<compc output="${bin.loc}/${build.finalName}.${build.packaging}">
+			<load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
+			<include-sources dir="${src.loc}" includes="*" append="true" />
+			<source-path path-element="${src.loc}" />
+			<compiler.external-library-path dir="${lib.loc}" append="true">
+				<include name="*.swc" />
+			</compiler.external-library-path>
+			<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
+				<include name="flex.swc" />
+				<include name="framework.swc" />
+				<include name="rpc.swc" />
+				<include name="utilities.swc" />
+				<include name="air/airglobal.swc" />
+			</compiler.external-library-path>
+			<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
+			<compiler.headless-server>true</compiler.headless-server>
+		</compc>
+	</target>
 
-   <target name="report" depends="compile" if="build.report">
-      <java jar="${FLEX_HOME}/lib/asdoc.jar" fork="true" failonerror="true">
-         <jvmarg value="-Xmx256M" />
-         <arg line="+flexlib '${FLEX_HOME}/frameworks'" />
-         <arg line="-doc-sources '${src.loc}'" />
-         <arg line="-source-path+='${src.loc}'" />
-         <arg line="-output '${doc.loc}'" />
-         <arg line="-library-path+='${lib.loc}'" />
-         <arg line="-library-path+='${FLEX_HOME}/frameworks/libs/air/airglobal.swc'" />
-      </java>
-   </target>
+	<target name="report" depends="compile" if="build.report">
+		<java jar="${FLEX_HOME}/lib/asdoc.jar" fork="true" failonerror="true">
+			<jvmarg value="-Xmx256M" />
+			<arg line="+flexlib '${FLEX_HOME}/frameworks'" />
+			<arg line="-doc-sources '${src.loc}'" />
+			<arg line="-source-path+='${src.loc}'" />
+			<arg line="-output '${doc.loc}'" />
+			<arg line="-library-path+='${lib.loc}'" />
+			<arg line="-library-path+='${FLEX_HOME}/frameworks/libs/air/airglobal.swc'" />
+		</java>
+	</target>
 
-   <target name="package" depends="report">
-      <copy file="${bin.loc}/${build.finalName}.${build.packaging}" todir="${dist.loc}" />
-   </target>
-   
-   <target name="deploy" depends="package" description="Requires Ant-Contrib and GPG to work.">
-      <!-- deploy to apache-maven repo -->
-      <apache-deploy
-         binaryFile="${bin.loc}/${build.finalName}.${build.packaging}"
-         todir="${apache-maven.loc}"
-         pomTemplate="${basedir}/../pom.template" 
-         artifact="${build.artifactId}" 
-         type="${build.packaging}" 
-         name="${build.deploy.name}" 
-         version="${build.version}" 
-         description="${build.deploy.description}">
-      </apache-deploy>
-   </target>
+	<target name="package" depends="report">
+		<copy file="${bin.loc}/${build.finalName}.${build.packaging}" todir="${dist.loc}" />
+	</target>
+	
+	<target name="deploy" depends="package" description="Requires Ant-Contrib and GPG to work.">
+		<!-- deploy to apache-maven repo -->
+		<apache-deploy
+			binaryFile="${bin.loc}/${build.finalName}.${build.packaging}"
+			todir="${apache-maven.loc}"
+			pomTemplate="${basedir}/../pom.template" 
+			artifact="${build.artifactId}" 
+			type="${build.packaging}" 
+			name="${build.deploy.name}" 
+			version="${build.version}" 
+			description="${build.deploy.description}">
+		</apache-deploy>
+	</target>
 </project>

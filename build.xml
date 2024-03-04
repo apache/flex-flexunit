@@ -8,7 +8,7 @@
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+		http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,167 +29,167 @@ Reporting is something each project implements which we then have hooked into Hu
 to contribute to our CI process.
 -->
 <project name="FlexUnit4" basedir="." default="main">
-   <property environment="env" />
+	<property environment="env" />
 
-   <!-- Version info -->
-   <property file="${basedir}/version.properties" />
+	<!-- Version info -->
+	<property file="${basedir}/version.properties" />
 
-   <!-- Configuration -->
-   <property name="finalName" value="apache-flex-flexunit-${build.version}-${build.sdk}" />
+	<!-- Configuration -->
+	<property name="finalName" value="apache-flex-flexunit-${build.version}-${build.sdk}" />
 
-   <!-- Project locations -->
-   <property name="anttasks.loc" location="${basedir}/FlexUnit4AntTasks" />
-   <property name="core.loc" location="${basedir}/FlexUnit4" />
-   <property name="fluint.loc" location="${basedir}/FlexUnit4FluintExtensions" />
-   <property name="cilistener.loc" location="${basedir}/FlexUnit4CIListener" />
-   <property name="tests.loc" location="${basedir}/FlexUnit4Test" />
-   <property name="uilistener.loc" location="${basedir}/FlexUnit4UIListener" />
-   <property name="aircilistener.loc" location="${basedir}/FlexUnit4AirCIListener" />
-   <property name="flexcoverlistener.loc" location="${basedir}/FlexUnit4FlexCoverListener" />
-   <property name="turnkey.loc" location="${basedir}/FlexUnit4TurnKey" />
-   <property name="sampleCI.loc" location="${basedir}/FlexUnit4SampleCIProject" />
-   
-   <!-- xml namespace which is used to deploy the artifacts with maven -->
-   <typedef resource="org/apache/maven/artifact/ant/antlib.xml"
-            uri="antlib:org.apache.maven.artifact.ant"
-            classpath="lib/maven-ant-tasks-2.1.3.jar"/>
-   <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="lib/ant-contrib-1.0b3.jar"/>
-   
-    <!--
-        Optional jars but should be in place for a real release build.
+	<!-- Project locations -->
+	<property name="anttasks.loc" location="${basedir}/FlexUnit4AntTasks" />
+	<property name="core.loc" location="${basedir}/FlexUnit4" />
+	<property name="fluint.loc" location="${basedir}/FlexUnit4FluintExtensions" />
+	<property name="cilistener.loc" location="${basedir}/FlexUnit4CIListener" />
+	<property name="tests.loc" location="${basedir}/FlexUnit4Test" />
+	<property name="uilistener.loc" location="${basedir}/FlexUnit4UIListener" />
+	<property name="aircilistener.loc" location="${basedir}/FlexUnit4AirCIListener" />
+	<property name="flexcoverlistener.loc" location="${basedir}/FlexUnit4FlexCoverListener" />
+	<property name="turnkey.loc" location="${basedir}/FlexUnit4TurnKey" />
+	<property name="sampleCI.loc" location="${basedir}/FlexUnit4SampleCIProject" />
+	
+	<!-- xml namespace which is used to deploy the artifacts with maven -->
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+			uri="antlib:org.apache.maven.artifact.ant"
+			classpath="lib/maven-ant-tasks-2.1.3.jar"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"
+			classpath="lib/ant-contrib-1.0b3.jar"/>
+	
+	 <!--
+		  Optional jars but should be in place for a real release build.
 
-        For <rat> apache-rat-0.8.jar and apache-rat-tasks-0.8.jar should be in classpath.
-        See rat-report.
-    -->
-    <path id="anttask.classpath">
-        <fileset dir="${env.ANT_HOME}/lib">
-           <include name="**/apache-rat*.jar"/>
-        </fileset>
-        <fileset dir="${user.home}">
-           <include name=".ant/lib/**/apache-rat*.jar"/>
-        </fileset>
-    </path>
+		  For <rat> apache-rat-0.8.jar and apache-rat-tasks-0.8.jar should be in classpath.
+		  See rat-report.
+	 -->
+	 <path id="anttask.classpath">
+		<fileset dir="${env.ANT_HOME}/lib">
+			<include name="**/apache-rat*.jar"/>
+		</fileset>
+		<fileset dir="${user.home}">
+			<include name=".ant/lib/**/apache-rat*.jar"/>
+		</fileset>
+	 </path>
 
-   <!-- Cleans up all projects -->
-   <target name="clean">
-   	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
+	<!-- Cleans up all projects -->
+	<target name="clean">
+		<ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
 
-      <!-- Ask each project to clean up -->
-      <ant dir="${anttasks.loc}" target="clean" inheritall="false" />
-      <ant dir="${core.loc}" target="clean" inheritall="false" />
-      <ant dir="${fluint.loc}" target="clean" inheritall="false" />
-      <ant dir="${cilistener.loc}" target="clean" inheritall="false" />
-      <ant dir="${tests.loc}" target="clean" inheritall="false" />
-      <ant dir="${uilistener.loc}" target="clean" inheritall="false" />
-      <ant dir="${aircilistener.loc}" target="clean" inheritall="false" />
-      <ant dir="${flexcoverlistener.loc}" target="clean" inheritall="false" />
+		<!-- Ask each project to clean up -->
+		<ant dir="${anttasks.loc}" target="clean" inheritall="false" />
+		<ant dir="${core.loc}" target="clean" inheritall="false" />
+		<ant dir="${fluint.loc}" target="clean" inheritall="false" />
+		<ant dir="${cilistener.loc}" target="clean" inheritall="false" />
+		<ant dir="${tests.loc}" target="clean" inheritall="false" />
+		<ant dir="${uilistener.loc}" target="clean" inheritall="false" />
+		<ant dir="${aircilistener.loc}" target="clean" inheritall="false" />
+		<ant dir="${flexcoverlistener.loc}" target="clean" inheritall="false" />
 	  
-      <delete failonerror="false">
-        <fileset dir="${basedir}/out">
+		<delete failonerror="false">
+		<fileset dir="${basedir}/out">
 			<include name="*.zip" />
-        </fileset>
-        <fileset dir="${basedir}/out">
+		</fileset>
+		<fileset dir="${basedir}/out">
 			<include name="*.tar.gz" />
-        </fileset>
-        <fileset dir="${basedir}/out">
+		</fileset>
+		<fileset dir="${basedir}/out">
 			<include name="*.md5" />
-        </fileset>
-        <fileset dir="${basedir}/out">
+		</fileset>
+		<fileset dir="${basedir}/out">
 			<include name="*.asc" />
-        </fileset>
+		  </fileset>
 		<fileset dir="FlexUnit4Turnkey/export">
 			<include name="*.zip" />
 		</fileset>
-      </delete>
-   </target>
+		</delete>
+	</target>
 	
 	<target name="main" depends="anttasks,core,fluint,cilistener,flexcoverlistener,listeners" />
-   
-    <target name="thirdparty-downloads">
+	
+	 <target name="thirdparty-downloads">
 		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />	
 		
-        <ant dir="${anttasks.loc}" target="thirdparty-downloads" inheritall="false" />
+		<ant dir="${anttasks.loc}" target="thirdparty-downloads" inheritall="false" />
 		<ant dir="${core.loc}" target="thirdparty-downloads" inheritall="false" />
-        <ant dir="${fluint.loc}" target="thirdparty-downloads" inheritall="false" />
-        <ant dir="${tests.loc}" target="thirdparty-downloads" inheritall="false" />
-        <ant dir="${flexcoverlistener.loc}" target="thirdparty-downloads" inheritall="false" />
+		<ant dir="${fluint.loc}" target="thirdparty-downloads" inheritall="false" />
+		<ant dir="${tests.loc}" target="thirdparty-downloads" inheritall="false" />
+		<ant dir="${flexcoverlistener.loc}" target="thirdparty-downloads" inheritall="false" />
 
-    </target>
+	 </target>
 
-   <!-- Builds the FlexUnit4AntTasks project -->
-   <target name="anttasks">
-      <ant dir="${anttasks.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Builds the FlexUnit4AntTasks project -->
+	<target name="anttasks">
+		<ant dir="${anttasks.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 
-   <!-- Builds the core FlexUnit4 project -->
-   <target name="core">
-      <ant dir="${core.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Builds the core FlexUnit4 project -->
+	<target name="core">
+		<ant dir="${core.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 	
 	<!-- Prepares and builds the FlexUnit4 Fluint Extensions -->
-   <target name="fluint" depends="core">
-      <ant dir="${fluint.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<target name="fluint" depends="core">
+		<ant dir="${fluint.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 	
-   <!-- Prepares and builds the FlexUnit4CIListener project -->
-   <target name="cilistener" depends="core">
-      <ant dir="${cilistener.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Prepares and builds the FlexUnit4CIListener project -->
+	<target name="cilistener" depends="core">
+		<ant dir="${cilistener.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 
-   <!-- Prepares and builds the FlexCover Listener project -->
-   <target name="flexcoverlistener" depends="core,cilistener">
-      <ant dir="${flexcoverlistener.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Prepares and builds the FlexCover Listener project -->
+	<target name="flexcoverlistener" depends="core,cilistener">
+		<ant dir="${flexcoverlistener.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 
-   <!-- Prepares and builds the FlexUnit4Test project -->
-   <target name="test" depends="anttasks,core,fluint,cilistener,flexcoverlistener" unless="build.skipTests">
-      <ant dir="${tests.loc}" target="test" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Prepares and builds the FlexUnit4Test project -->
+	<target name="test" depends="anttasks,core,fluint,cilistener,flexcoverlistener" unless="build.skipTests">
+		<ant dir="${tests.loc}" target="test" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 
-   <target name="listeners" depends="uilistener,aircilistener" />
+	<target name="listeners" depends="uilistener,aircilistener" />
 
-   <!-- Prepares and builds the FlexUnit4UIRunner project -->
-   <target name="uilistener" depends="core,fluint,cilistener">
-      <ant dir="${uilistener.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Prepares and builds the FlexUnit4UIRunner project -->
+	<target name="uilistener" depends="core,fluint,cilistener">
+		<ant dir="${uilistener.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 
-   <!-- Prepares and builds the Air CI Listener project -->
-   <target name="aircilistener" depends="core,fluint,cilistener">
-      <ant dir="${aircilistener.loc}" target="package" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-   </target>
+	<!-- Prepares and builds the Air CI Listener project -->
+	<target name="aircilistener" depends="core,fluint,cilistener">
+		<ant dir="${aircilistener.loc}" target="package" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+	</target>
 
 	<target name="package" depends="rat-report,allpackages">
 		<mkdir dir="${basedir}/out"/>
@@ -197,279 +197,276 @@ to contribute to our CI process.
 	
 	<target name="allpackages" depends="package-src-zip,package-bin-zip,package-src-gzip,package-bin-gzip" />
 	
-   <!-- Prepares and assembles the final source zip with all of the FlexUnit4 components and docs -->
-   <target name="package-src-zip" depends="test,listeners">
-      <zip destfile="${basedir}/out/${finalName}-src.zip">
-      	 <!-- Important Files -->
-      	 <zipfileset dir="${basedir}" includes="LICENSE,NOTICE,README,RELEASE_NOTES,build.xml,jenkins.xml,utils.xml,version.properties" />
-      	
-         <!-- Source -->
-         <zipfileset dir="${anttasks.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**,**/*.swf" prefix="FlexUnit4AntTasks" />
-         <zipfileset dir="${core.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**" prefix="FlexUnit4" />
-		 <zipfileset dir="${fluint.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4FluintExtensions" />
-         <zipfileset dir="${cilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4CIListener" />
-         <zipfileset dir="${uilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4UIListener" />
-         <zipfileset dir="${aircilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4AirCIListener" />
-         <zipfileset dir="${flexcoverlistener.loc}" excludes="**/target/**,**/libs/**,**/in/*" prefix="FlexUnit4FlexCoverListener" />
-         	
-         <!-- Docs -->
-         <zipfileset dir="${core.loc}/target/docs" prefix="FlexUnit4/target/docs" />
-      	 <!--
-         <zipfileset dir="${anttasks.loc}/target/docs" prefix="FlexUnit4AntTasks/target/docs" />
-		 <zipfileset dir="${fluint.loc}/target/docs" prefix="FlexUnit4FluintExtensions/target/docs" />
-         <zipfileset dir="${cilistener.loc}/target/docs" prefix="FlexUnit4CIListener/target/doc" />
-         <zipfileset dir="${uilistener.loc}/target/docs" prefix="FlexUnit4UIListener/target/docs" />
-         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="FlexUnit4AirCIListener/target/docs" />
-         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="FlexUnit4FlexCoverListener}/target/docs" />
-         -->
-      </zip>
-   </target>
+	<!-- Prepares and assembles the final source zip with all of the FlexUnit4 components and docs -->
+	<target name="package-src-zip" depends="test,listeners">
+		<zip destfile="${basedir}/out/${finalName}-src.zip">
+			<!-- Important Files -->
+			<zipfileset dir="${basedir}" includes="LICENSE,NOTICE,README,RELEASE_NOTES,build.xml,jenkins.xml,utils.xml,version.properties" />
+			
+			<!-- Source -->
+			<zipfileset dir="${anttasks.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**,**/*.swf" prefix="FlexUnit4AntTasks" />
+			<zipfileset dir="${core.loc}" excludes="**/target/**,**/lib/**,**/libs/**,**/in/**" prefix="FlexUnit4" />
+		 	<zipfileset dir="${fluint.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4FluintExtensions" />
+			<zipfileset dir="${cilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4CIListener" />
+			<zipfileset dir="${uilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4UIListener" />
+			<zipfileset dir="${aircilistener.loc}" excludes="**/target/**,**/libs/**,**/in/**" prefix="FlexUnit4AirCIListener" />
+			<zipfileset dir="${flexcoverlistener.loc}" excludes="**/target/**,**/libs/**,**/in/*" prefix="FlexUnit4FlexCoverListener" />
+			
+			<!-- Docs -->
+			<zipfileset dir="${core.loc}/target/docs" prefix="FlexUnit4/target/docs" />
+			<!--
+			<zipfileset dir="${anttasks.loc}/target/docs" prefix="FlexUnit4AntTasks/target/docs" />
+			<zipfileset dir="${fluint.loc}/target/docs" prefix="FlexUnit4FluintExtensions/target/docs" />
+			<zipfileset dir="${cilistener.loc}/target/docs" prefix="FlexUnit4CIListener/target/doc" />
+			<zipfileset dir="${uilistener.loc}/target/docs" prefix="FlexUnit4UIListener/target/docs" />
+			<zipfileset dir="${aircilistener.loc}/target/docs" prefix="FlexUnit4AirCIListener/target/docs" />
+			<zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="FlexUnit4FlexCoverListener}/target/docs" />
+			-->
+		</zip>
+	</target>
 
-   <!-- Prepares and assembles the final source gzip with all of the FlexUnit4 components and docs -->
-   <target name="package-src-gzip" depends="package-src-zip">
-   	  <mkdir dir="${basedir}/out/temp"/>
-   	  <unzip src="${basedir}/out/${finalName}-src.zip" dest="${basedir}/out/temp" />
-      <tar compression="gzip" destfile="${basedir}/out/${finalName}-src.tar.gz">
-      	 <fileset dir="${basedir}/out/temp" />
-      </tar>
-   	  <delete dir="${basedir}/out/temp" />
-   </target>
+	<!-- Prepares and assembles the final source gzip with all of the FlexUnit4 components and docs -->
+	<target name="package-src-gzip" depends="package-src-zip">
+		<mkdir dir="${basedir}/out/temp"/>
+		<unzip src="${basedir}/out/${finalName}-src.zip" dest="${basedir}/out/temp" />
+		<tar compression="gzip" destfile="${basedir}/out/${finalName}-src.tar.gz">
+			<fileset dir="${basedir}/out/temp" />
+		</tar>
+		<delete dir="${basedir}/out/temp" />
+	</target>
 		
-   <!-- Prepares and assembles the final zip artifact with all of the FlexUnit4 components and docs -->
-   <target name="package-bin-zip" depends="test,listeners">
-      <zip destfile="${basedir}/out/${finalName}-bin.zip">
-     	 <!-- Important Files -->
-     	 <zipfileset dir="${basedir}" includes="LICENSE.bin,NOTICE.bin,README,RELEASE_NOTES" />
-      	
-         <!-- Docs -->
-      	 <zipfileset dir="${core.loc}/target/docs" prefix="docs/flexunit" />
-      	 <!--
-         <zipfileset dir="${anttasks.loc}/target/docs" prefix="docs/anttasks" />
-		 <zipfileset dir="${fluint.loc}/target/docs" prefix="docs/flexUnit4FluintExtensions" />
-         <zipfileset dir="${cilistener.loc}/target/docs" prefix="docs/cilistener" />
-         <zipfileset dir="${uilistener.loc}/target/docs" prefix="docs/uilistener" />
-         <zipfileset dir="${aircilistener.loc}/target/docs" prefix="docs/aircilistener" />
-         <zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="docs/flexcoverlistener" />
-         -->
+	<!-- Prepares and assembles the final zip artifact with all of the FlexUnit4 components and docs -->
+	<target name="package-bin-zip" depends="test,listeners">
+		<zip destfile="${basedir}/out/${finalName}-bin.zip">
+			<!-- Important Files -->
+			<zipfileset dir="${basedir}" includes="LICENSE.bin,NOTICE.bin,README,RELEASE_NOTES" />
+			
+			<!-- Docs -->
+			<zipfileset dir="${core.loc}/target/docs" prefix="docs/flexunit" />
+			<!--
+			<zipfileset dir="${anttasks.loc}/target/docs" prefix="docs/anttasks" />
+			<zipfileset dir="${fluint.loc}/target/docs" prefix="docs/flexUnit4FluintExtensions" />
+			<zipfileset dir="${cilistener.loc}/target/docs" prefix="docs/cilistener" />
+			<zipfileset dir="${uilistener.loc}/target/docs" prefix="docs/uilistener" />
+			<zipfileset dir="${aircilistener.loc}/target/docs" prefix="docs/aircilistener" />
+			<zipfileset dir="${flexcoverlistener.loc}/target/docs" prefix="docs/flexcoverlistener" />
+			-->
 
-         <!-- Artifacts -->
-         <zipfileset dir="${anttasks.loc}/target" prefix="flexunit">
-            <include name="*.jar" />
-         </zipfileset>
-         <zipfileset dir="${core.loc}/target" prefix="flexunit">
-            <include name="flexunit*.swc" />
-         </zipfileset>
-		<zipfileset dir="${fluint.loc}/target" prefix="flexunit">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${cilistener.loc}/target" prefix="flexunit">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${flexcoverlistener.loc}/target" prefix="flexunit">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target" prefix="flexunit">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${aircilistener.loc}/target" prefix="flexunit">
-            <include name="*.swc" />
-         </zipfileset>
-         
-         <!-- Turnkey -->
-         <zipfileset dir="${turnkey.loc}" prefix="turnkey">
-         	<exclude name="**/export/**/*" />
-         </zipfileset>
-         <zipfileset dir="${core.loc}/target" prefix="turnkey/libs">
-            <include name="flexunit*flex*.swc" />
-         </zipfileset>
-		<zipfileset dir="${core.loc}/libs" prefix="turnkey/libs">
-            <include name="*.swc" />
+			<!-- Artifacts -->
+			<zipfileset dir="${anttasks.loc}/target" prefix="flexunit">
+				<include name="*.jar" />
+			</zipfileset>
+			<zipfileset dir="${core.loc}/target" prefix="flexunit">
+				<include name="flexunit*.swc" />
+			</zipfileset>
+			<zipfileset dir="${fluint.loc}/target" prefix="flexunit">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${cilistener.loc}/target" prefix="flexunit">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${flexcoverlistener.loc}/target" prefix="flexunit">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${uilistener.loc}/target" prefix="flexunit">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${aircilistener.loc}/target" prefix="flexunit">
+				<include name="*.swc" />
+			</zipfileset>
+			
+			<!-- Turnkey -->
+			<zipfileset dir="${turnkey.loc}" prefix="turnkey">
+				<exclude name="**/export/**/*" />
+			</zipfileset>
+			<zipfileset dir="${core.loc}/target" prefix="turnkey/libs">
+				<include name="flexunit*flex*.swc" />
+			</zipfileset>
+			<zipfileset dir="${core.loc}/libs" prefix="turnkey/libs">
+				<include name="*.swc" />
  			<exclude name="fluint-1_2.swc" />
-         </zipfileset>
-		<zipfileset dir="${fluint.loc}/target" prefix="turnkey/libs">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target" prefix="turnkey/libs">
-            <include name="*.swc" />
-         </zipfileset>
-         
-         <!-- Sample CI project -->
-         <zipfileset dir="${sampleCI.loc}" prefix="sampleCIProject">
-            <exclude name="**/libs/**/*" />
-         </zipfileset>
-         <zipfileset dir="${anttasks.loc}/target" prefix="sampleCIProject/libs">
-            <include name="*.jar" />
-         </zipfileset>
-         <zipfileset dir="${core.loc}/target" prefix="sampleCIProject/libs">
-            <include name="flexunit*.swc" />
-         </zipfileset>
-		 <zipfileset dir="${fluint.loc}/target" prefix="sampleCIProject/libs">
-            <include name="fluint*.swc" />
-         </zipfileset>
-		 <zipfileset dir="${fluint.loc}/libs" prefix="sampleCIProject/libs">
-            <include name="fluint*.swc" />
-         </zipfileset>
-         <zipfileset dir="${cilistener.loc}/target" prefix="sampleCIProject/libs">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target" prefix="sampleCIProject/libs">
-            <include name="*.swc" />
-         </zipfileset>
-         <zipfileset dir="${aircilistener.loc}/target" prefix="sampleCIProject/libs">
-            <include name="*.swc" />
-         </zipfileset>
-      </zip>
-   </target>
+			</zipfileset>
+			<zipfileset dir="${fluint.loc}/target" prefix="turnkey/libs">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${uilistener.loc}/target" prefix="turnkey/libs">
+				<include name="*.swc" />
+			</zipfileset>
+			
+			<!-- Sample CI project -->
+			<zipfileset dir="${sampleCI.loc}" prefix="sampleCIProject">
+				<exclude name="**/libs/**/*" />
+			</zipfileset>
+			<zipfileset dir="${anttasks.loc}/target" prefix="sampleCIProject/libs">
+				<include name="*.jar" />
+			</zipfileset>
+			<zipfileset dir="${core.loc}/target" prefix="sampleCIProject/libs">
+				<include name="flexunit*.swc" />
+			</zipfileset>
+		 	<zipfileset dir="${fluint.loc}/target" prefix="sampleCIProject/libs">
+				<include name="fluint*.swc" />
+			</zipfileset>
+		 	<zipfileset dir="${fluint.loc}/libs" prefix="sampleCIProject/libs">
+				<include name="fluint*.swc" />
+			</zipfileset>
+			<zipfileset dir="${cilistener.loc}/target" prefix="sampleCIProject/libs">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${uilistener.loc}/target" prefix="sampleCIProject/libs">
+				<include name="*.swc" />
+			</zipfileset>
+			<zipfileset dir="${aircilistener.loc}/target" prefix="sampleCIProject/libs">
+				<include name="*.swc" />
+			</zipfileset>
+		</zip>
+	</target>
 	
-   <!-- Prepares and assembles the final gzip artifact with all of the FlexUnit4 components and docs -->
-   <target name="package-bin-gzip" depends="package-bin-zip,test,listeners">
-       <mkdir dir="${basedir}/out/temp"/>
-       <unzip src="${basedir}/out/${finalName}-bin.zip" dest="${basedir}/out/temp" />
-       <tar compression="gzip" destfile="${basedir}/out/${finalName}-bin.tar.gz">
-       	 <fileset dir="${basedir}/out/temp" />
-       </tar>
-       <delete dir="${basedir}/out/temp" />
-   </target>
-   
-   <target name="apache-maven" depends="thirdparty-downloads" description="Target used to generate bundles for deployment to Apaches Maven Repository.">
-      <ant dir="${anttasks.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-      <ant dir="${core.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-	  <ant dir="${fluint.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-      <ant dir="${cilistener.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-      <ant dir="${flexcoverlistener.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-      <ant dir="${uilistener.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-      <ant dir="${aircilistener.loc}" target="deploy" inheritall="false">
-         <propertyset>
-            <propertyref prefix="build" />
-         </propertyset>
-      </ant>
-      
-      <zip destfile="${basedir}/apache-maven-${finalName}.zip">
-         <zipfileset dir="${anttasks.loc}/target/apache-maven">
-            <include name="apache-maven-*.zip" />
-         </zipfileset>
-         <zipfileset dir="${core.loc}/target/apache-maven">
-            <include name="apache-maven-*.zip" />
-         </zipfileset>
-         <zipfileset dir="${cilistener.loc}/target/apache-maven">
-            <include name="apache-maven-*.zip" />
-         </zipfileset>
-         <zipfileset dir="${flexcoverlistener.loc}/target/apache-maven">
-            <include name="apache-maven-*.zip" />
-         </zipfileset>
-         <zipfileset dir="${uilistener.loc}/target/apache-maven">
-            <include name="apache-maven-*.zip" />
-         </zipfileset>
-         <zipfileset dir="${aircilistener.loc}/target/apache-maven">
-            <include name="apache-maven-*.zip" />
-         </zipfileset>
-      </zip>
+	<!-- Prepares and assembles the final gzip artifact with all of the FlexUnit4 components and docs -->
+	<target name="package-bin-gzip" depends="package-bin-zip,test,listeners">
+		<mkdir dir="${basedir}/out/temp"/>
+		<unzip src="${basedir}/out/${finalName}-bin.zip" dest="${basedir}/out/temp" />
+		<tar compression="gzip" destfile="${basedir}/out/${finalName}-bin.tar.gz">
+			<fileset dir="${basedir}/out/temp" />
+		</tar>
+		<delete dir="${basedir}/out/temp" />
+	</target>
+	
+	<target name="apache-maven" depends="thirdparty-downloads" description="Target used to generate bundles for deployment to Apaches Maven Repository.">
+		<ant dir="${anttasks.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		<ant dir="${core.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		<ant dir="${fluint.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		<ant dir="${cilistener.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		<ant dir="${flexcoverlistener.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		<ant dir="${uilistener.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		<ant dir="${aircilistener.loc}" target="deploy" inheritall="false">
+			<propertyset>
+				<propertyref prefix="build" />
+			</propertyset>
+		</ant>
+		
+		<zip destfile="${basedir}/apache-maven-${finalName}.zip">
+			<zipfileset dir="${anttasks.loc}/target/apache-maven">
+				<include name="apache-maven-*.zip" />
+			</zipfileset>
+			<zipfileset dir="${core.loc}/target/apache-maven">
+				<include name="apache-maven-*.zip" />
+			</zipfileset>
+			<zipfileset dir="${cilistener.loc}/target/apache-maven">
+				<include name="apache-maven-*.zip" />
+			</zipfileset>
+			<zipfileset dir="${flexcoverlistener.loc}/target/apache-maven">
+				<include name="apache-maven-*.zip" />
+			</zipfileset>
+			<zipfileset dir="${uilistener.loc}/target/apache-maven">
+				<include name="apache-maven-*.zip" />
+			</zipfileset>
+			<zipfileset dir="${aircilistener.loc}/target/apache-maven">
+				<include name="apache-maven-*.zip" />
+			</zipfileset>
+		</zip>
+	</target>
+	
+	<target name="rat-report" depends="rat-taskdef" if="have.rattasks"
+			description="Report on licenses in source kit.">
 
-   </target>
-   
-   
-    <target name="rat-report" depends="rat-taskdef" if="have.rattasks"
-        description="Report on licenses in source kit.">
+		<property name="rat.dir" value="${basedir}"/>
 
-        <property name="rat.dir" value="${basedir}"/>
+		<echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.report"/>
 
-        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.report"/>
+		<rat:report xmlns:rat="antlib:org.apache.rat.anttasks"
+				reportFile="${basedir}/rat.report">
+			<fileset dir="${rat.dir}">
+			<!-- rat.report file -->
+			<exclude name="rat.report"/>
+			<!-- git files -->
+			<exclude name="**/.git/"/>
+			<exclude name="**/.gitignore"/>
+			<!-- generated source files that don't have Apache v2 license header -->
+			<exclude name="**/build.number"/>
+			<exclude name="**/.actionScriptProperties"/>
+			<exclude name="**/.flexProperties"/>
+			<exclude name="**/.flexLibProperties"/>
+			<exclude name="**/.project"/>
+			<exclude name="**/.fxpProperties"/>
+			<exclude name="**/.settings/**"/>
+			<exclude name="**/.idea/**"/>
+			<exclude name="**/*.iml"/>
+			<exclude name="**/flexUnit1/**/*.as" />
+			<!--- BSD/MIT licences -->
+			<exclude name="**/FlexUnit4UIListener/**/*.as" />
+			<exclude name="**/FlexUnit4UIListener/**/*.mxml" />
+			<exclude name="**/FlexUnit4CIListener/**/TestCaseReport.as" />
+			<exclude name="**/FlexUnit4CIListener/**/TestSuiteReport.as" />
+			
+			<!-- NOTICE and LICENSE files -->
+			<exclude name="**/*LICENSE*"/>
+			<exclude name="**/*NOTICE*"/>
+			<!-- Java docs and AS docs -->
+			<exclude name="**/target/docs/**"/>
+			<!--          End of source files           -->
+			<!--          Start of binary files           -->
+			<!-- exclude media (png, ico) -->
+			<exclude name="**/*.ico"/>
+			<exclude name="**/*.png"/>
+			<!-- exclude fonts -->
+			<exclude name="**/*.ttf"/>
+			<!--          End of binary files           -->
+						  
+			<!--Exclude generated/downloaded doc and files -->
+			<exclude name="FlexUnit4/target/bin/" />
+			<exclude name="FlexUnit4/in/" />
+			<exclude name="FlexUnit4UIListener/target/"/>
+				<exclude name="FlexUnit4Test/target/"/>
+			</fileset>
+		</rat:report>
+	 </target>
 
-        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks"
-            reportFile="${basedir}/rat.report">
-            <fileset dir="${rat.dir}">
-				<!-- rat.report file -->
-				<exclude name="rat.report"/>
-				<!-- git files -->
-                <exclude name="**/.git/"/>
-				<exclude name="**/.gitignore"/>
-                <!-- generated source files that don't have Apache v2 license header -->
-                <exclude name="**/build.number"/>
-                <exclude name="**/.actionScriptProperties"/>
-                <exclude name="**/.flexProperties"/>
-				<exclude name="**/.flexLibProperties"/>
-                <exclude name="**/.project"/>
-                <exclude name="**/.fxpProperties"/>
-                <exclude name="**/.settings/**"/>
-                <exclude name="**/.idea/**"/>
-                <exclude name="**/*.iml"/>
-            	<exclude name="**/flexUnit1/**/*.as" />
-		<!--- BSD/MIT licences -->
-            	<exclude name="**/FlexUnit4UIListener/**/*.as" />
-                <exclude name="**/FlexUnit4UIListener/**/*.mxml" />
-                <exclude name="**/FlexUnit4CIListener/**/TestCaseReport.as" />
-                <exclude name="**/FlexUnit4CIListener/**/TestSuiteReport.as" />
-            	
-				<!-- NOTICE and LICENSE files -->
-            	<exclude name="**/*LICENSE*"/>
-            	<exclude name="**/*NOTICE*"/>
-            	<!-- Java docs and AS docs -->
-            	<exclude name="**/target/docs/**"/>
-                <!--          End of source files           -->
-                <!--          Start of binary files           -->
-                <!-- exclude media (png, ico) -->
-                <exclude name="**/*.ico"/>
-                <exclude name="**/*.png"/>
-                <!-- exclude fonts -->
-                <exclude name="**/*.ttf"/>
-                <!--          End of binary files           -->
-				        
-                <!--Exclude generated/downloaded doc and files -->
-                <exclude name="FlexUnit4/target/bin/" />
-                <exclude name="FlexUnit4/in/" />
-        		<exclude name="FlexUnit4UIListener/target/"/>
-                <exclude name="FlexUnit4Test/target/"/>
-            </fileset>
-        </rat:report>
+	 <target name="rat-taskdef" description="Rat taskdef">
+		<available property="have.rattasks"
+				resource="org/apache/rat/anttasks/antlib.xml"
+				classpathref="anttask.classpath"/>
 
-    </target>
+		<antcall target="have-rattasks"/>
+		<antcall target="no-rattasks"/>
+	 </target>
 
-    <target name="rat-taskdef" description="Rat taskdef">
-        <available property="have.rattasks"
-            resource="org/apache/rat/anttasks/antlib.xml"
-            classpathref="anttask.classpath"/>
+	 <target name="have-rattasks" if="have.rattasks">
+		<typedef resource="org/apache/rat/anttasks/antlib.xml"
+				uri="antlib:org.apache.rat.anttasks"
+				classpathref="anttask.classpath"/>
+	</target>
 
-        <antcall target="have-rattasks"/>
-        <antcall target="no-rattasks"/>
-    </target>
-
-    <target name="have-rattasks" if="have.rattasks">
-        <typedef resource="org/apache/rat/anttasks/antlib.xml"
-                 uri="antlib:org.apache.rat.anttasks"
-                 classpathref="anttask.classpath"/>
-    </target>
-
-    <target name="no-rattasks" unless="have.rattasks">
-        <echo message="Rat report not generated."/>
-        <echo message="rat jars (apache-rat-*.jar, apache-rat-tasks-*.jar)"/>
-        <echo message="not found in anttask.classpath"/>
-    </target>
-   
-   <target name="clean_as3">
-       <ant dir="FlexUnit4" target="clean_as3" />
-   </target>
+	 <target name="no-rattasks" unless="have.rattasks">
+		<echo message="Rat report not generated."/>
+		<echo message="rat jars (apache-rat-*.jar, apache-rat-tasks-*.jar)"/>
+		<echo message="not found in anttask.classpath"/>
+	 </target>
+	
+	<target name="clean_as3">
+		<ant dir="FlexUnit4" target="clean_as3" />
+	</target>
 </project>

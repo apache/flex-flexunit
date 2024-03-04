@@ -7,7 +7,7 @@
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+		http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,41 +16,41 @@
   limitations under the License.
 -->
 <!--
-   The sole purpose of this project is to create a transitive dependency between the core and cilistener
-   projects.  If the tests resided with the core project, then core and cilistener would have a circular
-   dependency which would be more difficult to manage from a build perspective.
-   -->
+	The sole purpose of this project is to create a transitive dependency between the core and cilistener
+	projects.  If the tests resided with the core project, then core and cilistener would have a circular
+	dependency which would be more difficult to manage from a build perspective.
+-->
 <project name="FlexUnit4Test" basedir="." default="test">
-   <property environment="env" />
+	<property environment="env" />
 
-   <!-- Configuration -->
-   <property name="build.useFlex" value="true" />
-   <property name="test.finalName" value="TestRunner.swf" />
-   <property name="instrument.metadata" value="flexunit-instrument.cvm" />
+	<!-- Configuration -->
+	<property name="build.useFlex" value="true" />
+	<property name="test.finalName" value="TestRunner.swf" />
+	<property name="instrument.metadata" value="flexunit-instrument.cvm" />
 
-   <!-- Existing -->
-   <property name="main.src.loc" location="${basedir}/../FlexUnit4/src" />
-   <property name="test.src.loc" location="${basedir}/src" />
-   <property name="lib.loc" location="${basedir}/libs" />
-   <property name="build.lib.loc" location="${lib.loc}/build" />
+	<!-- Existing -->
+	<property name="main.src.loc" location="${basedir}/../FlexUnit4/src" />
+	<property name="test.src.loc" location="${basedir}/src" />
+	<property name="lib.loc" location="${basedir}/libs" />
+	<property name="build.lib.loc" location="${lib.loc}/build" />
 
-   <!-- Generated -->
-   <property name="dist.loc" location="${basedir}/target" />
-   <property name="bin.loc" location="${basedir}/target/bin" />
-   <property name="report.xunit.flex.loc" location="${basedir}/target/report/xunit/flex" />
-   <property name="report.xunit.as3.loc" location="${basedir}/target/report/xunit/as3" />
-   <property name="report.flexcover.loc" location="${basedir}/target/report/flexcover" />
+	<!-- Generated -->
+	<property name="dist.loc" location="${basedir}/target" />
+	<property name="bin.loc" location="${basedir}/target/bin" />
+	<property name="report.xunit.flex.loc" location="${basedir}/target/report/xunit/flex" />
+	<property name="report.xunit.as3.loc" location="${basedir}/target/report/xunit/as3" />
+	<property name="report.flexcover.loc" location="${basedir}/target/report/flexcover" />
 
-   <!-- Setup Flex Ant Resources -->
-   <available file="${env.FLEX_HOME}/lib/compc.jar"
-      type="file" 
-      property="FLEX_HOME"
-      value="${env.FLEX_HOME}"/>
-   <available file="${basedir}/../../flex-sdk/lib/compc.jar"
-      type="file" 
-      property="FLEX_HOME"
-      value="${basedir}/../../flex-sdk"/>
-   <property name="FLEX_COVER_VIEWER" location="${env.FLEX_COVER_VIEWER}" />
+	<!-- Setup Flex Ant Resources -->
+	<available file="${env.FLEX_HOME}/lib/compc.jar"
+		type="file" 
+		property="FLEX_HOME"
+		value="${env.FLEX_HOME}"/>
+	<available file="${basedir}/../../flex-sdk/lib/compc.jar"
+		type="file" 
+		property="FLEX_HOME"
+		value="${basedir}/../../flex-sdk"/>
+	<property name="FLEX_COVER_VIEWER" location="${env.FLEX_COVER_VIEWER}" />
 	<taskdef resource="flexTasks.tasks" >
 		<classpath>
 			<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
@@ -58,167 +58,167 @@
 		</classpath>
 	</taskdef>
 	
-   <macrodef name="compile-runner">
-      <attribute name="runner" />
-      <attribute name="swf" />
-      <attribute name="include" />
-      <attribute name="useflex" />
-      <sequential>
-	     <mxmlc file="@{runner}" output="@{swf}" static-link-runtime-shared-libraries="true" >
-	        <library-path dir="${lib.loc}" append="true">
-	            <include name="@{include}" />
-	            <include name="*cilistener*.swc" />
-             	<include name="fluint*.swc" />
-	            <include name="*flexcoverlistener*.swc" />
-	            <include name="FlexUnit1Lib.swc" />
-				<include name="FlexUnit1Lib.swc" />
-	            <include name="hamcrest-as3*.swc" />
-    	        <include name="mock-as3.swc" />
-        	    <include name="mockolate*.swc" />
-	        </library-path>
-	        <define name="CONFIG::useFlexClasses" value="@{useflex}" />
-	        <compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
-	        <compiler.headless-server>true</compiler.headless-server>
-         </mxmlc>
-      </sequential>
-   </macrodef>
-   
-   <macrodef name="execute-tests">
-      <attribute name="swf" />
-      <attribute name="reportdir" />
-      <sequential>
-         <flexunit swf="@{swf}" toDir="@{reportdir}" haltonfailure="false" verbose="true" />
-      </sequential>
-   </macrodef>
-   
-   <macrodef name="execute-tests-using-flexcover">
-      <attribute name="swf" />
-      <attribute name="reportdir" />
-      <attribute name="flexcoverreport" />
-      <attribute name="coberturareport" />
-      <sequential>
-	      <parallel>
-	         <!-- Use CoverageViewer to generate coverage report and translate to Cobertura format -->
-	         <sequential>
-	            <exec executable="${FLEX_COVER_VIEWER}" dir="${bin.loc}" spawn="true">
-	               <arg line="-output '@{flexcoverreport}'" />
-	               <arg line="'${lib.loc}/${instrument.metadata}'" />
-	            </exec>
-	            <waitfor checkevery="3" checkeveryunit="second" maxwait="360000">
-	               <available file="@{flexcoverreport}" />
-	            </waitfor>
-	            <tstamp>
-	               <format property="instrument.timestamp" pattern="MM/dd/yyyy HH:mm:ss.SSS" />
-	            </tstamp>
-	            <xslt in="@{flexcoverreport}" out="@{coberturareport}" style="${basedir}/fc-to-cobertura.xsl">
-	               <classpath>
-	                  <fileset dir="${build.lib.loc}">
-	                     <include name="saxon*.jar" />
-	                  </fileset>
-	               </classpath>
-	               <param name="sourcePath" expression="${main.src.loc}" />
-	               <param name="timestamp" expression="${instrument.timestamp}" />
-	               <param name="version" expression="0.81" />
-	            </xslt>
-	         </sequential>
-	         
-	         <!-- Launch FlexUnit tests after a short delay -->
-	         <sequential>
-	            <sleep seconds="30" />
-	            <flexunit swf="@{swf}" toDir="@{reportdir}" haltonfailure="false" verbose="true" />
-	         </sequential>
-	      </parallel>
-      </sequential>
-   </macrodef>
-   
-   <macrodef name="generate-html-report">
-      <attribute name="dir" />
-      <attribute name="todir" />
-      <sequential>
-         <junitreport todir="@{dir}">
-	         <fileset dir="@{dir}">
-	            <include name="TEST-*.xml" />
-	         </fileset>
-	         <report format="frames" todir="@{todir}" />
-          </junitreport>
-      </sequential>
-   </macrodef>
-
-   <target name="clean">
-      <delete dir="${dist.loc}" />
-
-	  <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
-   </target>
-
-   <target name="init">
-      <!-- Create paths -->
-      <mkdir dir="${dist.loc}" />
-      <mkdir dir="${bin.loc}" />
-      <mkdir dir="${report.xunit.flex.loc}" />
-      <mkdir dir="${report.xunit.as3.loc}" />
-      <mkdir dir="${report.flexcover.loc}" />
-
-      <!-- Copy dependencies -->
-      <copy todir="${lib.loc}" overwrite="true">
-         <fileset dir="${basedir}/../FlexUnit4/target">
-            <include name="*.swc" />
-            <include name="*.cvm" />
-         </fileset>
-         <fileset dir="${basedir}/../FlexUnit4CIListener/target">
-            <include name="*.swc" />
-         </fileset>
-         <fileset dir="${basedir}/../FlexUnit4FlexCoverListener/target">
-            <include name="*.swc" />
-         </fileset>
-		 <fileset dir="${basedir}/../FlexUnit4FluintExtensions/target">
-            <include name="*.swc" />
-         </fileset>
-      </copy>
-      <copy todir="${build.lib.loc}" overwrite="true">
-         <fileset dir="${basedir}/../FlexUnit4AntTasks/target">
-            <include name="*.jar" />
-            <exclude name="*-sources.jar" />
-            <exclude name="*-javadoc.jar" />
-         </fileset>
-      </copy>
-
-      <!-- Hook FlexUnit into Ant -->
-      <taskdef resource="flexUnitTasks.tasks">
-         <classpath>
-            <fileset dir="${build.lib.loc}">
-               <include name="flexUnitTasks*.jar" />
-            </fileset>
-         </classpath>
-      </taskdef>
-   </target>
+	<macrodef name="compile-runner">
+		<attribute name="runner" />
+		<attribute name="swf" />
+		<attribute name="include" />
+		<attribute name="useflex" />
+		<sequential>
+			<mxmlc file="@{runner}" output="@{swf}" static-link-runtime-shared-libraries="true" >
+				<library-path dir="${lib.loc}" append="true">
+					<include name="@{include}" />
+					<include name="*cilistener*.swc" />
+					<include name="fluint*.swc" />
+					<include name="*flexcoverlistener*.swc" />
+					<include name="FlexUnit1Lib.swc" />
+					<include name="FlexUnit1Lib.swc" />
+					<include name="hamcrest-as3*.swc" />
+					<include name="mock-as3.swc" />
+					<include name="mockolate*.swc" />
+				</library-path>
+				<define name="CONFIG::useFlexClasses" value="@{useflex}" />
+				<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
+				<compiler.headless-server>true</compiler.headless-server>
+			</mxmlc>
+		</sequential>
+	</macrodef>
 	
-   <target name="thirdparty-downloads">
+	<macrodef name="execute-tests">
+		<attribute name="swf" />
+		<attribute name="reportdir" />
+		<sequential>
+			<flexunit swf="@{swf}" toDir="@{reportdir}" haltonfailure="false" verbose="true" />
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="execute-tests-using-flexcover">
+		<attribute name="swf" />
+		<attribute name="reportdir" />
+		<attribute name="flexcoverreport" />
+		<attribute name="coberturareport" />
+		<sequential>
+			<parallel>
+				<!-- Use CoverageViewer to generate coverage report and translate to Cobertura format -->
+				<sequential>
+					<exec executable="${FLEX_COVER_VIEWER}" dir="${bin.loc}" spawn="true">
+						<arg line="-output '@{flexcoverreport}'" />
+						<arg line="'${lib.loc}/${instrument.metadata}'" />
+					</exec>
+					<waitfor checkevery="3" checkeveryunit="second" maxwait="360000">
+						<available file="@{flexcoverreport}" />
+					</waitfor>
+					<tstamp>
+						<format property="instrument.timestamp" pattern="MM/dd/yyyy HH:mm:ss.SSS" />
+					</tstamp>
+					<xslt in="@{flexcoverreport}" out="@{coberturareport}" style="${basedir}/fc-to-cobertura.xsl">
+						<classpath>
+							<fileset dir="${build.lib.loc}">
+								<include name="saxon*.jar" />
+							</fileset>
+						</classpath>
+						<param name="sourcePath" expression="${main.src.loc}" />
+						<param name="timestamp" expression="${instrument.timestamp}" />
+						<param name="version" expression="0.81" />
+					</xslt>
+				</sequential>
+				
+				<!-- Launch FlexUnit tests after a short delay -->
+				<sequential>
+					<sleep seconds="30" />
+					<flexunit swf="@{swf}" toDir="@{reportdir}" haltonfailure="false" verbose="true" />
+				</sequential>
+			</parallel>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="generate-html-report">
+		<attribute name="dir" />
+		<attribute name="todir" />
+		<sequential>
+			<junitreport todir="@{dir}">
+				<fileset dir="@{dir}">
+					<include name="TEST-*.xml" />
+				</fileset>
+				<report format="frames" todir="@{todir}" />
+			 </junitreport>
+		</sequential>
+	</macrodef>
+
+	<target name="clean">
+		<delete dir="${dist.loc}" />
+
+		<ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}" />
+	</target>
+
+	<target name="init">
+		<!-- Create paths -->
+		<mkdir dir="${dist.loc}" />
+		<mkdir dir="${bin.loc}" />
+		<mkdir dir="${report.xunit.flex.loc}" />
+		<mkdir dir="${report.xunit.as3.loc}" />
+		<mkdir dir="${report.flexcover.loc}" />
+
+		<!-- Copy dependencies -->
+		<copy todir="${lib.loc}" overwrite="true">
+			<fileset dir="${basedir}/../FlexUnit4/target">
+				<include name="*.swc" />
+				<include name="*.cvm" />
+			</fileset>
+			<fileset dir="${basedir}/../FlexUnit4CIListener/target">
+				<include name="*.swc" />
+			</fileset>
+			<fileset dir="${basedir}/../FlexUnit4FlexCoverListener/target">
+				<include name="*.swc" />
+			</fileset>
+		 	<fileset dir="${basedir}/../FlexUnit4FluintExtensions/target">
+				<include name="*.swc" />
+			</fileset>
+		</copy>
+		<copy todir="${build.lib.loc}" overwrite="true">
+			<fileset dir="${basedir}/../FlexUnit4AntTasks/target">
+				<include name="*.jar" />
+				<exclude name="*-sources.jar" />
+				<exclude name="*-javadoc.jar" />
+			</fileset>
+		</copy>
+
+		<!-- Hook FlexUnit into Ant -->
+		<taskdef resource="flexUnitTasks.tasks">
+			<classpath>
+				<fileset dir="${build.lib.loc}">
+					<include name="flexUnitTasks*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
+	</target>
+	
+	<target name="thirdparty-downloads">
 		<ant antfile="${basedir}/downloads.xml" dir="${basedir}" />
-    </target>
+	 </target>
 
-   <target name="test" depends="init,thirdparty-downloads,test-only,test-and-instrument" />
+	<target name="test" depends="init,thirdparty-downloads,test-only,test-and-instrument" />
 
-   <target name="test-only" unless="build.instrument">
-      <echo message="Testing FlexUnit Flex build..." />
-      <compile-runner runner="${test.src.loc}/TestRunner.mxml" swf="${bin.loc}/TestRunner-flex.swf" include="flexunit*flex*.swc" useflex="true" />
-      <execute-tests swf="${bin.loc}/TestRunner-flex.swf" reportdir="${report.xunit.flex.loc}" />
-      <generate-html-report dir="${report.xunit.flex.loc}" todir="${report.xunit.flex.loc}/html" />
-      
-      <echo message="Testing FlexUnit AS3 ONLY build..." />
-      <compile-runner runner="${test.src.loc}/TestRunner.mxml" swf="${bin.loc}/TestRunner-as3.swf" include="flexunit*as3*.swc" useflex="false" />
-      <execute-tests swf="${bin.loc}/TestRunner-as3.swf" reportdir="${report.xunit.as3.loc}" />
-      <generate-html-report dir="${report.xunit.as3.loc}" todir="${report.xunit.as3.loc}/html" />
-   </target>
+	<target name="test-only" unless="build.instrument">
+		<echo message="Testing FlexUnit Flex build..." />
+		<compile-runner runner="${test.src.loc}/TestRunner.mxml" swf="${bin.loc}/TestRunner-flex.swf" include="flexunit*flex*.swc" useflex="true" />
+		<execute-tests swf="${bin.loc}/TestRunner-flex.swf" reportdir="${report.xunit.flex.loc}" />
+		<generate-html-report dir="${report.xunit.flex.loc}" todir="${report.xunit.flex.loc}/html" />
+		
+		<echo message="Testing FlexUnit AS3 ONLY build..." />
+		<compile-runner runner="${test.src.loc}/TestRunner.mxml" swf="${bin.loc}/TestRunner-as3.swf" include="flexunit*as3*.swc" useflex="false" />
+		<execute-tests swf="${bin.loc}/TestRunner-as3.swf" reportdir="${report.xunit.as3.loc}" />
+		<generate-html-report dir="${report.xunit.as3.loc}" todir="${report.xunit.as3.loc}/html" />
+	</target>
 
-   <target name="test-and-instrument" if="build.instrument">
-      <echo message="Testing FlexUnit Flex build..." />
-      <compile-runner runner="${test.src.loc}/InstrumentTestRunner.mxml" swf="${bin.loc}/TestRunner-flex.swf" include="flexunit*flex*.swc" useflex="true" />
-      <execute-tests-using-flexcover swf="${bin.loc}/TestRunner-flex.swf" reportdir="${report.xunit.flex.loc}" flexcoverreport="${report.flexcover.loc}/flexunit-instrument-flex.cvr" coberturareport="${report.flexcover.loc}/coverage-flex.xml" />
-      <generate-html-report dir="${report.xunit.flex.loc}" todir="${report.xunit.flex.loc}/html" />
-      
-      <echo message="Testing FlexUnit AS3 ONLY build..." />
-      <compile-runner runner="${test.src.loc}/InstrumentTestRunner.mxml" swf="${bin.loc}/TestRunner-as3.swf" include="flexunit*as3*.swc"  useflex="false" />
-      <execute-tests-using-flexcover swf="${bin.loc}/TestRunner-as3.swf" reportdir="${report.xunit.as3.loc}" flexcoverreport="${report.flexcover.loc}/flexunit-instrument-as3.cvr" coberturareport="${report.flexcover.loc}/coverage-as3.xml" />
-      <generate-html-report dir="${report.xunit.as3.loc}" todir="${report.xunit.as3.loc}/html" />
-   </target>
+	<target name="test-and-instrument" if="build.instrument">
+		<echo message="Testing FlexUnit Flex build..." />
+		<compile-runner runner="${test.src.loc}/InstrumentTestRunner.mxml" swf="${bin.loc}/TestRunner-flex.swf" include="flexunit*flex*.swc" useflex="true" />
+		<execute-tests-using-flexcover swf="${bin.loc}/TestRunner-flex.swf" reportdir="${report.xunit.flex.loc}" flexcoverreport="${report.flexcover.loc}/flexunit-instrument-flex.cvr" coberturareport="${report.flexcover.loc}/coverage-flex.xml" />
+		<generate-html-report dir="${report.xunit.flex.loc}" todir="${report.xunit.flex.loc}/html" />
+		
+		<echo message="Testing FlexUnit AS3 ONLY build..." />
+		<compile-runner runner="${test.src.loc}/InstrumentTestRunner.mxml" swf="${bin.loc}/TestRunner-as3.swf" include="flexunit*as3*.swc"  useflex="false" />
+		<execute-tests-using-flexcover swf="${bin.loc}/TestRunner-as3.swf" reportdir="${report.xunit.as3.loc}" flexcoverreport="${report.flexcover.loc}/flexunit-instrument-as3.cvr" coberturareport="${report.flexcover.loc}/coverage-as3.xml" />
+		<generate-html-report dir="${report.xunit.as3.loc}" todir="${report.xunit.as3.loc}/html" />
+	</target>
 </project>
